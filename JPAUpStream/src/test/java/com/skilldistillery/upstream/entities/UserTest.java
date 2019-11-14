@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
@@ -30,7 +31,7 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		user = em.find(User.class, 4);
 	}
 
 	@AfterEach
@@ -41,9 +42,75 @@ class UserTest {
 	}
 
 	@Test
-	void test() {
+	@DisplayName("Checks if user is not null.  Checks that username exists.")
+	void test1() {
 		assertNotNull(user);
-		assertEquals("Streamer", user.getUsername());
+		assertEquals("bobbobert", user.getUsername().toLowerCase());
+	}
+	
+	@Test
+	@DisplayName("Checks if user is not null.  Checks that username exists.")
+	void test1AndAHalf() {
+		assertNotNull(user);
+		assertEquals("notboring", user.getPassword().toLowerCase());
+	}
+	
+	@Test
+	@DisplayName("Checks if user first name is correct")
+	void test2() {
+		assertNotNull(user);
+		assertEquals("zak", user.getFirstName().toLowerCase());
+	}
+	
+	@Test
+	@DisplayName("Checks if user last name is correct")
+	void test3() {
+		assertNotNull(user);
+		assertEquals("saylors", user.getLastName());
+	}
+	
+	@Test
+	@DisplayName("Checks if user is admin")
+	void test4() {
+		assertEquals(false, user.isAdmin());
+	}
+	
+//	@Test
+//	@DisplayName("Checks if user is admin (uncomment and switch user to 1.  Should be one of only test cases that pass.")
+//	void test4AndAHalf() {
+//		assertNotNull(user);
+//		assertEquals(true, user.isAdmin());
+//	}
+	
+	@Test
+	@DisplayName("Checks if image is populated")
+	void test5() {
+		assertEquals("", user.getImageId()); // enter img id in order to pass.
 	}
 
+//	@Test
+//	@DisplayName("Checks if program is retreiving services")
+//	void test6() {
+//		assertEquals("", user.getServiceId().get(0)); // enter service id's
+//	}
+	
+	@Test
+	@DisplayName("Checks if total is generated")
+	void test7() {
+		assertEquals("", user.getServiceTotal()); // enter img id in order to pass.
+	}
+	
+	@Test
+	@DisplayName("Checks favorites")
+	void test8() {
+		assertEquals("", user.getFavorites().get(0)); // enter img id in order to pass.
+	}
+	
+	@Test
+	@DisplayName("Checks wishlist")
+	void test9() {
+		assertEquals("", user.getWishlist().get(0)); // enter img id in order to pass.
+	}
+	
+	
 }
