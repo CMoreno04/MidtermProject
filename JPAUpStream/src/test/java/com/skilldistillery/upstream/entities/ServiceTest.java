@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class RatingReviewTest {
+class ServiceTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private RatingReview rating;
+	private Service service;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,20 +31,32 @@ class RatingReviewTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		rating = em.find(RatingReview.class, 4);
+		service = em.find(Service.class, 4);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		rating = null;
+		service = null;
 		
 	}
 
 	@Test
-	@DisplayName("Checks if not null.")
+	@DisplayName("Checks if service 1 is Netflix")
 	void test1() {
-		assertNotNull(rating);
-		assertEquals(1, rating.getRating());  // need to fix with additonal chaining for a specific film??
+		assertNotNull(service);
+		assertEquals("netflix", service.getName().toLowerCase());
+	}
+	
+	@Test
+	@DisplayName("Checks if first film in netflix is stranger things")
+	void test2() {
+		assertEquals("stranger things", service.getContents().get(0).getTitle().toLowerCase());
+	}
+	
+	@Test
+	@DisplayName("Checks netflix price")
+	void test3() {
+		assertEquals(8.99, service.getMonthlyPrice());
 	}
 }

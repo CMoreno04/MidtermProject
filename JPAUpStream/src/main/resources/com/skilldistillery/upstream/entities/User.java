@@ -37,7 +37,7 @@ public class User {
 	public User() {}
 
 	public User(int id, boolean admin, boolean active, String username, String password, String firstName,
-			String lastName, int imageId, List<Service> serviceId, int serviceTotal, List<Content> favorites,
+			String lastName, String imageId, List<Service> serviceId, int serviceTotal, List<Content> favorites,
 			List<Content> wishlist) {
 		super();
 		this.id = id;
@@ -121,12 +121,12 @@ public class User {
 	}
 
 
-	public int getImageId() {
+	public String getImageId() {
 		return imageId;
 	}
 
 
-	public void setImageId(int imageId) {
+	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
 
