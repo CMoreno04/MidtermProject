@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -31,6 +32,9 @@ public class User {
 	@Transient
 	@Column(name = "image_id")
 	private String imageId;
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserService> userService;
 	
 
 //	@Column(name = "content_id")

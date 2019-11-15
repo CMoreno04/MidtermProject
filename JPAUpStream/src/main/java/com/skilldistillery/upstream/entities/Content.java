@@ -45,10 +45,10 @@ public class Content {
 //		joinColumns=@JoinColumn(name="service_id"),
 //		inverseJoinColumns=@JoinColumn(name="content_id")
 //	)
-	private List<Service> services;
-	
-	@ManyToMany(mappedBy="contents")
-	private List<User> users;
+//	private List<Service> services;
+//	
+//	@ManyToMany(mappedBy="contents")
+//	private List<User> users;
 	
 //	@ManyToMany
 //	@JoinTable(name="content_genre",
