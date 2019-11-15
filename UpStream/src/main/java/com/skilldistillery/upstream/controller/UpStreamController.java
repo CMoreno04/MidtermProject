@@ -6,12 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.skilldistillery.upstream.data.UpStreamDAO;
+
 @Controller
 public class UpStreamController {
 
 
 	@Autowired
-//	private DAO 
+	private UpStreamDAO upstreamdao; 
 
 	@RequestMapping(path = "/")
 	public String getFilm(Model model) {
