@@ -1,21 +1,22 @@
-The Crimson Hounds:
-Samantha Haviland
-Zak Saylor
-Andrew Wong
-Cesar Moreno
+## The Crimson Hounds:
 
-The technologies you want to use:
+* Samantha Haviland
+* Zak Saylor
+* Andrew Wong
+* Cesar Moreno
 
-Spring Boot
-JPA
-MySql Workbench
-Java
-Entity
+## The technologies we want to use:
 
-Why you are building the application:
+* Spring Boot
+* JPA
+* MySql Workbench
+* Java
+* Entity
+
+## Why we are building the application:
 To help users manage their video streaming and budgeting needs.
 
-The methodologies you are using to build the application (group project, agile etc):
+## The methodologies we are using to build the application:
 * Agile
 * Pair and Swarm Programming
 * Group Project
