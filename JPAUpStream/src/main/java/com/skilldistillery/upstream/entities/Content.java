@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Content {
@@ -34,18 +31,18 @@ public class Content {
 	@Column(name="service_id")
 	private int serviceId;
 	
-	@Column(name="image_link")
+//	@Column(name="image_link")
 	private String imageLink;
 	
-	@ManyToMany
-	@JoinTable(name="service_content",
-		joinColumns=@JoinColumn(name="service_id"),
-		inverseJoinColumns=@JoinColumn(name="content_id")
-	)
-	private List<Service> services;
+//	@ManyToMany
+//	@JoinTable(name="service_content",
+//		joinColumns=@JoinColumn(name="service_id"),
+//		inverseJoinColumns=@JoinColumn(name="content_id")
+//	)
+//	private List<Service> services;
 	
-	@ManyToMany(mappedBy="contents")
-	private List<User> users;
+//	@ManyToMany(mappedBy="contents")
+//	private List<User> users;
 
  
 	// C O N S T R U C T O R S
