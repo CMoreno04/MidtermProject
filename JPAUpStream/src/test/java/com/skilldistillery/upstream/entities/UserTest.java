@@ -88,29 +88,26 @@ class UserTest {
 		assertEquals("", user.getImageId()); // enter img id in order to pass.
 	}
 
+	@Test
+	@DisplayName("Checks if program is retreiving services")
+	void test6() {
+		assertEquals("stranger things", user.getContentId().get(0)); // enter service id's
+	}
+	
+
+// BELOW TEST CASES ARE FOR STRETCH GOALS
+	
 //	@Test
-//	@DisplayName("Checks if program is retreiving services")
-//	void test6() {
-//		assertEquals("", user.getServiceId().get(0)); // enter service id's
+//	@DisplayName("Checks favorites")
+//	void test8() {
+//		assertEquals("", user.getFavorites().get(0)); // enter img id in order to pass.
 //	}
-	
-	@Test
-	@DisplayName("Checks if total is generated")
-	void test7() {
-		assertEquals("", user.getServiceTotal()); // enter img id in order to pass.
-	}
-	
-	@Test
-	@DisplayName("Checks favorites")
-	void test8() {
-		assertEquals("", user.getFavorites().get(0)); // enter img id in order to pass.
-	}
-	
-	@Test
-	@DisplayName("Checks wishlist")
-	void test9() {
-		assertEquals("", user.getWishlist().get(0)); // enter img id in order to pass.
-	}
+//	
+//	@Test
+//	@DisplayName("Checks wishlist")
+//	void test9() {
+//		assertEquals("", user.getWishlist().get(0)); // enter img id in order to pass.
+//	}
 	
 	
 }

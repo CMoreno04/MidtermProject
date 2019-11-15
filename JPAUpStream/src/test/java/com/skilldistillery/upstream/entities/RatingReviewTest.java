@@ -31,7 +31,7 @@ class RatingReviewTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		rating = em.find(RatingReview.class, 4);
+		rating = em.find(RatingReview.class, 1);
 	}
 
 	@AfterEach
@@ -42,9 +42,15 @@ class RatingReviewTest {
 	}
 
 	@Test
-	@DisplayName("Checks if not null.")
+	@DisplayName("Checks what first rating is")
 	void test1() {
 		assertNotNull(rating);
-		assertEquals(1, rating.getRating());  // need to fix with additonal chaining for a specific film??
+		assertEquals(1, rating.getRating());  
+	}
+	
+	@Test
+	@DisplayName("Checks what first coment is")
+	void test2() {
+		assertEquals("", rating.getComment());  // add whatever content is added.
 	}
 }
