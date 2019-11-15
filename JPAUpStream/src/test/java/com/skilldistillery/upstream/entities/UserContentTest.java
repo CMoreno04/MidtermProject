@@ -23,6 +23,7 @@ class UserContentTest {
 		emf = Persistence.createEntityManagerFactory("UpStreamPU");
 	}
 
+	
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 		emf.close();

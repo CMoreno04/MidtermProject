@@ -57,23 +57,6 @@ class ContentTest {
 		assertEquals("When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.", content.getDescription()); 
 	}
 	
-//	@Test
-//	void test3() {
-//		assertNotNull(content);
-//		assertEquals("horror.", content.getGenre()); // edit as nessesary when genras are made.
-//	} 
-	
-//	@Test
-//	void test4() {
-//		assertNotNull(content);
-//		assertEquals("", content.getImageLink());   //edit when an image link is added
-//	}
-
-//	@Test
-//	void test5() {
-//		assertNotNull(content);
-//		assertEquals(1, content.getReviewId());   //edit when review id is added
-//	}
 	
 	@Test
 	@DisplayName("Checks content id")
