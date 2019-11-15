@@ -1,6 +1,7 @@
 package com.skilldistillery.upstream.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,12 +49,12 @@ class ServiceTest {
 		assertEquals("netflix", service.getName().toLowerCase());
 	}
 	
-	@Test
-	@DisplayName("Checks if first film in netflix is stranger things")
-	void test2() {
-		assertEquals("stranger things", service.getContents().get(0).getTitle().toLowerCase());
-	}
-	
+//	@Test
+//	@DisplayName("Checks if first film in netflix is stranger things")
+//	void test2() {
+//		assertEquals("stranger things", service.getContents().get(0).getTitle().toLowerCase());
+//	}
+//	
 	@Test
 	@DisplayName("Checks netflix price")
 	void test3() {

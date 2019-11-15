@@ -13,11 +13,12 @@
 	<class>com.skilldistillery.upstream.entities.RatingReview</class>
 	<class>com.skilldistillery.upstream.entities.Service</class>
 	<class>com.skilldistillery.upstream.entities.User</class>
+	<class>com.skilldistillery.upstream.entities.Genre</class>
 
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Up_Stream?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=MST" />
-      <property name="javax.persistence.jdbc.user" value="streamer"/>
-      <property name="javax.persistence.jdbc.password" value="Streamer13" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/up_stream?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=MST" />
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="root" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
       <property name="hibernate.show_sql" value="true" />

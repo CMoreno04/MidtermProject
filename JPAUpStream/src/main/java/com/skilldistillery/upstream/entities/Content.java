@@ -25,8 +25,8 @@ public class Content {
 	@Column
 	private String description;
 	
-	@Column
-	private List<Genre> genre;
+//	@Column
+//	private List<Genre> genre;
 	
 	@Column(name="review_id")
 	private int reviewId;
@@ -37,15 +37,9 @@ public class Content {
 	@Column(name="image_link")
 	private String imageLink;
 	
-	@ManyToMany
-	@JoinTable(name="service_content",
-		joinColumns=@JoinColumn(name="service_id"),
-		inverseJoinColumns=@JoinColumn(name="content_id")
-	)
-	private List<Service> services;
-	
-	@ManyToMany(mappedBy="contents")
-	private List<User> users;
+//	private List<Service> services;
+//	
+//	private List<User> users;
 
  
 	// C O N S T R U C T O R S
@@ -80,13 +74,13 @@ public class Content {
 		this.description = description;
 	}
 
-	public List<Genre> getGenre() {
-		return genre;
-	}
-
-	public void setGenre(List<Genre> genre) {
-		this.genre = genre;
-	}
+//	public List<Genre> getGenre() {
+//		return genre;
+//	}
+//
+//	public void setGenre(List<Genre> genre) {
+//		this.genre = genre;
+//	}
 
 	public int getReviewId() {
 		return reviewId;
