@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Content {
 	// F I E L D S
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -47,24 +47,15 @@ public class Content {
 	@ManyToMany(mappedBy="contents")
 	private List<User> users;
 
-	public Content(int id, String title, String description, String genre, int reviewId, int serviceId,
-			String imageLink, List<Service> services, List<User> users) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.genre = genre;
-		this.reviewId = reviewId;
-		this.serviceId = serviceId;
-		this.imageLink = imageLink;
-		this.services = services;
-		this.users = users;
-	}
+ 
+	// C O N S T R U C T O R S
+	
 
 	public Content() {
 		super();
 	}
 
+	// G E T T E R S   A N D   S E T T E R S
 	public int getId() {
 		return id;
 	}
@@ -89,11 +80,11 @@ public class Content {
 		this.description = description;
 	}
 
-	public String getGenre() {
+	public List<Genre> getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(List<Genre> genre) {
 		this.genre = genre;
 	}
 
@@ -121,91 +112,14 @@ public class Content {
 		this.imageLink = imageLink;
 	}
 
-	public List<Service> getServices() {
-		return services;
-	}
 
-	public void setServices(List<Service> services) {
-		this.services = services;
-	}
+	// H A S H   A N D   E Q A L S
 
-	public List<User> getUsers() {
-		return users;
-	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+	
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((imageLink == null) ? 0 : imageLink.hashCode());
-		result = prime * result + reviewId;
-		result = prime * result + serviceId;
-		result = prime * result + ((services == null) ? 0 : services.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
-		return result;
-	}
+	// T O  S T R I N G
+	
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Content other = (Content) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (genre == null) {
-			if (other.genre != null)
-				return false;
-		} else if (!genre.equals(other.genre))
-			return false;
-		if (id != other.id)
-			return false;
-		if (imageLink == null) {
-			if (other.imageLink != null)
-				return false;
-		} else if (!imageLink.equals(other.imageLink))
-			return false;
-		if (reviewId != other.reviewId)
-			return false;
-		if (serviceId != other.serviceId)
-			return false;
-		if (services == null) {
-			if (other.services != null)
-				return false;
-		} else if (!services.equals(other.services))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", description=" + description + ", genre=" + genre
-				+ ", reviewId=" + reviewId + ", serviceId=" + serviceId + ", imageLink=" + imageLink + ", services="
-				+ services + ", users=" + users + "]";
-	}
 	
 }
