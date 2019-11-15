@@ -14,10 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MediaTest {
+class UserServiceTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Media media;
+	private UserService userService;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,23 +32,24 @@ class MediaTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		media = em.find(Media.class, 1);
+		UserServiceId usid = new UserServiceId();
+		usid.setServiceId(1);
+		usid.setUserId(1);
+		userService = em.find(UserService.class, usid);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		media = null;
+		userService = null;
+
 	}
 
 	@Test
-	@DisplayName("Checks if first media is stranger things logo image")
-	void test1() {
-		assertNotNull(media);
-
-		assertEquals("https://upload.wikimedia.org/wikipedia/commons/3/38/stranger_things_logo.png",
-				media.getUrl().toLowerCase());
-
+	@DisplayName("Checks if not null.")
+	void test2() {
+		assertNotNull(userService);
+		assertEquals("2003-04-11", userService.getSubscribeDate().toString());
 	}
 
 }
