@@ -7,11 +7,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class UserServiceId implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
 
 	@Column(name="service_id")
 	private int serviceId;
+	
 	@Column(name="user_id")
 	private int userId;
 	

@@ -1,5 +1,6 @@
 package com.skilldistillery.upstream.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,8 +17,10 @@ public class UserService {
 
 	@EmbeddedId
 	private UserServiceId id;
+	
+	
 	@Column(name = "subscribe_date")
-	private Date subscribeDate;
+	private LocalDate subscribeDate;
 	@Column(name = "current_subscrib")
 	private boolean currentSubscrib;
 	
@@ -28,7 +31,7 @@ public class UserService {
 	
 	@ManyToOne
 	@JoinColumn(name = "service_id") // DB column name
-	@MapsId(value = "serciveId")     // Field in ID class
+	@MapsId(value = "serviceId")     // Field in ID class
 	private Service service;
 
 	
@@ -37,7 +40,7 @@ public class UserService {
 		super();
 	}
 
-	public UserService(UserServiceId id, Date subscribeDate, boolean currentSubscrib) {
+	public UserService(UserServiceId id, LocalDate subscribeDate, boolean currentSubscrib) {
 		super();
 		this.id = id;
 		this.subscribeDate = subscribeDate;
@@ -52,11 +55,11 @@ public class UserService {
 		this.id = id;
 	}
 
-	public Date getSubscribeDate() {
+	public LocalDate getSubscribeDate() {
 		return subscribeDate;
 	}
 
-	public void setSubscribeDate(Date subscribeDate) {
+	public void setSubscribeDate(LocalDate subscribeDate) {
 		this.subscribeDate = subscribeDate;
 	}
 

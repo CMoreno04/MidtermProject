@@ -1,6 +1,7 @@
 package com.skilldistillery.upstream.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,7 +49,7 @@ class UserServiceTest {
 	@DisplayName("Checks if not null.")
 	void test2() {
 		assertNotNull(userService);
-		assertEquals(2003 - 04 - 11, userService.getSubscribeDate());
+		assertEquals("2003-04-11", userService.getSubscribeDate().toString());
 	}
 
 }

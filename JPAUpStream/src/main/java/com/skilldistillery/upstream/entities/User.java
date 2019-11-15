@@ -3,18 +3,21 @@ package com.skilldistillery.upstream.entities;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
+@Entity
 public class User {
 	// F I E L D S
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	
 	private boolean admin;
 	private boolean active;
 	private String username;
@@ -24,7 +27,6 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Transient
 	@Column(name = "image_id")
 	private String imageId;
 	

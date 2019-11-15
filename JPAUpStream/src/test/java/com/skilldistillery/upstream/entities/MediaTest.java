@@ -45,8 +45,8 @@ class MediaTest {
 	@DisplayName("Checks if first media is stranger things logo image")
 	void test1() {
 		assertNotNull(media);
-		assertEquals(" https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png",
-				media.getUrl().toLowerCase());
+		assertEquals("https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png",
+				media.getUrl());
 	}
 
 }
