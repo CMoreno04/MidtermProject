@@ -30,6 +30,7 @@ public class Content {
 	
 	@Column(name="image_id")
 	private int imageId;
+  
 	
 	@Column(name="video_id")
 	private int videoId;
@@ -101,31 +102,7 @@ public class Content {
 		this.serviceId = serviceId;
 	}
 
-
-
-	public int getImageId() {
-		return imageId;
-	}
-
-
-
-	public void setImageId(int imageId) {
-		this.imageId = imageId;
-	}
-
-
-
-	public int getVideoId() {
-		return videoId;
-	}
-
-
-
-	public void setVideoId(int videoId) {
-		this.videoId = videoId;
-	}
-
-
+  
 	// H A S H   A N D   E Q A L S
 
 

@@ -13,16 +13,19 @@ DROP SCHEMA IF EXISTS `Up_Stream` ;
 -- Schema Up_Stream
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `Up_Stream` DEFAULT CHARACTER SET utf8 ;
--- -----------------------------------------------------
--- Schema sdvid
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `sdvid` ;
+USE `Up_Stream` ;
 
 -- -----------------------------------------------------
--- Schema sdvid
+-- Table `user_image`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `sdvid` DEFAULT CHARACTER SET latin1 ;
-USE `Up_Stream` ;
+DROP TABLE IF EXISTS `user_image` ;
+
+CREATE TABLE IF NOT EXISTS `user_image` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `url` VARCHAR(2000) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `user`
@@ -38,9 +41,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `admin` TINYINT NULL DEFAULT 0,
   `active` TINYINT NULL DEFAULT 1,
   `image_id` INT NULL,
-  `content_id` INT NULL,
-  `serv_total` INT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_user_image_image_idx` (`image_id` ASC),
+  CONSTRAINT `fk_user_image_image`
+    FOREIGN KEY (`image_id`)
+    REFERENCES `user_image` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -216,669 +223,11 @@ CREATE TABLE IF NOT EXISTS `content_genre` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `sdvid` ;
-
--- -----------------------------------------------------
--- Table `actor`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `actor` ;
-
-CREATE TABLE IF NOT EXISTS `actor` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `idx_actor_last_name` (`last_name` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 202
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `country`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `country` ;
-
-CREATE TABLE IF NOT EXISTS `country` (
-  `country_code` CHAR(2) NOT NULL,
-  `country` VARCHAR(50) NOT NULL,
-  `formal_name` VARCHAR(60) NULL DEFAULT NULL,
-  `sovereignty` VARCHAR(30) NULL DEFAULT NULL,
-  `capital` VARCHAR(80) NULL DEFAULT NULL,
-  `iso3_code` CHAR(3) NULL DEFAULT NULL,
-  `tld` CHAR(3) NULL DEFAULT NULL,
-  PRIMARY KEY (`country_code`),
-  UNIQUE INDEX `country_code` (`country_code` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `address` ;
-
-CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `address` VARCHAR(50) NOT NULL,
-  `address2` VARCHAR(50) NULL DEFAULT NULL,
-  `city` VARCHAR(50) NOT NULL,
-  `state_province` VARCHAR(20) NOT NULL,
-  `postal_code` VARCHAR(10) NULL DEFAULT NULL,
-  `country_code` CHAR(2) NULL DEFAULT NULL,
-  `phone` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_address_country` (`country_code` ASC),
-  CONSTRAINT `fk_address_country`
-    FOREIGN KEY (`country_code`)
-    REFERENCES `country` (`country_code`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 732
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `category` ;
-
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(25) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 17
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `staff`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `staff` ;
-
-CREATE TABLE IF NOT EXISTS `staff` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
-  `address_id` INT(10) UNSIGNED NOT NULL,
-  `email` VARCHAR(50) NULL DEFAULT NULL,
-  `store_id` SMALLINT(5) UNSIGNED NOT NULL,
-  `supervisor_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-  `active` TINYINT(1) NOT NULL DEFAULT '1',
-  `username` VARCHAR(16) NULL DEFAULT NULL,
-  `password` VARCHAR(41) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `username` (`username` ASC),
-  INDEX `idx_fk_store_id` (`store_id` ASC),
-  INDEX `idx_fk_address_id` (`address_id` ASC),
-  INDEX `fk_staff_supervisor` (`supervisor_id` ASC),
-  CONSTRAINT `fk_staff_address`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `address` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_staff_store`
-    FOREIGN KEY (`store_id`)
-    REFERENCES `store` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_staff_supervisor`
-    FOREIGN KEY (`supervisor_id`)
-    REFERENCES `staff` (`id`)
-    ON DELETE SET NULL)
-ENGINE = InnoDB
-AUTO_INCREMENT = 123
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `store`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `store` ;
-
-CREATE TABLE IF NOT EXISTS `store` (
-  `id` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `manager_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-  `address_id` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `address_id` (`address_id` ASC),
-  UNIQUE INDEX `idx_unique_manager` (`manager_id` ASC),
-  INDEX `idx_fk_address_id` (`address_id` ASC),
-  CONSTRAINT `fk_store_address`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `address` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_store_staff`
-    FOREIGN KEY (`manager_id`)
-    REFERENCES `staff` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 9
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `customer`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `customer` ;
-
-CREATE TABLE IF NOT EXISTS `customer` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `store_id` SMALLINT(5) UNSIGNED NOT NULL,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(50) NULL DEFAULT NULL,
-  `address_id` INT(10) UNSIGNED NOT NULL,
-  `active` TINYINT(1) NOT NULL DEFAULT '1',
-  `create_date` DATETIME NOT NULL,
-  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  INDEX `idx_fk_store_id` (`store_id` ASC),
-  INDEX `idx_fk_address_id` (`address_id` ASC),
-  INDEX `idx_last_name` (`last_name` ASC),
-  CONSTRAINT `fk_customer_address`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `address` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_customer_store`
-    FOREIGN KEY (`store_id`)
-    REFERENCES `store` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 601
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `language`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `language` ;
-
-CREATE TABLE IF NOT EXISTS `language` (
-  `id` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` CHAR(20) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 7
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `film`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `film` ;
-
-CREATE TABLE IF NOT EXISTS `film` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `release_year` YEAR(4) NULL DEFAULT NULL,
-  `language_id` SMALLINT(5) UNSIGNED NOT NULL,
-  `rental_duration` TINYINT(3) UNSIGNED NOT NULL DEFAULT '3',
-  `rental_rate` DECIMAL(4,2) NOT NULL DEFAULT '4.99',
-  `length` SMALLINT(5) UNSIGNED NULL DEFAULT NULL,
-  `replacement_cost` DECIMAL(5,2) NOT NULL DEFAULT '19.99',
-  `rating` ENUM('G', 'PG', 'PG13', 'R', 'NC17') NULL DEFAULT 'G',
-  `special_features` SET('Trailers', 'Commentaries', 'Deleted Scenes', 'Behind the Scenes') NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `idx_title` (`title` ASC),
-  INDEX `idx_fk_language_id` (`language_id` ASC),
-  CONSTRAINT `fk_film_language`
-    FOREIGN KEY (`language_id`)
-    REFERENCES `language` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1001
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `film_actor`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `film_actor` ;
-
-CREATE TABLE IF NOT EXISTS `film_actor` (
-  `actor_id` INT(10) UNSIGNED NOT NULL,
-  `film_id` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`actor_id`, `film_id`),
-  INDEX `idx_fk_film_id` (`film_id` ASC),
-  CONSTRAINT `fk_film_actor_actor`
-    FOREIGN KEY (`actor_id`)
-    REFERENCES `actor` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_film_actor_film`
-    FOREIGN KEY (`film_id`)
-    REFERENCES `film` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `film_category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `film_category` ;
-
-CREATE TABLE IF NOT EXISTS `film_category` (
-  `film_id` INT(10) UNSIGNED NOT NULL,
-  `category_id` SMALLINT(5) UNSIGNED NOT NULL,
-  PRIMARY KEY (`film_id`, `category_id`),
-  INDEX `fk_film_category_category` (`category_id` ASC),
-  CONSTRAINT `fk_film_category_category`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `category` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_film_category_film`
-    FOREIGN KEY (`film_id`)
-    REFERENCES `film` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `inventory_item`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `inventory_item` ;
-
-CREATE TABLE IF NOT EXISTS `inventory_item` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `film_id` INT(10) UNSIGNED NOT NULL,
-  `store_id` SMALLINT(5) UNSIGNED NOT NULL,
-  `media_condition` ENUM('New', 'Used', 'Damaged', 'Lost', 'NA') NULL DEFAULT NULL,
-  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  INDEX `idx_fk_film_id` (`film_id` ASC),
-  INDEX `idx_store_id_film_id` (`store_id` ASC, `film_id` ASC),
-  CONSTRAINT `fk_inventory_film`
-    FOREIGN KEY (`film_id`)
-    REFERENCES `film` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_inventory_store`
-    FOREIGN KEY (`store_id`)
-    REFERENCES `store` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 20710
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `rental`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `rental` ;
-
-CREATE TABLE IF NOT EXISTS `rental` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `rental_date` DATETIME NOT NULL,
-  `inventory_id` INT(10) UNSIGNED NOT NULL,
-  `customer_id` INT(10) UNSIGNED NOT NULL,
-  `return_date` DATETIME NULL DEFAULT NULL,
-  `staff_id` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `rental_date` (`rental_date` ASC, `inventory_id` ASC, `customer_id` ASC),
-  INDEX `idx_fk_inventory_id` (`inventory_id` ASC),
-  INDEX `idx_fk_customer_id` (`customer_id` ASC),
-  INDEX `idx_fk_staff_id` (`staff_id` ASC),
-  CONSTRAINT `fk_rental_customer`
-    FOREIGN KEY (`customer_id`)
-    REFERENCES `customer` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_rental_inventory`
-    FOREIGN KEY (`inventory_id`)
-    REFERENCES `inventory_item` (`id`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_rental_staff`
-    FOREIGN KEY (`staff_id`)
-    REFERENCES `staff` (`id`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 56278
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `payment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `payment` ;
-
-CREATE TABLE IF NOT EXISTS `payment` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `rental_id` INT(11) NULL DEFAULT NULL,
-  `amount` DECIMAL(5,2) NOT NULL,
-  `payment_date` DATETIME NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_payment_rental` (`rental_id` ASC),
-  CONSTRAINT `fk_payment_rental`
-    FOREIGN KEY (`rental_id`)
-    REFERENCES `rental` (`id`)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-AUTO_INCREMENT = 56277
-DEFAULT CHARACTER SET = utf8;
-
-USE `sdvid` ;
-
--- -----------------------------------------------------
--- Placeholder table for view `actor_info`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `actor_info` (`actor_id` INT, `first_name` INT, `last_name` INT, `film_info` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `customer_list`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `customer_list` (`ID` INT, `name` INT, `address` INT, `zip code` INT, `phone` INT, `city` INT, `country` INT, `notes` INT, `SID` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `film_list`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `film_list` (`FID` INT, `title` INT, `description` INT, `category` INT, `price` INT, `length` INT, `rating` INT, `actors` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `sales_by_film_category`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sales_by_film_category` (`category` INT, `total_sales` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `sales_by_store`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sales_by_store` (`store` INT, `manager` INT, `total_sales` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `staff_list`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staff_list` (`ID` INT, `name` INT, `address` INT, `zip code` INT, `phone` INT, `city` INT, `country` INT, `SID` INT);
-
--- -----------------------------------------------------
--- Placeholder table for view `store_list`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `store_list` (`store_id` INT, `manager_id` INT, `address` INT, `city` INT, `state` INT, `postal_code` INT);
-
--- -----------------------------------------------------
--- procedure film_in_stock
--- -----------------------------------------------------
-
-USE `sdvid`;
-DROP procedure IF EXISTS `film_in_stock`;
-
-DELIMITER $$
-USE `sdvid`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `film_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)
-    READS SQL DATA
-BEGIN
-     SELECT inventory_id
-     FROM inventory
-     WHERE film_id = p_film_id
-     AND store_id = p_store_id
-     AND inventory_in_stock(inventory_id);
-
-     SELECT FOUND_ROWS() INTO p_film_count;
-END$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- procedure film_not_in_stock
--- -----------------------------------------------------
-
-USE `sdvid`;
-DROP procedure IF EXISTS `film_not_in_stock`;
-
-DELIMITER $$
-USE `sdvid`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `film_not_in_stock`(IN p_film_id INT, IN p_store_id INT, OUT p_film_count INT)
-    READS SQL DATA
-BEGIN
-     SELECT inventory_id
-     FROM inventory
-     WHERE film_id = p_film_id
-     AND store_id = p_store_id
-     AND NOT inventory_in_stock(inventory_id);
-
-     SELECT FOUND_ROWS() INTO p_film_count;
-END$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- function get_customer_balance
--- -----------------------------------------------------
-
-USE `sdvid`;
-DROP function IF EXISTS `get_customer_balance`;
-
-DELIMITER $$
-USE `sdvid`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `get_customer_balance`(p_customer_id INT, p_effective_date DATETIME) RETURNS decimal(5,2)
-    READS SQL DATA
-    DETERMINISTIC
-BEGIN
-
-       
-       
-       
-       
-       
-       
-
-  DECLARE v_rentfees DECIMAL(5,2); 
-  DECLARE v_overfees INTEGER;      
-  DECLARE v_payments DECIMAL(5,2); 
-
-  SELECT IFNULL(SUM(film.rental_rate),0) INTO v_rentfees
-    FROM film, inventory, rental
-    WHERE film.film_id = inventory.film_id
-      AND inventory.inventory_id = rental.inventory_id
-      AND rental.rental_date <= p_effective_date
-      AND rental.customer_id = p_customer_id;
-
-  SELECT IFNULL(SUM(IF((TO_DAYS(rental.return_date) - TO_DAYS(rental.rental_date)) > film.rental_duration,
-        ((TO_DAYS(rental.return_date) - TO_DAYS(rental.rental_date)) - film.rental_duration),0)),0) INTO v_overfees
-    FROM rental, inventory, film
-    WHERE film.film_id = inventory.film_id
-      AND inventory.inventory_id = rental.inventory_id
-      AND rental.rental_date <= p_effective_date
-      AND rental.customer_id = p_customer_id;
-
-
-  SELECT IFNULL(SUM(payment.amount),0) INTO v_payments
-    FROM payment
-
-    WHERE payment.payment_date <= p_effective_date
-    AND payment.customer_id = p_customer_id;
-
-  RETURN v_rentfees + v_overfees - v_payments;
-END$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- function inventory_held_by_customer
--- -----------------------------------------------------
-
-USE `sdvid`;
-DROP function IF EXISTS `inventory_held_by_customer`;
-
-DELIMITER $$
-USE `sdvid`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_held_by_customer`(p_inventory_id INT) RETURNS int(11)
-    READS SQL DATA
-BEGIN
-  DECLARE v_customer_id INT;
-  DECLARE EXIT HANDLER FOR NOT FOUND RETURN NULL;
-
-  SELECT customer_id INTO v_customer_id
-  FROM rental
-  WHERE return_date IS NULL
-  AND inventory_id = p_inventory_id;
-
-  RETURN v_customer_id;
-END$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- function inventory_in_stock
--- -----------------------------------------------------
-
-USE `sdvid`;
-DROP function IF EXISTS `inventory_in_stock`;
-
-DELIMITER $$
-USE `sdvid`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `inventory_in_stock`(p_inventory_id INT) RETURNS tinyint(1)
-    READS SQL DATA
-BEGIN
-    DECLARE v_rentals INT;
-    DECLARE v_out     INT;
-
-    
-    
-
-    SELECT COUNT(*) INTO v_rentals
-    FROM rental
-    WHERE inventory_id = p_inventory_id;
-
-    IF v_rentals = 0 THEN
-      RETURN TRUE;
-    END IF;
-
-    SELECT COUNT(rental_id) INTO v_out
-    FROM inventory LEFT JOIN rental USING(inventory_id)
-    WHERE inventory.inventory_id = p_inventory_id
-    AND rental.return_date IS NULL;
-
-    IF v_out > 0 THEN
-      RETURN FALSE;
-    ELSE
-      RETURN TRUE;
-    END IF;
-END$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- procedure rewards_report
--- -----------------------------------------------------
-
-USE `sdvid`;
-DROP procedure IF EXISTS `rewards_report`;
-
-DELIMITER $$
-USE `sdvid`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rewards_report`(
-    IN min_monthly_purchases TINYINT UNSIGNED
-    , IN min_dollar_amount_purchased DECIMAL(10,2) UNSIGNED
-    , OUT count_rewardees INT
-)
-    READS SQL DATA
-    COMMENT 'Provides a customizable report on best customers'
-proc: BEGIN
-
-    DECLARE last_month_start DATE;
-    DECLARE last_month_end DATE;
-
-    
-    IF min_monthly_purchases = 0 THEN
-        SELECT 'Minimum monthly purchases parameter must be > 0';
-        LEAVE proc;
-    END IF;
-    IF min_dollar_amount_purchased = 0.00 THEN
-        SELECT 'Minimum monthly dollar amount purchased parameter must be > $0.00';
-        LEAVE proc;
-    END IF;
-
-    
-    SET last_month_start = DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH);
-    SET last_month_start = STR_TO_DATE(CONCAT(YEAR(last_month_start),'-',MONTH(last_month_start),'-01'),'%Y-%m-%d');
-    SET last_month_end = LAST_DAY(last_month_start);
-
-    
-    CREATE TEMPORARY TABLE tmpCustomer (customer_id SMALLINT UNSIGNED NOT NULL PRIMARY KEY);
-
-    
-    INSERT INTO tmpCustomer (customer_id)
-    SELECT p.customer_id
-    FROM payment AS p
-    WHERE DATE(p.payment_date) BETWEEN last_month_start AND last_month_end
-    GROUP BY customer_id
-    HAVING SUM(p.amount) > min_dollar_amount_purchased
-    AND COUNT(customer_id) > min_monthly_purchases;
-
-    
-    SELECT COUNT(*) FROM tmpCustomer INTO count_rewardees;
-
-    
-    SELECT c.*
-    FROM tmpCustomer AS t
-    INNER JOIN customer AS c ON t.customer_id = c.customer_id;
-
-    
-    DROP TABLE tmpCustomer;
-END$$
-
-DELIMITER ;
-
--- -----------------------------------------------------
--- View `actor_info`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `actor_info`;
-DROP VIEW IF EXISTS `actor_info` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY INVOKER VIEW `actor_info` AS select `a`.`id` AS `actor_id`,`a`.`first_name` AS `first_name`,`a`.`last_name` AS `last_name`,group_concat(distinct concat(`c`.`name`,': ',(select group_concat(`f`.`title` order by `f`.`title` ASC separator ', ') from ((`film` `f` join `film_category` `fc` on((`f`.`id` = `fc`.`film_id`))) join `film_actor` `fa` on((`f`.`id` = `fa`.`film_id`))) where ((`fc`.`category_id` = `c`.`id`) and (`fa`.`actor_id` = `a`.`id`)))) order by `c`.`name` ASC separator '; ') AS `film_info` from (((`actor` `a` left join `film_actor` `fa` on((`a`.`id` = `fa`.`actor_id`))) left join `film_category` `fc` on((`fa`.`film_id` = `fc`.`film_id`))) left join `category` `c` on((`fc`.`category_id` = `c`.`id`))) group by `a`.`id`,`a`.`first_name`,`a`.`last_name`;
-
--- -----------------------------------------------------
--- View `customer_list`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `customer_list`;
-DROP VIEW IF EXISTS `customer_list` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `customer_list` AS select `cu`.`id` AS `ID`,concat(`cu`.`first_name`,_utf8' ',`cu`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`a`.`city` AS `city`,`a`.`country_code` AS `country`,if(`cu`.`active`,_utf8'active',_utf8'') AS `notes`,`cu`.`store_id` AS `SID` from (`customer` `cu` join `address` `a` on((`cu`.`address_id` = `a`.`id`)));
-
--- -----------------------------------------------------
--- View `film_list`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `film_list`;
-DROP VIEW IF EXISTS `film_list` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `film_list` AS select `film`.`id` AS `FID`,`film`.`title` AS `title`,`film`.`description` AS `description`,`category`.`name` AS `category`,`film`.`rental_rate` AS `price`,`film`.`length` AS `length`,`film`.`rating` AS `rating`,group_concat(concat(`actor`.`first_name`,_utf8' ',`actor`.`last_name`) separator ', ') AS `actors` from ((((`category` left join `film_category` on((`category`.`id` = `film_category`.`category_id`))) left join `film` on((`film_category`.`film_id` = `film`.`id`))) join `film_actor` on((`film`.`id` = `film_actor`.`film_id`))) join `actor` on((`film_actor`.`actor_id` = `actor`.`id`))) group by `film`.`id`,`category`.`name`;
-
--- -----------------------------------------------------
--- View `sales_by_film_category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sales_by_film_category`;
-DROP VIEW IF EXISTS `sales_by_film_category` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `sales_by_film_category` AS select `c`.`name` AS `category`,sum(`p`.`amount`) AS `total_sales` from (((((`payment` `p` join `rental` `r` on((`p`.`rental_id` = `r`.`id`))) join `inventory_item` `i` on((`r`.`inventory_id` = `i`.`id`))) join `film` `f` on((`i`.`film_id` = `f`.`id`))) join `film_category` `fc` on((`f`.`id` = `fc`.`film_id`))) join `category` `c` on((`fc`.`category_id` = `c`.`id`))) group by `c`.`name` order by sum(`p`.`amount`) desc;
-
--- -----------------------------------------------------
--- View `sales_by_store`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sales_by_store`;
-DROP VIEW IF EXISTS `sales_by_store` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `sales_by_store` AS select concat(`a`.`city`,_utf8',',`a`.`country_code`) AS `store`,concat(`m`.`first_name`,_utf8' ',`m`.`last_name`) AS `manager`,sum(`p`.`amount`) AS `total_sales` from (((((`payment` `p` join `rental` `r` on((`p`.`rental_id` = `r`.`id`))) join `inventory_item` `i` on((`r`.`inventory_id` = `i`.`id`))) join `store` `s` on((`i`.`store_id` = `s`.`id`))) join `address` `a` on((`s`.`address_id` = `a`.`id`))) join `staff` `m` on((`s`.`manager_id` = `m`.`id`))) group by `s`.`id` order by `a`.`country_code`,`a`.`city`;
-
--- -----------------------------------------------------
--- View `staff_list`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `staff_list`;
-DROP VIEW IF EXISTS `staff_list` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `staff_list` AS select `s`.`id` AS `ID`,concat(`s`.`first_name`,_utf8' ',`s`.`last_name`) AS `name`,`a`.`address` AS `address`,`a`.`postal_code` AS `zip code`,`a`.`phone` AS `phone`,`a`.`city` AS `city`,`a`.`country_code` AS `country`,`s`.`store_id` AS `SID` from (`staff` `s` join `address` `a` on((`s`.`address_id` = `a`.`id`)));
-
--- -----------------------------------------------------
--- View `store_list`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `store_list`;
-DROP VIEW IF EXISTS `store_list` ;
-USE `sdvid`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `store_list` AS select `store`.`id` AS `store_id`,`store`.`manager_id` AS `manager_id`,`address`.`address` AS `address`,`address`.`city` AS `city`,`address`.`state_province` AS `state`,`address`.`postal_code` AS `postal_code` from (`store` join `address` on((`store`.`address_id` = `address`.`id`)));
 SET SQL_MODE = '';
 DROP USER IF EXISTS streamer@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-CREATE USER 'streamer'@'localhost' IDENTIFIED BY 'Streamer13';
+CREATE USER 'streamer'@'localhost' IDENTIFIED BY 'Stream';
 
-GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'streamer'@'localhost';
 GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'streamer'@'localhost';
 
 SET SQL_MODE=@OLD_SQL_MODE;
@@ -886,14 +235,43 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `user_image`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `Up_Stream`;
+INSERT INTO `user_image` (`id`, `url`) VALUES (1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsYNXQAt24UzWJI_ngDSr6p8WfG9txZR3UDMuWvZEFWTu3b7l1Tg&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (2, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvMak8J9aOuvvHUgri1Yai70I_g14H79FG2uflbjW017A9Et_Ryw&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRykclcIInB7xO7Q9OiVCXgcGTG9zDgtveRCTkhbooEqRO72EscJg&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (4, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNoR1YYUb62BoSYUHJA9oGL0or8COVbvagV1wOSH9g7GQztihL&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiILGCrk46D4sU2Ktg2kdusLYoCmp40IbD3dkra-ot8vQlqFL-&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF639mQvqYkAbox5a33gnJOx-MXRD9Ll6O-TELkEYcMNlsHOJFNA&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (7, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCzIkvJWGrUne6UM1vA9ly2LeRs82jDlT_IYxkqTghdEpj-HnAJw&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (8, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOZbr0_Kw1BWLMIeDbGwXyXww8i7hCs7mLmoPa_LHgShwIuFPaQ&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (9, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYLVjCNQqNDLVB_hO65taSqX_mhVLPrfnZP6sSg4wL_p5RGc9DZQ&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5oRf0blOoEcA2j9P6aqVh132DbWqciTKK4m9ihmuRQ_2UCINr_g&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (11, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTroPQ8HKzFltnhLUoi55cnx5uoQE6aFddfsbOskhLLy7hVGq0Pug&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (12, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrnbuNh3yv-6k2KvIz4bu9X9zXf438rmgXnauA30Fw3cLN5zOLHA&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (13, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsTiCmktIKpEbqMkD-ArsbCaVHYcgEW-tpMixez8pbPeQDgDQi&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (14, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn59tbZsNxe10nD-Z5sfBpOiCjOQiHMXtGQA3K5o_SRrY5c12jkA&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (15, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkAbBG0n71WsW-YuGSExqz6ZWGG7iYwqFCNKMfCBX4DmMIb7F&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (16, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCPtTD9y3tq9r9X8__NmQD_lAiU26HM7SLnpDOmyOigBmGtJYA&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (17, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvEVncAFeTQ9tXEp6Svuu55q0-ld_LMTGvg-FzPFuFZLMwawjoWDC-fKRy&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (18, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHc6fXYjwtctxojRsgAhSAmvNAry187BwmGKqSGSQ_-wK6AKcm&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (19, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROVFY_FOIxdMOyMKyvaS8NPB7a1QKctSxk_MkX1d8DBwDzx7gR&s');
+INSERT INTO `user_image` (`id`, `url`) VALUES (20, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UmZAgACeYOY9SrlQ9cjTNK9PTiMuNUUnuEfNdwZYwm95-QizXQ&s');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Up_Stream`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`, `content_id`, `serv_total`) VALUES (1, 'adminSam', 'Streaming', 'Samantha', 'Haviland', 1, 1, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`, `content_id`, `serv_total`) VALUES (2, 'ThaLobster', 'boring', 'Andrew', 'Wong', 0, 1, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`, `content_id`, `serv_total`) VALUES (3, 'CMoreno', 'boringtoo', 'Cesar', 'Moreno', 0, 1, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`, `content_id`, `serv_total`) VALUES (4, 'bobbobert', 'notboring', 'Zak', 'Saylors', 0, 1, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`) VALUES (1, 'adminSam', 'Streaming', 'Samantha', 'Haviland', 1, 1, 7);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`) VALUES (2, 'ThaLobster', 'boring', 'Andrew', 'Wong', 0, 1, 3);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`) VALUES (3, 'CMoreno', 'boringtoo', 'Cesar', 'Moreno', 0, 1, 15);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `admin`, `active`, `image_id`) VALUES (4, 'bobbobert', 'notboring', 'Zak', 'Saylors', 0, 1, 13);
 
 COMMIT;
 
@@ -917,6 +295,40 @@ START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `media` (`id`, `url`) VALUES (1, 'https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png');
 INSERT INTO `media` (`id`, `url`) VALUES (2, 'https://youtu.be/Bb4uR9gTVXI');
+INSERT INTO `media` (`id`, `url`) VALUES (3, 'https://m.media-amazon.com/images/M/MV5BMjhiMzgxZTctNDc1Ni00OTIxLTlhMTYtZTA3ZWFkODRkNmE2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (4, 'https://youtu.be/HhesaQXLuRY');
+INSERT INTO `media` (`id`, `url`) VALUES (5, 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/chilling-sabrina-1571413127.jpg?resize=480:*');
+INSERT INTO `media` (`id`, `url`) VALUES (6, 'https://youtu.be/TUVOZ-nk0E0');
+INSERT INTO `media` (`id`, `url`) VALUES (7, 'https://images-na.ssl-images-amazon.com/images/I/51MAfrtiv-L._SY355_.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (8, 'https://youtu.be/P2yNnEhsFno');
+INSERT INTO `media` (`id`, `url`) VALUES (9, 'https://cdn.vox-cdn.com/thumbor/EL5JR-U2GdmXnFLOCdK3ci5J344=/0x0:2040x1360/1200x800/filters:focal(483x108:809x434)/cdn.vox-cdn.com/uploads/chorus_image/image/58062223/BRIGHT_Unit_10265_R3_2040.0.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (10, 'https://youtu.be/6EZCBSsBxko');
+INSERT INTO `media` (`id`, `url`) VALUES (11, 'https://www.dreadcentral.com/wp-content/uploads/2018/05/In-the-Tall-Grass-poster.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (12, 'https://youtu.be/I5tEsyUyz-U');
+INSERT INTO `media` (`id`, `url`) VALUES (13, 'https://cdn.vox-cdn.com/thumbor/0Xv3N82IFOFkFrcIgt1dLJO-hXM=/0x0:1920x1200/1200x800/filters:focal(807x447:1113x753)/cdn.vox-cdn.com/uploads/chorus_image/image/63863964/game-of-thrones-poster_85627-1920x1200.0.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (14, 'https://youtu.be/gcTkNV5Vg1E');
+INSERT INTO `media` (`id`, `url`) VALUES (15, 'https://cdn.vox-cdn.com/thumbor/uFiWNn4WE8CPb557jE5_t67qLU0=/0x0:1200x675/1200x800/filters:focal(504x242:696x434)/cdn.vox-cdn.com/uploads/chorus_image/image/63930036/cq5dam.web.1200.675.0.jpeg');
+INSERT INTO `media` (`id`, `url`) VALUES (16, 'https://youtu.be/nKgZB-UyN2U');
+INSERT INTO `media` (`id`, `url`) VALUES (17, 'https://www.syfy.com/sites/syfy/files/styles/1200x680/public/2019/10/watchmen-hbo-racism-police.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (18, 'https://youtu.be/huN34U2rmvs');
+INSERT INTO `media` (`id`, `url`) VALUES (19, 'https://i.pinimg.com/originals/2e/4f/67/2e4f67ffb3072a570ee7badca5cc1a38.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (20, 'https://youtu.be/1NTaDm3atkc');
+INSERT INTO `media` (`id`, `url`) VALUES (21, 'https://cdn3.movieweb.com/i/article/HTdeMspxJqRzi0wkUZl9xrHtwLSGX3/798:50/Glass-Movie-Review-2019.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (22, 'https://youtu.be/aBL6COBGjCA');
+INSERT INTO `media` (`id`, `url`) VALUES (23, 'https://images-na.ssl-images-amazon.com/images/I/81i0EjrzjhL.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (24, 'https://youtu.be/ZQ-YX-5bAs0');
+INSERT INTO `media` (`id`, `url`) VALUES (25, 'https://specials-images.forbesimg.com/imageserve/5dc6d26f2c886a0007ebc6e0/960x0.jpg?fit=scale');
+INSERT INTO `media` (`id`, `url`) VALUES (26, 'https://youtu.be/XmI7WKrAtqs');
+INSERT INTO `media` (`id`, `url`) VALUES (27, 'https://upload.wikimedia.org/wikipedia/en/4/48/DuckTales_%28Main_title%29.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (28, 'https://youtu.be/H9cmPE88a_0');
+INSERT INTO `media` (`id`, `url`) VALUES (29, 'https://www.pajiba.com/assets_c/2019/11/the-world-according-to-jeff-goldblum-thumb-700xauto-218663.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (30, 'https://youtu.be/rV2UYw1ixRA');
+INSERT INTO `media` (`id`, `url`) VALUES (31, 'https://m.media-amazon.com/images/M/MV5BOTAyYjQ3NjctNGMzNi00YThkLThmYzUtZDViYWZkMDA2YTMyL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNjAwMjc0NjQ@._V1_.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (32, 'https://youtu.be/F4GV_xnN2rU');
+INSERT INTO `media` (`id`, `url`) VALUES (33, 'https://ichef.bbci.co.uk/images/ic/640x360/p01nbyhr.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (34, 'https://youtu.be/3efV2wqEjEY');
+INSERT INTO `media` (`id`, `url`) VALUES (35, 'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fscottmendelson%2Ffiles%2F2018%2F12%2FCaptain-Marvel-Poster-B-1200x675.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (36, 'https://youtu.be/0LHxvxdRnYc');
 
 COMMIT;
 
@@ -927,23 +339,23 @@ COMMIT;
 START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (1, 'Stranger Things', 'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.', 1, 1, 2);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (2, 'Breaking Bad', 'Walter White, a meek high school science teacher who transforms into a ruthless player in the local methamphetamine drug trade, driven by a desire to provide for his family after being diagnosed with terminal lung cancer.', 1, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (3, 'The Thrilling Adventures of Sabrina', 'Sabrina Spellman must reconcile her dual nature as a half-witch, half-mortal while fighting the evil forces that threaten her, her family and the daylight world humans inhabit.', 1, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (4, 'To Wong Foo, Thanks for everything! Julie Newmar', 'Noxeema Jackson, Vida Boheme, and Chi Chi Rodriguez are gonna show America a thing or two about being fabulous. Dressed to kill, with their Dynel tresses tossing in the breeze behind them, these three stars of New York\'s drag-queen beauty pageant circuit have hit the open road in a 1967 Cadillac convertible. Destination: Hollywood. But the trio is in for a detour when the car breaks down in the tiny midwestern town of Snydersville, where drag queens are about as common as August snowstorms. Up to now Snydersville has been a lot more like a graveyard than a town. That\'s all about to change. The local citizenry is going to get an infusion of flash and glamour the likes of which it\'s never seen. During the course of one incredible weekend, eyes will be opened, broken hearts healed, and hair teased within an inch of its life.', 1, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (5, 'Bright', 'In an alternate present day, humans, orcs, elves and fairies have been coexisting since the beginning of time. Two police officers, one a human, the other an orc, embark on a routine night patrol that will alter the future of their world as they know it. Battling both their own personal differences as well as an onslaught of enemies, they must work together to protect a young female elf and a thought-to-be-forgotten relic, which, in the wrong hands, could destroy everything.', 1, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (6, 'In the Tall Gradd', 'A brother and sister enter a field of tall grass to rescue a boy, but they soon realize they cannot escape and something evil lurks in the grass.', 1, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (7, 'Game of Thrones', 'The series chronicles the violent dynastic struggles among the realm\'s noble families for the Iron Throne, while other families fight for independence from it.', 2, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (8, 'Silicon Valley', 'This comedy series follows the misadventures of introverted computer programmer Richard and his brainy friends as they attempt to strike it rich in a high-tech gold rush. ', 2, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (9, 'Watchmen', 'The series focuses on events surrounding racial tensions in Tulsa, Oklahoma, in 2019. The white supremacist group the Seventh Kavalry has turned on the police over racial justice. The police conceal their identities with masks and allow masked vigilantes to join their ranks.', 2, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (10, 'Happy Death Day', 'A pulse-pounding slasher film meets \"Groundhog Day\" in this hit frightfest about a young woman who finds herself reliving the day of her murder--for better and for bloody worse. As each day repeats, all of the mundane details play out to the point of her death while she tries to figure out the identity of her killer and put an end to the nightmare.', 2, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (11, 'Glass', 'Heroes and villains collide in this explosive third installment in M. Night Shyamalan’s superhero trilogy (following “Unbreakable” and “Split”). When fate brings “unbreakable” David Dunn (Bruce Willis) and Kevin Wendell Crumb a.k.a. “The Horde” (James McAvoy) into the same mental hospital as the devious Mr. Glass (Samuel L. Jackson), it’s a confrontation 20 years in the making.', 2, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (12, 'Crazy Rich Asians', 'This smash-hit romantic comedy, based on the international best-seller, is \"simply great fun\" (TIME). Constance Wu stars as a New Yorker who accompanies her boyfriend to Singapore to meet his family for the first time, only to discover that he\'s the scion of one of the country\'s wealthiest families, with a disapproving mother and a slew of socialites trying to steal him away.', 2, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (13, 'The Mandalorian', 'After the fall of the Empire, a long gunman makes his way through the lawless galaxy', 3, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (14, 'Ducktales', 'The comedy-adventure series chronicles the high-flying adventures of trillionaire Scrooge McDuck, his grandnephews - Huey, Dewey, and Louie - and temperamental nephew Donald Duck, Launchpad McQuack, Mrs. Beakley, and her granddaughter Webby.', 3, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (15, 'The World According to Jeff Goldblum', 'The series follows Jeff, in which he explores the world, for example tattoos, ice-creams and sneakers and how they are developed.', 3, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (16, 'Halloween Town', 'Marnie and her kids get a big shock when they follow grandma home to Halloweentown - and find out they come from a family of witches. The town is the only place where supernatural beings can lead a `normal\' life, but trouble is looming, and on her 13th birthday Marnie not only finds she is a witch, but that she and her family are involved in a fight against the evil that is threatening to take over the world.', 3, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (17, 'Tron', 'When talented computer engineer Kevin Flynn (Jeff Bridges) finds out that Ed Dillinger (David Warner), an executive at his company, has been stealing his work, he tries to hack into the system. However, Flynn is transported into the digital world, where he has to face off against Dillinger\'s computerized likeness, Sark, and the imposing Master Control Program. Aided by Tron (Bruce Boxleitner) and Yori (Cindy Morgan), Flynn becomes a freedom fighter for the oppressed programs of the grid.', 3, NULL, NULL);
-INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (18, 'Captain Marvel', 'Captain Marvel is an extraterrestrial Kree warrior who finds herself caught in the middle of an intergalactic battle between her people and the Skrulls. Living on Earth in 1995, she keeps having recurring memories of another life as U.S. Air Force pilot Carol Danvers. With help from Nick Fury, Captain Marvel tries to uncover the secrets of her past while harnessing her special superpowers to end the war with the evil Skrulls.', 3, NULL, NULL);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (2, 'Breaking Bad', 'Walter White, a meek high school science teacher who transforms into a ruthless player in the local methamphetamine drug trade, driven by a desire to provide for his family after being diagnosed with terminal lung cancer.', 1, 3, 4);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (3, 'The Thrilling Adventures of Sabrina', 'Sabrina Spellman must reconcile her dual nature as a half-witch, half-mortal while fighting the evil forces that threaten her, her family and the daylight world humans inhabit.', 1, 5, 6);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (4, 'To Wong Foo, Thanks for everything! Julie Newmar', 'Noxeema Jackson, Vida Boheme, and Chi Chi Rodriguez are gonna show America a thing or two about being fabulous. Dressed to kill, with their Dynel tresses tossing in the breeze behind them, these three stars of New York\'s drag-queen beauty pageant circuit have hit the open road in a 1967 Cadillac convertible. Destination: Hollywood. But the trio is in for a detour when the car breaks down in the tiny midwestern town of Snydersville, where drag queens are about as common as August snowstorms. Up to now Snydersville has been a lot more like a graveyard than a town. That\'s all about to change. The local citizenry is going to get an infusion of flash and glamour the likes of which it\'s never seen. During the course of one incredible weekend, eyes will be opened, broken hearts healed, and hair teased within an inch of its life.', 1, 7, 8);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (5, 'Bright', 'In an alternate present day, humans, orcs, elves and fairies have been coexisting since the beginning of time. Two police officers, one a human, the other an orc, embark on a routine night patrol that will alter the future of their world as they know it. Battling both their own personal differences as well as an onslaught of enemies, they must work together to protect a young female elf and a thought-to-be-forgotten relic, which, in the wrong hands, could destroy everything.', 1, 9, 10);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (6, 'In the Tall Grass', 'A brother and sister enter a field of tall grass to rescue a boy, but they soon realize they cannot escape and something evil lurks in the grass.', 1, 11, 12);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (7, 'Game of Thrones', 'The series chronicles the violent dynastic struggles among the realm\'s noble families for the Iron Throne, while other families fight for independence from it.', 2, 13, 14);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (8, 'Silicon Valley', 'This comedy series follows the misadventures of introverted computer programmer Richard and his brainy friends as they attempt to strike it rich in a high-tech gold rush. ', 2, 15, 16);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (9, 'Watchmen', 'The series focuses on events surrounding racial tensions in Tulsa, Oklahoma, in 2019. The white supremacist group the Seventh Kavalry has turned on the police over racial justice. The police conceal their identities with masks and allow masked vigilantes to join their ranks.', 2, 17, 18);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (10, 'Happy Death Day', 'A pulse-pounding slasher film meets \"Groundhog Day\" in this hit frightfest about a young woman who finds herself reliving the day of her murder--for better and for bloody worse. As each day repeats, all of the mundane details play out to the point of her death while she tries to figure out the identity of her killer and put an end to the nightmare.', 2, 19, 20);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (11, 'Glass', 'Heroes and villains collide in this explosive third installment in M. Night Shyamalan’s superhero trilogy (following “Unbreakable” and “Split”). When fate brings “unbreakable” David Dunn (Bruce Willis) and Kevin Wendell Crumb a.k.a. “The Horde” (James McAvoy) into the same mental hospital as the devious Mr. Glass (Samuel L. Jackson), it’s a confrontation 20 years in the making.', 2, 21, 22);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (12, 'Crazy Rich Asians', 'This smash-hit romantic comedy, based on the international best-seller, is \"simply great fun\" (TIME). Constance Wu stars as a New Yorker who accompanies her boyfriend to Singapore to meet his family for the first time, only to discover that he\'s the scion of one of the country\'s wealthiest families, with a disapproving mother and a slew of socialites trying to steal him away.', 2, 23, 24);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (13, 'The Mandalorian', 'After the fall of the Empire, a long gunman makes his way through the lawless galaxy', 3, 25, 26);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (14, 'Ducktales', 'The comedy-adventure series chronicles the high-flying adventures of trillionaire Scrooge McDuck, his grandnephews - Huey, Dewey, and Louie - and temperamental nephew Donald Duck, Launchpad McQuack, Mrs. Beakley, and her granddaughter Webby.', 3, 27, 28);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (15, 'The World According to Jeff Goldblum', 'The series follows Jeff, in which he explores the world, for example tattoos, ice-creams and sneakers and how they are developed.', 3, 29, 30);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (16, 'Halloween Town', 'Marnie and her kids get a big shock when they follow grandma home to Halloweentown - and find out they come from a family of witches. The town is the only place where supernatural beings can lead a `normal\' life, but trouble is looming, and on her 13th birthday Marnie not only finds she is a witch, but that she and her family are involved in a fight against the evil that is threatening to take over the world.', 3, 31, 32);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (17, 'Tron', 'When talented computer engineer Kevin Flynn (Jeff Bridges) finds out that Ed Dillinger (David Warner), an executive at his company, has been stealing his work, he tries to hack into the system. However, Flynn is transported into the digital world, where he has to face off against Dillinger\'s computerized likeness, Sark, and the imposing Master Control Program. Aided by Tron (Bruce Boxleitner) and Yori (Cindy Morgan), Flynn becomes a freedom fighter for the oppressed programs of the grid.', 3, 33, 34);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (18, 'Captain Marvel', 'Captain Marvel is an extraterrestrial Kree warrior who finds herself caught in the middle of an intergalactic battle between her people and the Skrulls. Living on Earth in 1995, she keeps having recurring memories of another life as U.S. Air Force pilot Carol Danvers. With help from Nick Fury, Captain Marvel tries to uncover the secrets of her past while harnessing her special superpowers to end the war with the evil Skrulls.', 3, 35, 36);
 
 COMMIT;
 
@@ -964,6 +376,8 @@ INSERT INTO `genre` (`id`, `name`) VALUES (8, 'Crime');
 INSERT INTO `genre` (`id`, `name`) VALUES (9, 'Documentary');
 INSERT INTO `genre` (`id`, `name`) VALUES (10, 'Mocumentary');
 INSERT INTO `genre` (`id`, `name`) VALUES (11, 'Period');
+INSERT INTO `genre` (`id`, `name`) VALUES (12, 'Action');
+INSERT INTO `genre` (`id`, `name`) VALUES (13, 'Superhero');
 
 COMMIT;
 
@@ -974,6 +388,15 @@ COMMIT;
 START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (1, 4, 13, 'Totally sucked. I would give it 0 stars if I could', 1);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (2, 1, 14, 'Childhood classic still makes me dance when I hear the theme song.', 4);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (3, 1, 5, 'I don\'t get all the hate. I thought it was very imaginative. A lot of fun.', 4);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (4, 1, 4, 'I\'ll sum up how awesome this movie is in 4 words: Wesley Snipes in drag.', 5);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (5, 3, 6, 'Not my cup of tea. The time jumps were weird and repeatitive. ', 3);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (6, 2, 12, 'I got bored half way through.', 2);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (7, 3, 7, 'meh.', 1);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (8, 2, 18, 'Action packed fun. Captain Marvel is BA', 5);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (9, 4, 12, 'A one point I cried', 4);
+INSERT INTO `rating_review` (`id`, `user_id`, `content_id`, `comment`, `rating`) VALUES (10, 4, 1, 'Creepy and imaginative', 4);
 
 COMMIT;
 
@@ -984,6 +407,14 @@ COMMIT;
 START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 4, '101015', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 3, '071214', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 3, '131016', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (3, 3, '121119', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 2, '020216', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 2, '010117', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 1, '030411', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 1, '050515', 1);
+INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (3, 1, '121119', 1);
 
 COMMIT;
 
@@ -994,6 +425,16 @@ COMMIT;
 START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (1, 1, 4, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (2, 4, 4, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (3, 12, 2, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (4, 10, 2, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (5, 7, 2, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (6, 8, 3, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (7, 2, 3, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (8, 17, 3, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (9, 13, 1, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (10, 3, 1, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (11, 18, 1, 0);
 
 COMMIT;
 
@@ -1006,6 +447,50 @@ USE `Up_Stream`;
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (1, 2);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (1, 11);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (1, 3);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (2, 3);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (2, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (2, 8);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (3, 2);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (3, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (3, 3);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (4, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (4, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (5, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (5, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (5, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (6, 2);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (6, 3);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (7, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (8, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (9, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (9, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (10, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (10, 2);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (10, 3);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (9, 13);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (11, 13);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (11, 3);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (11, 5);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (11, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (12, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (12, 4);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (12, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (13, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (13, 5);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (14, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (14, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (14, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (15, 9);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (15, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (16, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (16, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (16, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (17, 5);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (17, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 13);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 5);
 
 COMMIT;
 
