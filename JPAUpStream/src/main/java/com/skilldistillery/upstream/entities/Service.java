@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Service {
@@ -24,7 +24,7 @@ public class Service {
 	@Column(name = "monthly_price")
 	private double monthlyPrice;
 
-	@OneToMany(mappedBy = "service")
+	@ManyToMany(mappedBy = "service")
 	private List<Content> content;
 
 	// C O N S T R U C T O R S
@@ -60,21 +60,16 @@ public class Service {
 		this.monthlyPrice = monthlyPrice;
 	}
 	
-	
-
-	// T O S T R I N G
-
 	public List<Content> getContent() {
 		return content;
 	}
-
+	
 	public void setContent(List<Content> content) {
 		this.content = content;
 	}
+	
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	// T O S T R I N G
 
 	@Override
 	public String toString() {
@@ -87,6 +82,7 @@ public class Service {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
 		long temp;
 		temp = Double.doubleToLongBits(monthlyPrice);
@@ -104,6 +100,11 @@ public class Service {
 		if (getClass() != obj.getClass())
 			return false;
 		Service other = (Service) obj;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
 		if (id != other.id)
 			return false;
 		if (Double.doubleToLongBits(monthlyPrice) != Double.doubleToLongBits(other.monthlyPrice))

@@ -62,5 +62,12 @@ class ServiceTest {
 		assertNotNull(service);
 		assertEquals(1, service.getId());
 	}
+	
+	@Test
+	@DisplayName("Check service ccontent")
+	void check_service_content() {
+		assertNotNull(service);
+		assertEquals("Stranger Things", service.getContent().get(0).getTitle());
+	}
 
 }
