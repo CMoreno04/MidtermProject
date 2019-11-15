@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class User {
@@ -26,25 +27,29 @@ public class User {
 	private String firstName;
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@Transient
 	@Column(name = "image_id")
 	private String imageId;
-	@Column(name = "content_id")
-	private List<Service> contentId;  // import when created
+	
+
+//	@Column(name = "content_id")
+//	private List<Service> contentId;  // import when created
 //	private List<Content> favorites;  // import when created
 //	private List<Content> wishlist;  // import when created
 
-	@ManyToMany
-	@JoinTable(name="user_content",
-		joinColumns=@JoinColumn(name="user_id"),
-		inverseJoinColumns=@JoinColumn(name="content_id")
-	)
-	private List <Content> contents;
+//	@ManyToMany
+//	@JoinTable(name="user_content",
+//		joinColumns=@JoinColumn(name="user_id"),
+//		inverseJoinColumns=@JoinColumn(name="content_id")
+//	)
+//	private List <Content> contents;
 	
 	// C O N S T R U C T O R S
 	public User() {}
 
 	public User(int id, boolean admin, boolean active, String username, String password, String firstName, String lastName,
-		String imageId, List<Service> contentId) {
+		String imageId) {
 	super();
 	this.id = id;
 	this.admin = admin;
@@ -54,7 +59,6 @@ public class User {
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.imageId = imageId;
-	this.contentId = contentId;
 	}
 
 	// G E T T E R S   A N D   S E T T E R S
@@ -125,22 +129,22 @@ public class User {
 		this.imageId = imageId;
 	}
 
-
-	public List<Service> getContentId() {
-		return contentId;
-	}
-
-	public void setContentId(List<Service> contentId) {
-		this.contentId = contentId;
-	}
-
-	// T O   S T R I N G
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", admin=" + admin + ", active=" + active + ", username=" + username + ", password="
-				+ password + ", firstName=" + firstName + ", lastName=" + lastName + ", imageId=" + imageId
-				+ ", contentId=" + contentId + "]";
-	}
+//
+//	public List<Service> getContentId() {
+//		return contentId;
+//	}
+//
+//	public void setContentId(List<Service> contentId) {
+//		this.contentId = contentId;
+//	}
+//
+//	// T O   S T R I N G
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", admin=" + admin + ", active=" + active + ", username=" + username + ", password="
+//				+ password + ", firstName=" + firstName + ", lastName=" + lastName + ", imageId=" + imageId
+//				+ ", contentId=" + contentId + "]";
+//	}
 
 	
 	// H A S H   A N D   E Q U A L S

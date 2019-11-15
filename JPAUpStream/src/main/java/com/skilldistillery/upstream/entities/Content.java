@@ -25,8 +25,8 @@ public class Content {
 	@Column
 	private String description;
 	
-	@Column
-	private List<Genre> genre;
+//	@Column
+//	private List<Genre> genre;
 	
 	@Column(name="review_id")
 	private int reviewId;
@@ -64,6 +64,11 @@ public class Content {
 	)
 	private List<RatingReview> reviews;
 	
+//	private List<Service> services;
+//	
+//	private List<User> users;
+
+ 
 	// C O N S T R U C T O R S
 	
 
@@ -96,13 +101,13 @@ public class Content {
 		this.description = description;
 	}
 
-	public List<Genre> getGenre() {
-		return genre;
-	}
-
-	public void setGenre(List<Genre> genre) {
-		this.genre = genre;
-	}
+//	public List<Genre> getGenre() {
+//		return genre;
+//	}
+//
+//	public void setGenre(List<Genre> genre) {
+//		this.genre = genre;
+//	}
 
 	public int getReviewId() {
 		return reviewId;
