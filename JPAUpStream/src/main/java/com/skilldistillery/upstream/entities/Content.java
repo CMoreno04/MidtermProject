@@ -1,17 +1,10 @@
 package com.skilldistillery.upstream.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
-@Entity
 public class Content {
 	// F I E L D S
 
@@ -25,58 +18,35 @@ public class Content {
 	@Column
 	private String description;
 	
-//	@Column
-//	private List<Genre> genre;
-	
-	@Column(name="review_id")
-	private int reviewId;
-	
 	@Column(name="service_id")
 	private int serviceId;
 	
 	@Column(name="image_id")
 	private int imageId;
+  
 	
 	@Column(name="video_id")
 	private int videoId;
-	
-//	@ManyToMany
-//	@JoinTable(name="service_content",
-//		joinColumns=@JoinColumn(name="service_id"),
-//		inverseJoinColumns=@JoinColumn(name="content_id")
-//	)
-//	private List<Service> services;
-//	
-//	@ManyToMany(mappedBy="contents")
-//	private List<User> users;
-	
-//	@ManyToMany
-//	@JoinTable(name="content_genre",
-//		joinColumns=@JoinColumn(name="content_id"),
-//		inverseJoinColumns=@JoinColumn(name="id")
-//	)
-	private List<Genre> genres;
-	
-	@ManyToMany
-	@JoinTable(name="rating_review",
-		joinColumns=@JoinColumn(name="content_id"),
-		inverseJoinColumns=@JoinColumn(name="user_id")
-	)
-	private List<RatingReview> reviews;
-	
-//	private List<Service> services;
-//	
-//	private List<User> users;
 
  
 	// C O N S T R U C T O R S
 	
-
 	public Content() {
 		super();
 	}
+	
+	public Content(int id, String title, String description, int serviceId, int imageId, int videoId) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.serviceId = serviceId;
+		this.imageId = imageId;
+		this.videoId = videoId;
+	}
 
 	// G E T T E R S   A N D   S E T T E R S
+	
 	public int getId() {
 		return id;
 	}
@@ -89,8 +59,8 @@ public class Content {
 		return title;
 	}
 
-	public void setTitle(String name) {
-		this.title = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -101,22 +71,6 @@ public class Content {
 		this.description = description;
 	}
 
-//	public List<Genre> getGenre() {
-//		return genre;
-//	}
-//
-//	public void setGenre(List<Genre> genre) {
-//		this.genre = genre;
-//	}
-
-	public int getReviewId() {
-		return reviewId;
-	}
-
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
-	}
-
 	public int getServiceId() {
 		return serviceId;
 	}
@@ -125,18 +79,28 @@ public class Content {
 		this.serviceId = serviceId;
 	}
 
-	
+	public int getImageId() {
+		return imageId;
+	}
 
-	
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+	}
 
+	public int getVideoId() {
+		return videoId;
+	}
 
+	public void setVideoId(int videoId) {
+		this.videoId = videoId;
+	}
+
+  
 	// H A S H   A N D   E Q A L S
 
 
 	
 
 	// T O  S T R I N G
-	
-
 	
 }
