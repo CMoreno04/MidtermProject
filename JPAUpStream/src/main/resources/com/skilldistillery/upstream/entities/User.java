@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class User {
@@ -32,13 +35,19 @@ public class User {
 	private List<Content> favorites;  // import when created
 	private List<Content> wishlist;  // import when created
 
+	@ManyToMany
+	@JoinTable(name="user_content",
+		joinColumns=@JoinColumn(name="user_id"),
+		inverseJoinColumns=@JoinColumn(name="content_id")
+	)
+	private List <Content> contents;
 	
 	// C O N S T R U C T O R S
 	public User() {}
 
 	public User(int id, boolean admin, boolean active, String username, String password, String firstName,
-			String lastName, int imageId, List<Service> serviceId, int serviceTotal, List<Content> favorites,
-			List<Content> wishlist) {
+			String lastName, String imageId, List<Service> serviceId, int serviceTotal, List<Content> favorites,
+			List<Content> wishlist, List<Content> contents) {
 		super();
 		this.id = id;
 		this.admin = admin;
@@ -52,7 +61,10 @@ public class User {
 		this.serviceTotal = serviceTotal;
 		this.favorites = favorites;
 		this.wishlist = wishlist;
+		this.contents = contents;
 	}
+
+
 
 	// G E T T E R S   A N D   S E T T E R S
 	public int getId() {
@@ -169,6 +181,24 @@ public class User {
 	public void setWishlist(List<Content> wishlist) {
 		this.wishlist = wishlist;
 	}
+
+	public List<Content> getContents() {
+		return contents;
+	}
+
+
+
+	public void setContents(List<Content> contents) {
+		this.contents = contents;
+	}
+
+
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+
+
 
 	// T O   S T R I N G
 	@Override

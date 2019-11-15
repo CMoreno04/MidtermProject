@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Content {
+	// F I E L D S
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +43,12 @@ public class Content {
 		inverseJoinColumns=@JoinColumn(name="content_id")
 	)
 	private List<Service> services;
+	
+	@ManyToMany(mappedBy="contents")
+	private List<User> users;
 
 	public Content(int id, String title, String description, String genre, int reviewId, int serviceId,
-			String imageLink) {
+			String imageLink, List<Service> services, List<User> users) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -53,6 +57,8 @@ public class Content {
 		this.reviewId = reviewId;
 		this.serviceId = serviceId;
 		this.imageLink = imageLink;
+		this.services = services;
+		this.users = users;
 	}
 
 	public Content() {
@@ -115,6 +121,22 @@ public class Content {
 		this.imageLink = imageLink;
 	}
 
+	public List<Service> getServices() {
+		return services;
+	}
+
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,9 +145,11 @@ public class Content {
 		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((imageLink == null) ? 0 : imageLink.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + reviewId;
 		result = prime * result + serviceId;
+		result = prime * result + ((services == null) ? 0 : services.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -155,14 +179,24 @@ public class Content {
 				return false;
 		} else if (!imageLink.equals(other.imageLink))
 			return false;
+		if (reviewId != other.reviewId)
+			return false;
+		if (serviceId != other.serviceId)
+			return false;
+		if (services == null) {
+			if (other.services != null)
+				return false;
+		} else if (!services.equals(other.services))
+			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (reviewId != other.reviewId)
-			return false;
-		if (serviceId != other.serviceId)
+		if (users == null) {
+			if (other.users != null)
+				return false;
+		} else if (!users.equals(other.users))
 			return false;
 		return true;
 	}
@@ -170,7 +204,8 @@ public class Content {
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", description=" + description + ", genre=" + genre
-				+ ", reviewId=" + reviewId + ", serviceId=" + serviceId + ", imageLink=" + imageLink + "]";
+				+ ", reviewId=" + reviewId + ", serviceId=" + serviceId + ", imageLink=" + imageLink + ", services="
+				+ services + ", users=" + users + "]";
 	}
 	
 }
