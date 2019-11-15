@@ -1,6 +1,8 @@
 package com.skilldistillery.upstream.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,4 +49,12 @@ class GenreTest {
 		assertNotNull(genre);
 		assertEquals("comedy", genre.getName().toLowerCase()); 
 	}
+	
+	@Test
+	@DisplayName("Checks if genre 1 lists all content in that genre")
+	void get_contents() {
+		assertTrue(genre.getContents().get(0).getTitle().toLowerCase().contains("to wong foo")); 
+	}
+	
+	
 }
