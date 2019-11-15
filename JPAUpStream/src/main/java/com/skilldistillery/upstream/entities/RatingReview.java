@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-@Entity
+@Entity(name="rating_review")
 public class RatingReview {
 	// F I E L D S
 	
@@ -18,13 +18,13 @@ public class RatingReview {
 	@Column(name = "user_id")
 	private int userId;
 	
+	@Column(name = "content_id")
+	private int contentId;
+	
 	private String comment;
 	
 	private int rating;
 	
-	@Column(name = "content_id")
-	private int contentId;
-
 	
 	// C O N S T R U C T O R S
 	public RatingReview() {}
