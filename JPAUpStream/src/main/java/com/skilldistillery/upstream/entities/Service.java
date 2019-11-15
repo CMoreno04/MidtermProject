@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Service {
@@ -23,6 +24,10 @@ public class Service {
 
 	@Column(name = "monthly_price")
 	private double monthlyPrice;
+	
+	@OneToMany(mappedBy = "service")
+	private List<UserService> userService;
+
 
 	@ManyToMany(mappedBy = "service")
 	private List<Content> content;
