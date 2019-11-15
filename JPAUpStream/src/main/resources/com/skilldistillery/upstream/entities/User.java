@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class User {
@@ -30,10 +33,15 @@ public class User {
 //	private List<Content> favorites;  // import when created
 //	private List<Content> wishlist;  // import when created
 
+	@ManyToMany
+	@JoinTable(name="user_content",
+		joinColumns=@JoinColumn(name="user_id"),
+		inverseJoinColumns=@JoinColumn(name="content_id")
+	)
+	private List <Content> contents;
 	
 	// C O N S T R U C T O R S
 	public User() {}
-
 
 	public User(int id, boolean admin, boolean active, String username, String password, String firstName, String lastName,
 		String imageId, List<Service> contentId) {
@@ -125,7 +133,6 @@ public class User {
 	public void setContentId(List<Service> contentId) {
 		this.contentId = contentId;
 	}
-
 
 	// T O   S T R I N G
 	@Override
