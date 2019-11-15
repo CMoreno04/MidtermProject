@@ -52,6 +52,18 @@ class RatingReviewTest {
 	@Test
 	@DisplayName("Checks what first coment is")
 	void test2() {
-		assertEquals("", rating.getComment());  // add whatever content is added.
+		assertEquals("Totally sucked. I would give it 0 stars if I could", rating.getComment());
+	}
+	
+	@Test
+	@DisplayName("Checks what user id is")
+	void test3() {
+		assertEquals(4, rating.getUserId());
+	}
+	
+	@Test
+	@DisplayName("Checks content id")
+	void test4() {
+		assertEquals(13, rating.getContentId());
 	}
 }
