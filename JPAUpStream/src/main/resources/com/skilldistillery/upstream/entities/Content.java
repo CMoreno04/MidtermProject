@@ -34,20 +34,36 @@ public class Content {
 	@Column(name="service_id")
 	private int serviceId;
 	
-	@Column(name="image_link")
-	private String imageLink;
+	@Column(name="image_id")
+	private int imageId;
 	
-	@ManyToMany
-	@JoinTable(name="service_content",
-		joinColumns=@JoinColumn(name="service_id"),
-		inverseJoinColumns=@JoinColumn(name="content_id")
-	)
+	@Column(name="video_id")
+	private int videoId;
+	
+//	@ManyToMany
+//	@JoinTable(name="service_content",
+//		joinColumns=@JoinColumn(name="service_id"),
+//		inverseJoinColumns=@JoinColumn(name="content_id")
+//	)
 	private List<Service> services;
 	
 	@ManyToMany(mappedBy="contents")
 	private List<User> users;
-
- 
+	
+//	@ManyToMany
+//	@JoinTable(name="content_genre",
+//		joinColumns=@JoinColumn(name="content_id"),
+//		inverseJoinColumns=@JoinColumn(name="id")
+//	)
+	private List<Genre> genres;
+	
+	@ManyToMany
+	@JoinTable(name="rating_review",
+		joinColumns=@JoinColumn(name="content_id"),
+		inverseJoinColumns=@JoinColumn(name="user_id")
+	)
+	private List<RatingReview> reviews;
+	
 	// C O N S T R U C T O R S
 	
 
@@ -104,13 +120,9 @@ public class Content {
 		this.serviceId = serviceId;
 	}
 
-	public String getImageLink() {
-		return imageLink;
-	}
+	
 
-	public void setImageLink(String imageLink) {
-		this.imageLink = imageLink;
-	}
+	
 
 
 	// H A S H   A N D   E Q A L S

@@ -11,7 +11,8 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Service {
-
+	// FIELDS
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -24,7 +25,8 @@ public class Service {
 	
 	@ManyToMany(mappedBy="services")
 	private List<Content> contents;
-
+	
+	// Constructors
 	public Service(int id, String name, double monthlyPrice, List<Content> contents) {
 		super();
 		this.id = id;
@@ -36,7 +38,7 @@ public class Service {
 	public Service() {
 		super();
 	}
-
+	// GETTERS AND SETTERS
 	public int getId() {
 		return id;
 	}
@@ -68,7 +70,8 @@ public class Service {
 	public void setContents(List<Content> contents) {
 		this.contents = contents;
 	}
-
+	
+	// HASHCODE EQUALS
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,7 +84,7 @@ public class Service {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -107,7 +110,7 @@ public class Service {
 			return false;
 		return true;
 	}
-
+	// TO STRING
 	@Override
 	public String toString() {
 		return "Service [id=" + id + ", name=" + name + ", monthlyPrice=" + monthlyPrice + ", contents=" + contents
