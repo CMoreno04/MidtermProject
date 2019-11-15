@@ -26,7 +26,7 @@ public class Content {
 	private String description;
 	
 	@Column
-	private String genre;
+	private List<Genre> genre;
 	
 	@Column(name="review_id")
 	private int reviewId;

@@ -27,7 +27,7 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	@Column(name = "image_id")
-	private String imageId;
+	private int imageId;
 	@Column(name = "service_id")
 	private List<Service> serviceId;  // import when created
 	@Column(name = "serv_total")
@@ -46,7 +46,7 @@ public class User {
 	public User() {}
 
 	public User(int id, boolean admin, boolean active, String username, String password, String firstName,
-			String lastName, String imageId, List<Service> serviceId, int serviceTotal, List<Content> favorites,
+			String lastName, int imageId, List<Service> serviceId, int serviceTotal, List<Content> favorites,
 			List<Content> wishlist, List<Content> contents) {
 		super();
 		this.id = id;
@@ -63,8 +63,6 @@ public class User {
 		this.wishlist = wishlist;
 		this.contents = contents;
 	}
-
-
 
 	// G E T T E R S   A N D   S E T T E R S
 	public int getId() {
@@ -133,12 +131,12 @@ public class User {
 	}
 
 
-	public int getImageId() {
+	public String getImageId() {
 		return imageId;
 	}
 
 
-	public void setImageId(int imageId) {
+	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
 
@@ -197,7 +195,6 @@ public class User {
 	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
-
 
 
 	// T O   S T R I N G
