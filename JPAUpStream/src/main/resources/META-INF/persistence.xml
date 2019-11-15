@@ -15,11 +15,14 @@
 	<class>com.skilldistillery.upstream.entities.RatingReview</class>
 	<class>com.skilldistillery.upstream.entities.Service</class>
 	<class>com.skilldistillery.upstream.entities.User</class>
+	<class>com.skilldistillery.upstream.entities.UserService</class>
+	<class>com.skilldistillery.upstream.entities.UserServiceId</class>
 	<class>com.skilldistillery.upstream.entities.UserContent</class>
 
     <properties>
 
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/up_stream?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=MST" />
+
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value="root" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
