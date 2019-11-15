@@ -17,6 +17,7 @@
 	<class>com.skilldistillery.upstream.entities.User</class>
 	<class>com.skilldistillery.upstream.entities.UserService</class>
 	<class>com.skilldistillery.upstream.entities.UserServiceId</class>
+	<class>com.skilldistillery.upstream.entities.UserContent</class>
 
     <properties>
 
