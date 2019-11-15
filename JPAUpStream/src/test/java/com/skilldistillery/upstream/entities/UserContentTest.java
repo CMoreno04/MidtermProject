@@ -1,7 +1,6 @@
 package com.skilldistillery.upstream.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ServiceTest {
+class UserContentTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Service service;
-
+	private UserContent uc;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("UpStreamPU");
@@ -32,35 +31,35 @@ class ServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		service = em.find(Service.class, 1);
+		uc = em.find(UserContent.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		service = null;
-
+		uc = null;
+		
 	}
 
 	@Test
-	@DisplayName("Checks if service 1 is Netflix")
-	void check_service_name() {
-		assertNotNull(service);
-		assertEquals("netflix", service.getName().toLowerCase());
-	}
-
-	@Test
-	@DisplayName("Checks service price")
-	void check_service_price() {
-		assertNotNull(service);
-		assertEquals(8.99, service.getMonthlyPrice());
+	@DisplayName("Checks content id")
+	void test1() {
+		assertNotNull(uc);
+		assertEquals(1, uc.getContentId()); 
 	}
 	
 	@Test
-	@DisplayName("Check service Id")
-	void check_service_id() {
-		assertNotNull(service);
-		assertEquals(1, service.getId());
+	@DisplayName("Checks user id")
+	void test2() {
+		assertNotNull(uc);
+		assertEquals(4, uc.getUserId()); 
 	}
-
+	
+	@Test
+	@DisplayName("Checks favorites")
+	void test3() {
+		assertNotNull(uc);
+		assertEquals(false, uc.isFavorites()); 
+	}
+	
 }

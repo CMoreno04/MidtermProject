@@ -14,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ServiceTest {
+class MediaTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Service service;
-
+	private Media media;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("UpStreamPU");
@@ -32,35 +32,21 @@ class ServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		service = em.find(Service.class, 1);
+		media = em.find(Media.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		service = null;
-
+		media = null;
 	}
 
 	@Test
-	@DisplayName("Checks if service 1 is Netflix")
-	void check_service_name() {
-		assertNotNull(service);
-		assertEquals("netflix", service.getName().toLowerCase());
-	}
-
-	@Test
-	@DisplayName("Checks service price")
-	void check_service_price() {
-		assertNotNull(service);
-		assertEquals(8.99, service.getMonthlyPrice());
-	}
-	
-	@Test
-	@DisplayName("Check service Id")
-	void check_service_id() {
-		assertNotNull(service);
-		assertEquals(1, service.getId());
+	@DisplayName("Checks if first media is stranger things logo image")
+	void test1() {
+		assertNotNull(media);
+		assertEquals(" https://upload.wikimedia.org/wikipedia/commons/3/38/Stranger_Things_logo.png",
+				media.getUrl().toLowerCase());
 	}
 
 }
