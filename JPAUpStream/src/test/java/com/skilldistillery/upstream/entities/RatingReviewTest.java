@@ -13,11 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 class RatingReviewTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private RatingReview rating;
-
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("UpStreamPU");
