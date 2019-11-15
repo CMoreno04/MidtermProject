@@ -47,14 +47,14 @@ class ContentTest {
 	@DisplayName("Checks if not null.")
 	void test1() {
 		assertNotNull(content);
-		assertEquals("stranger things", content.getTitle()); 
+		assertEquals("stranger things", content.getTitle().toLowerCase()); 
+		
 	}
 	
 	@Test
-	@DisplayName("Checks if not null.")
+	@DisplayName("Checks if not null and description.")
 	void test2() {
-		assertNotNull(content);
-		assertEquals("strange little girl", content.getDescription().toLowerCase()); 
+		assertEquals("When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.", content.getDescription()); 
 	}
 	
 //	@Test
@@ -76,9 +76,21 @@ class ContentTest {
 //	}
 	
 	@Test
-	void test6() {
-		assertNotNull(content);
+	@DisplayName("Checks content id")
+	void test3() {
 		assertEquals(1, content.getServiceId()); 
+	}
+	
+	@Test
+	@DisplayName("Checks content id")
+	void test4() {
+		assertEquals(2, content.getVideoId()); 
+	}
+	
+	@Test
+	@DisplayName("Checks content id")
+	void test5() {
+		assertEquals(1, content.getImageId()); 
 	}
 	
 }
