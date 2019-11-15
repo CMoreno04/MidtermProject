@@ -84,13 +84,21 @@ class ContentTest {
 	@Test
 	@DisplayName("Checks content id")
 	void test4() {
-		assertEquals(2, content.getVideoId()); 
+		assertEquals(2, content.getVideo().getId()); 
 	}
 	
 	@Test
 	@DisplayName("Checks content id")
 	void test5() {
-		assertEquals(1, content.getImageId()); 
+		assertEquals(1, content.getImage().getId()); 
 	}
+	
+	@Test
+	@DisplayName("get genres ")
+	void get_genres() {
+		assertEquals("Horror", content.getGenres().get(0).getName()); 
+	}
+	
+	
 	
 }

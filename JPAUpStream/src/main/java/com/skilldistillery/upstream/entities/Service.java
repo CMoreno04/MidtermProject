@@ -9,12 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
 @Entity
 public class Service {
 
 	// F I E L D S
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,10 +28,13 @@ public class Service {
 	private List<UserService> userService;
 
 
+	@OneToMany(mappedBy = "service")
+	private List<Content> content;
+
 	// C O N S T R U C T O R S
 	public Service() {
 		super();
-          	}
+	}
 
 	public Service(String name, double monthlyPrice) {
 		super();
@@ -40,8 +42,8 @@ public class Service {
 		this.monthlyPrice = monthlyPrice;
 	}
 
-	// S E T T E R S  A N D  G E T T E R S
-	
+	// S E T T E R S A N D G E T T E R S
+
 	public int getId() {
 		return id;
 	}
@@ -61,16 +63,30 @@ public class Service {
 	public void setMonthlyPrice(double monthlyPrice) {
 		this.monthlyPrice = monthlyPrice;
 	}
-
-	// T O  S T R I N G
 	
+	
+
+	// T O S T R I N G
+
+	public List<Content> getContent() {
+		return content;
+	}
+
+	public void setContent(List<Content> content) {
+		this.content = content;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "Service [id=" + id + ", name=" + name + ", monthlyPrice=" + monthlyPrice + "]";
 	}
 
-	//H A S H  A N D  E Q U A L S
-	
+	// H A S H A N D E Q U A L S
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,5 +119,5 @@ public class Service {
 			return false;
 		return true;
 	}
-	
+
 }
