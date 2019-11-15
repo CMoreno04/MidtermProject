@@ -24,7 +24,7 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	@Column(name = "image_id")
-	private int imageId;
+	private String imageId;
 	@Column(name = "service_id")
 	private List<Service> serviceId;  // import when created
 	@Column(name = "serv_total")
