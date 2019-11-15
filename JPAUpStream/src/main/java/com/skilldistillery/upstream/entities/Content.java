@@ -53,53 +53,54 @@ public class Content {
 		this.videoId = videoId;
 	}
 
-	
 	// G E T T E R S   A N D   S E T T E R S
 	
 	public int getId() {
 		return id;
 	}
 
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
 
 	public String getDescription() {
 		return description;
 	}
 
-
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 
 	public int getServiceId() {
 		return serviceId;
 	}
 
-
-
 	public void setServiceId(int serviceId) {
 		this.serviceId = serviceId;
+	}
+
+	public int getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+	}
+
+	public int getVideoId() {
+		return videoId;
+	}
+
+	public void setVideoId(int videoId) {
+		this.videoId = videoId;
 	}
 
   
