@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Content {
-	
+	// F I E L D S
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -43,7 +43,8 @@ public class Content {
 	)
 	private List<Service> services;
 
-	public Content(int id, String title, String description, String genre, int reviewId, int serviceId,
+	// C O N S T R U C T O R S
+	public Content(int id, String title, String description, List<Genre> genre, int reviewId, int serviceId,
 			String imageLink) {
 		super();
 		this.id = id;
@@ -59,6 +60,7 @@ public class Content {
 		super();
 	}
 
+	// G E T T E R S   A N D   S E T T E R S
 	public int getId() {
 		return id;
 	}
@@ -83,11 +85,11 @@ public class Content {
 		this.description = description;
 	}
 
-	public String getGenre() {
+	public List<Genre> getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(List<Genre> genre) {
 		this.genre = genre;
 	}
 
@@ -115,6 +117,7 @@ public class Content {
 		this.imageLink = imageLink;
 	}
 
+	// H A S H   A N D   E Q A L S
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,9 +126,10 @@ public class Content {
 		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((imageLink == null) ? 0 : imageLink.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + reviewId;
 		result = prime * result + serviceId;
+		result = prime * result + ((services == null) ? 0 : services.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -155,22 +159,31 @@ public class Content {
 				return false;
 		} else if (!imageLink.equals(other.imageLink))
 			return false;
+		if (reviewId != other.reviewId)
+			return false;
+		if (serviceId != other.serviceId)
+			return false;
+		if (services == null) {
+			if (other.services != null)
+				return false;
+		} else if (!services.equals(other.services))
+			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (reviewId != other.reviewId)
-			return false;
-		if (serviceId != other.serviceId)
-			return false;
 		return true;
 	}
 
+	// T O  S T R I N G
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", description=" + description + ", genre=" + genre
-				+ ", reviewId=" + reviewId + ", serviceId=" + serviceId + ", imageLink=" + imageLink + "]";
+				+ ", reviewId=" + reviewId + ", serviceId=" + serviceId + ", imageLink=" + imageLink + ", services="
+				+ services + "]";
 	}
+
+
 	
 }
