@@ -1,4 +1,4 @@
-## The Crimson Hounds:
+# The Crimson Hounds
 
 * Samantha Haviland
 * Zak Saylor
