@@ -32,32 +32,35 @@ class ServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		service = em.find(Service.class, 4);
+		service = em.find(Service.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
 		service = null;
-		
+
 	}
 
 	@Test
 	@DisplayName("Checks if service 1 is Netflix")
-	void test1() {
+	void check_service_name() {
 		assertNotNull(service);
 		assertEquals("netflix", service.getName().toLowerCase());
 	}
-	
-//	@Test
-//	@DisplayName("Checks if first film in netflix is stranger things")
-//	void test2() {
-//		assertEquals("stranger things", service.getContents().get(0).getTitle().toLowerCase());
-//	}
-//	
+
 	@Test
-	@DisplayName("Checks netflix price")
-	void test3() {
+	@DisplayName("Checks service price")
+	void check_service_price() {
+		assertNotNull(service);
 		assertEquals(8.99, service.getMonthlyPrice());
 	}
+	
+	@Test
+	@DisplayName("Check service Id")
+	void check_service_id() {
+		assertNotNull(service);
+		assertEquals(1, service.getId());
+	}
+
 }
