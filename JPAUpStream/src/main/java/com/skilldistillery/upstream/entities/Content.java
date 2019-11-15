@@ -31,9 +31,6 @@ public class Content {
 	@Column
 	private String description;
 
-	@Column(name = "service_id")
-	private int serviceId;
-
 	@ManyToOne
 	@JoinColumn(name = "image_id")
 	private Media image;
@@ -57,19 +54,22 @@ public class Content {
 		super();
 	}
 
-	public Content( String title, String description, int serviceId, Media image, Media video,
-			List<Genre> genres) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.serviceId = serviceId;
-		this.image = image;
-		this.video = video;
-		this.genres = genres;
-	}
+	
 
 	// G E T T E R S A N D S E T T E R S
 	
+	public Content(String title, String description, Media image, Media video, List<Genre> genres, Service service) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.image = image;
+		this.video = video;
+		this.genres = genres;
+		this.service = service;
+	}
+
+
+
 	public Service getService() {
 		return service;
 	}
@@ -100,14 +100,6 @@ public class Content {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public int getServiceId() {
-		return serviceId;
-	}
-
-	public void setServiceId(int serviceId) {
-		this.serviceId = serviceId;
 	}
 
 	public List<Genre> getGenres() {
@@ -142,12 +134,13 @@ public class Content {
 
 	@Override
 	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", description=" + description + ", serviceId=" + serviceId
+		return "Content [id=" + id + ", title=" + title + ", description=" + description 
 				+ ", image=" + image + ", video=" + video + ", genres=" + genres + ", service=" + service + "]";
 	}
 
 	// H A S H  A N D  E Q A L S
-	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -157,11 +150,12 @@ public class Content {
 		result = prime * result + id;
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((service == null) ? 0 : service.hashCode());
-		result = prime * result + serviceId;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((video == null) ? 0 : video.hashCode());
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -194,8 +188,6 @@ public class Content {
 				return false;
 		} else if (!service.equals(other.service))
 			return false;
-		if (serviceId != other.serviceId)
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -208,4 +200,7 @@ public class Content {
 			return false;
 		return true;
 	}
+
+	
+	
 }

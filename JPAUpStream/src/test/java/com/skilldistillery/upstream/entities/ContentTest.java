@@ -58,11 +58,7 @@ class ContentTest {
 	}
 	
 	
-	@Test
-	@DisplayName("Checks content id")
-	void test3() {
-		assertEquals(1, content.getServiceId()); 
-	}
+	
 	
 	@Test
 	@DisplayName("Checks content id")
@@ -80,6 +76,12 @@ class ContentTest {
 	@DisplayName("get genres ")
 	void get_genres() {
 		assertEquals("Horror", content.getGenres().get(0).getName()); 
+	}
+	
+	@Test
+	@DisplayName("get service")
+	void get_service() {
+		assertEquals("Netflix", content.getService().getName()); 
 	}
 	
 	
