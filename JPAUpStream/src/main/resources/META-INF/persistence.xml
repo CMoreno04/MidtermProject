@@ -11,6 +11,7 @@
 	<!--  Class Definitions -->
 	<class>com.skilldistillery.upstream.entities.Content</class>
 	<class>com.skilldistillery.upstream.entities.Genre</class>
+	<class>com.skilldistillery.upstream.entities.Media</class>
 	<class>com.skilldistillery.upstream.entities.RatingReview</class>
 	<class>com.skilldistillery.upstream.entities.Service</class>
 	<class>com.skilldistillery.upstream.entities.User</class>
