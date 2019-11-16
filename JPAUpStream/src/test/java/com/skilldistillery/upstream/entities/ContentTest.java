@@ -83,5 +83,4 @@ class ContentTest {
 	void get_service() {
 		assertEquals("Netflix", content.getService().getName()); 
 	}
-	
 }
