@@ -60,7 +60,7 @@ Rating: <select rating="rating">
 <textarea name="review" rows="10" cols= "50">
 
 </textarea>
-<button type="button" class="btn btn-success">Submit</button>
+<button class="btn btn-success" type="submit" value="Submit">Submit</button>
 </form>
 
 </body>
