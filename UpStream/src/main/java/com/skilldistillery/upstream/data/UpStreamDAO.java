@@ -11,5 +11,6 @@ public interface UpStreamDAO {
 	public List<StreamService> getServices();
 	public List<RatingReview> getTopRatedByContent(int idIn);
 	public List<RatingReview> getTopRatedByService(int idIn);
+//	public int getTotalOfServicesByUser(int idIn);
 	public StreamService getService(int id);
 }
