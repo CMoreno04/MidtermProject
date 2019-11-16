@@ -83,4 +83,11 @@ class ContentTest {
 	void get_service() {
 		assertEquals("Netflix", content.getService().getName()); 
 	}
+
+	@Test
+	@DisplayName("get reviews")
+	void get_reviews() {
+		assertEquals("Creepy and imaginative", content.getRatingReviews().get(0).getComment()); 
+	}
+
 }
