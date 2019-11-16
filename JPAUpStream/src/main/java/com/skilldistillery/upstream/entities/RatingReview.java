@@ -16,8 +16,10 @@ public class RatingReview {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column
 	private String comment;
 	
+	@Column
 	private int rating;
 	
 	@Column(name = "user_id")
