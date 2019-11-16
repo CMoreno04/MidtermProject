@@ -7,10 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
-
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
@@ -36,8 +35,9 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column(name = "image_id")
-	private String imageId;
+	@ManyToOne
+	@JoinColumn(name = "image_id")
+	private UserImage userImage;
 	
 	@ManyToMany(mappedBy="user")
 	private List<UserContent> userCont;
@@ -67,18 +67,7 @@ public class User {
 	
 
 
-	public User(boolean admin, boolean active, String username, String password, String firstName, String lastName,
-			String imageId, List<UserContent> userCont) {
-		super();
-		this.admin = admin;
-		this.active = active;
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.imageId = imageId;
-		this.userCont = userCont;
-	}
+	
 
 	// G E T T E R S   A N D   S E T T E R S
 
@@ -147,16 +136,6 @@ public class User {
 	}
 
 
-	public String getImageId() {
-		return imageId;
-	}
-
-
-	public void setImageId(String imageId) {
-		this.imageId = imageId;
-	}
-
-
 	public List<UserContent> getUserContent() {
 		return userCont;
 	}
@@ -165,16 +144,51 @@ public class User {
 	public void setUserContent(List<UserContent> userContent) {
 		this.userCont = userContent;
 	}
+	
+	
+	public UserImage getUserImage() {
+		return userImage;
+	}
+
+
+	public void setUserImage(UserImage userImage) {
+		this.userImage = userImage;
+	}
+
+	
+	public List<UserContent> getUserCont() {
+		return userCont;
+	}
+
+	
+	public void setUserCont(List<UserContent> userCont) {
+		this.userCont = userCont;
+	}
+
+	
+	public List<UserService> getUserService() {
+		return userService;
+	}
+
+	
+	public void setUserService(List<UserService> userService) {
+		this.userService = userService;
+	}
+
+
+
 
 	// T O   S T R I N G
+
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", admin=" + admin + ", active=" + active + ", username=" + username + ", password="
-				+ password + ", firstName=" + firstName + ", lastName=" + lastName + ", imageId=" + imageId
-				+ ", userContent=" + userCont + "]";
+				+ password + ", firstName=" + firstName + ", lastName=" + lastName + ", userImage=" + userImage
+				+ ", userCont=" + userCont + ", userService=" + userService + "]";
 	}
 
+	// H A S H   A N D   E Q U A L S
 
 	@Override
 	public int hashCode() {
@@ -184,15 +198,15 @@ public class User {
 		result = prime * result + (admin ? 1231 : 1237);
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((userCont == null) ? 0 : userCont.hashCode());
+		result = prime * result + ((userImage == null) ? 0 : userImage.hashCode());
+		result = prime * result + ((userService == null) ? 0 : userService.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
-	// H A S H   A N D   E Q U A L S
 
 	@Override
 	public boolean equals(Object obj) {
@@ -214,11 +228,6 @@ public class User {
 			return false;
 		if (id != other.id)
 			return false;
-		if (imageId == null) {
-			if (other.imageId != null)
-				return false;
-		} else if (!imageId.equals(other.imageId))
-			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
@@ -233,6 +242,16 @@ public class User {
 			if (other.userCont != null)
 				return false;
 		} else if (!userCont.equals(other.userCont))
+			return false;
+		if (userImage == null) {
+			if (other.userImage != null)
+				return false;
+		} else if (!userImage.equals(other.userImage))
+			return false;
+		if (userService == null) {
+			if (other.userService != null)
+				return false;
+		} else if (!userService.equals(other.userService))
 			return false;
 		if (username == null) {
 			if (other.username != null)

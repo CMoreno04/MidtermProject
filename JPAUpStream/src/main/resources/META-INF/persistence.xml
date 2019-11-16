@@ -15,9 +15,10 @@
 	<class>com.skilldistillery.upstream.entities.RatingReview</class>
 	<class>com.skilldistillery.upstream.entities.Service</class>
 	<class>com.skilldistillery.upstream.entities.User</class>
+	<class>com.skilldistillery.upstream.entities.UserContent</class>
+	<class>com.skilldistillery.upstream.entities.UserImage</class>
 	<class>com.skilldistillery.upstream.entities.UserService</class>
 	<class>com.skilldistillery.upstream.entities.UserServiceId</class>
-	<class>com.skilldistillery.upstream.entities.UserContent</class>
 
     <properties>
 
