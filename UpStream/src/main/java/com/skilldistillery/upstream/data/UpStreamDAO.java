@@ -8,4 +8,5 @@ import com.skilldistillery.upstream.entities.StreamService;
 public interface UpStreamDAO {
 	public List<Content> getTopContent(int serviceId);	
 	public List<StreamService> getServices();
+	public StreamService getService(int id);
 }

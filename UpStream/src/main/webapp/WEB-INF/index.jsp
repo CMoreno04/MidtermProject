@@ -28,7 +28,7 @@
 	<div>
 	<br>
 		<c:forEach items="${serviceType}" var="typename" begin="${loop.index}" end = "${loop.index}">
-		<p><a href="#"> ${typename.name} </a></p>
+		<p><a href="getService.do?id=${loop.index+1}" style="text-decoration: none"> ${typename.name} </a></p>
 		</c:forEach>
 	</div>
 
