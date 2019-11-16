@@ -43,10 +43,19 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	public List<RatingReview> getTopRatedByService(int idIn) {
 		String jpql = "SELECT r FROM RatingReview r WHERE r.content.service.id=:id ORDER BY r.rating DESC";
-		
+
 		List<RatingReview> reviews = em.createQuery(jpql, RatingReview.class).setParameter("id", idIn).getResultList();
 
 		return reviews;
+	}
+
+	@Override
+	public int getTotalOfServicesByUser(int idIn) {
+		User user = em.find(User.class, idIn);
+
+		int total = 0;
+
+		return 0;
 	}
 
 }
