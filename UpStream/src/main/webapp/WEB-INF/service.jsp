@@ -16,5 +16,34 @@
 </head>
 <body>
 
+<%@ include file="nav.jsp" %>
+<h2>${serv.name} </h2>
+<div class="card">
+<c:forEach items="${content}" var="details" varStatus="loop" begin="${serv.id -1}" end="${serv.id-1}">
+
+  
+  <div class="container">
+  
+  <table class="table table-hover"> 
+  	<tr class="d-flex">
+  		
+  		
+  		<th scope="col" class="col-6">Title</th>
+  		<th scope="col" class="col-3">Rating</th>
+  		<th scope="col" class="col-3">Add</th>
+  		
+    <c:forEach items="${details}" var="indivContent">
+  	<tr class="d-flex" scope="row"> 
+  		<td class="col-6">${indivContent.title}</td>
+  		<td class="col-3">rating</td>
+  		<td class="col-3"><button type="button" class="btn btn-success">add</button></tr>
+  	
+    
+    </c:forEach>
+    </table>
+  </div>
+    </c:forEach>
+</div> 
+
 </body>
 </html>

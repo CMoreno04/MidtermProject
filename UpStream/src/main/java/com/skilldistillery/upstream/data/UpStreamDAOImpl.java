@@ -31,6 +31,12 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		List<StreamService> services = em.createQuery(query, StreamService.class).getResultList();
 		return services;
 	}
+	
+	public StreamService getService(int id) {
+		String query = "SELECT s FROM StreamService s where s.id = :sid";
+		List<StreamService> services = em.createQuery(query, StreamService.class).setParameter("sid", id).getResultList();
+		return services.get(0);
+	}
 
 	public List<RatingReview> getTopRatedByContent(int idIn) {
 
