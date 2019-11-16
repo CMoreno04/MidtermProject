@@ -76,6 +76,12 @@ class UserTest {
 		assertEquals(false, user.isAdmin());
 	}
 	
+	@Test
+	@DisplayName("Checks for user image")
+	void test5() {
+		assertEquals("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsTiCmktIKpEbqMkD-ArsbCaVHYcgEW-tpMixez8pbPeQDgDQi&s", user.getUserImage().getUrl());
+	}
+	
 //	@Test
 //	@DisplayName("Checks if user is admin (uncomment and switch user to 1.  Should be one of only test cases that pass.")
 //	void test4AndAHalf() {
