@@ -25,9 +25,4 @@ class DAOTest {
 		dao = null;
 	}
 
-	@Test
-	void test() {
-		assertEquals("", dao.getTopRatedContent().get(0));
-	}
-
 }
