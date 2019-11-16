@@ -12,19 +12,21 @@ import com.skilldistillery.upstream.data.UpStreamDAO;
 public class UpStreamController {
 
 
-	@Autowired
-	private UpStreamDAO upstreamdao; 
+//	@Autowired
+//	private UpStreamDAO upstreamdao; 
 
-	@RequestMapping(path = "/")
-	public String getFilm(Model model) {
-		
-		
+	@RequestMapping(path = {"/", "index.do"})
+	public String getFilm() {
+		//Model model
+//		List<Memes> memes = dao.findAll();
+//		model.addAttribute("memes", memes);
+//		
 		return "index";
 	}
 	
-	@RequestMapping(path = "**.do", method = RequestMethod.GET)
-	  public String get_Something() {
-
-	    return null;
-	  }
+//	@RequestMapping(path = "**.do", method = RequestMethod.GET)
+//	  public String get_Something() {
+//
+//	    return null;
+//	  }
 }

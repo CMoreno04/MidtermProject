@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class User {
@@ -17,7 +21,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private boolean admin;
 	
 	private boolean active;
@@ -32,13 +36,27 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Transient
 	@Column(name = "image_id")
 	private String imageId;
 	
 	@ManyToMany(mappedBy="user")
 	private List<UserContent> userCont;
 	
+	@OneToMany(mappedBy = "user")
+	private List<UserService> userService;
+	
+
+//	@Column(name = "content_id")
+//	private List<Service> contentId;  // import when created
+//	private List<Content> favorites;  // import when created
+//	private List<Content> wishlist;  // import when created
+
+//	@ManyToMany
+//	@JoinTable(name="user_content",
+//		joinColumns=@JoinColumn(name="user_id"),
+//		inverseJoinColumns=@JoinColumn(name="content_id")
+//	)
+//	private List <Content> contents;
 	
 	// C O N S T R U C T O R S
 
