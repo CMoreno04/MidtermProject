@@ -7,9 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name="rating_review")
+@Entity
+@Table(name = "rating_review")
 public class RatingReview {
+	
 	// F I E L D S
 	
 	@Id
@@ -19,8 +22,8 @@ public class RatingReview {
 	@Column
 	private String comment;
 	
-	@Column
-	private int rating;
+	@Column(name="rating")
+	private Integer rating;
 	
 	@Column(name = "user_id")
 	private int userId;
@@ -34,9 +37,8 @@ public class RatingReview {
 	// C O N S T R U C T O R S
 	public RatingReview() {}
 	
-	public RatingReview(int id, int userId, Content content, String comment, int rating) {
+	public RatingReview(int userId, Content content, String comment, Integer rating) {
 		super();
-		this.id = id;
 		this.userId = userId;
 		this.content = content;
 		this.comment = comment;
@@ -63,7 +65,7 @@ public class RatingReview {
 		this.comment = comment;
 	}
 
-	public int getRating() {
+	public Integer getRating() {
 		return rating;
 	}
 
