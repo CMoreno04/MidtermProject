@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.Content;
+import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.StreamService;
 
 @Controller
@@ -49,6 +50,15 @@ public class UpStreamController {
 		mv.addObject("content", contentByService);
 		mv.addObject("serv", serv);
 		mv.setViewName("service");
+		return mv;
+	}
+	
+	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
+	public ModelAndView getContentByRating(int id) {		
+		ModelAndView mv = new ModelAndView();
+		List<RatingReview> topContent= dao.getTopRatedByService(id);		
+		mv.addObject("content", topContent);
+		mv.setViewName("ratingsort");
 		return mv;
 	}
 }
