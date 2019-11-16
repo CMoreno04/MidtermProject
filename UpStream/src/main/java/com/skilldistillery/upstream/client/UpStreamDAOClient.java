@@ -25,8 +25,7 @@ public class UpStreamDAOClient {
 		
 		
 		
-		System.out.println(dao.checkUserRegistration(user));
-		System.out.println(dao.checkUserRegistration(em.find(User.class, 1)).getFirstName());
+		System.out.println(dao.disableUser(em.find(User.class, 3)));
 
 	}
 
