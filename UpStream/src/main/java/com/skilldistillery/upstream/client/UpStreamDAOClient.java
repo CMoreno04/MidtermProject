@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.data.UpStreamDAOImpl;
-import com.skilldistillery.upstream.entities.Content;
-import com.skilldistillery.upstream.entities.RatingReview;
+import com.skilldistillery.upstream.entities.User;
 
 public class UpStreamDAOClient {
 
@@ -20,37 +19,14 @@ public class UpStreamDAOClient {
 	private static UpStreamDAO dao = new UpStreamDAOImpl();
 
 	public static void main(String[] args) {
-		for (RatingReview string : dao.getTopRatedByService(1)) {
+		UpStreamDAOClient app = new UpStreamDAOClient();
 
-			System.out.println(string.getContent().getService().getName());
-			System.out.println(string.getContent().getTitle()+" "+string.getRating()+"\n");
-		}
-
-//		UpStreamDAOClient app = new UpStreamDAOClient();
-//		app.createNewReview();
-
-	}
-
-	private void createNewReview() {
-
-		Content cont = em.find(Content.class, 2);
-
-		RatingReview rev1 = new RatingReview(3, cont, "Excellent Show", 4);
-		RatingReview rev2 = new RatingReview(3, cont, "Excellent Show", 3);
-		RatingReview rev3 = new RatingReview(3, cont, "Excellent Show", 5);
-
-		em.getTransaction().begin();
-
-		em.persist(rev1);
-		em.persist(rev2);
-		em.persist(rev3);
-
-		em.flush();
-
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
+		User user= new User(false, true, "tito", "123", "man", "ecko", null);
+		
+		
+		
+		System.out.println(dao.checkUserRegistration(user));
+		System.out.println(dao.checkUserRegistration(em.find(User.class, 1)).getFirstName());
 
 	}
 

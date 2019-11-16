@@ -12,65 +12,59 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 @Entity
 public class User {
+
 	// F I E L D S
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private boolean admin;
-	
+
 	private boolean active;
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "image_id")
 	private UserImage userImage;
-	
-	@ManyToMany(mappedBy="user")
+
+	@ManyToMany(mappedBy = "user")
 	private List<UserContent> userCont;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<UserService> userService;
-	
 
-//	@Column(name = "content_id")
-//	private List<Service> contentId;  // import when created
-//	private List<Content> favorites;  // import when created
-//	private List<Content> wishlist;  // import when created
 
-//	@ManyToMany
-//	@JoinTable(name="user_content",
-//		joinColumns=@JoinColumn(name="user_id"),
-//		inverseJoinColumns=@JoinColumn(name="content_id")
-//	)
-//	private List <Content> contents;
-	
 	// C O N S T R U C T O R S
 
 	public User() {
 		super();
 	}
-	
-	
 
+	public User(boolean admin, boolean active, String username, String password, String firstName, String lastName,
+			UserImage userImage) {
+		super();
+		this.admin = admin;
+		this.active = active;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userImage = userImage;
+	}
 
-	
-
-	// G E T T E R S   A N D   S E T T E R S
-
+	// G E T T E R S A N D S E T T E R S
 
 	public int getId() {
 		return id;
@@ -80,115 +74,87 @@ public class User {
 		return admin;
 	}
 
-
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-
 
 	public boolean isActive() {
 		return active;
 	}
 
-
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
 
 	public String getUsername() {
 		return username;
 	}
 
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 
 	public String getLastName() {
 		return lastName;
 	}
 
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-
-	public List<UserContent> getUserContent() {
-		return userCont;
-	}
-
-
-	public void setUserContent(List<UserContent> userContent) {
-		this.userCont = userContent;
-	}
-	
-	
 	public UserImage getUserImage() {
 		return userImage;
 	}
-
 
 	public void setUserImage(UserImage userImage) {
 		this.userImage = userImage;
 	}
 
-	
 	public List<UserContent> getUserCont() {
 		return userCont;
 	}
 
-	
 	public void setUserCont(List<UserContent> userCont) {
 		this.userCont = userCont;
 	}
 
-	
 	public List<UserService> getUserService() {
 		return userService;
 	}
 
-	
 	public void setUserService(List<UserService> userService) {
 		this.userService = userService;
 	}
 
+	
+	
+	// T O S T R I N G
 
-
-
-	// T O   S T R I N G
-
+	
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", admin=" + admin + ", active=" + active + ", username=" + username + ", password="
-				+ password + ", firstName=" + firstName + ", lastName=" + lastName + ", userImage=" + userImage
-				+ ", userCont=" + userCont + ", userService=" + userService + "]";
+				+ password + ", firstName=" + firstName + ", lastName=" + lastName + ", userImage=" + userImage + "]";
 	}
 
-	// H A S H   A N D   E Q U A L S
+	// H A S H A N D E Q U A L S
 
 	@Override
 	public int hashCode() {
@@ -206,7 +172,6 @@ public class User {
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -261,5 +226,5 @@ public class User {
 		return true;
 	}
 
-	
+
 }
