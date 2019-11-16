@@ -15,9 +15,6 @@
 
 </head>
 <body>
-<<<<<<< HEAD
-<p>${serv.name}<p>
-=======
 
 <%@ include file="nav.jsp" %>
 <h2>${serv.name} </h2>
@@ -47,6 +44,6 @@
   </div>
     </c:forEach>
 </div> 
->>>>>>> 73225da370a0e585f41af3bcd7c845bbb0876916
+
 </body>
 </html>
