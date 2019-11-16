@@ -43,13 +43,13 @@ class UserImageTest {
 		
 	}
 
-	@Test
-	@DisplayName("Checks if not null.")
-	void test1() {
-		assertNotNull(userImage);
-		assertEquals("stranger things", userImage.getUrl()); 
+//	@Test
+//	@DisplayName("Checks if not null.")
+//	void test1() {
+//		assertNotNull(userImage);
+//		assertEquals("stranger things", userImage.getUrl()); 
 		
-	}
+//	}
 	
 	
 }

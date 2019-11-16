@@ -39,8 +39,11 @@ public class UpStreamController {
 	public ModelAndView getService(int id) {
 		ModelAndView mv = new ModelAndView();
 		StreamService serv = dao.getService(id);	
+<<<<<<< HEAD
 		
 		
+=======
+>>>>>>> 73225da370a0e585f41af3bcd7c845bbb0876916
 		List<Content> content = null;
 		List<StreamService> services = dao.getServices();
 		List<List<Content>> contentByService = new ArrayList<List<Content>>();
@@ -48,7 +51,7 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
-		mv.addObject("services", contentByService);
+		mv.addObject("content", contentByService);
 		mv.addObject("serv", serv);
 		mv.setViewName("service");
 		return mv;
