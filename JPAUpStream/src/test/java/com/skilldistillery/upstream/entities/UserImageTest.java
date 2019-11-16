@@ -14,10 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ServiceTest {
+
+class UserImageTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private StreamService service;
+	private UserImage userImage;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,42 +33,23 @@ class ServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		service = em.find(StreamService.class, 1);
+		userImage = em.find(UserImage.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		service = null;
-
+		userImage = null;
+		
 	}
 
 	@Test
-	@DisplayName("Checks if service 1 is Netflix")
-	void check_service_name() {
-		assertNotNull(service);
-		assertEquals("netflix", service.getName().toLowerCase());
-	}
-
-	@Test
-	@DisplayName("Checks service price")
-	void check_service_price() {
-		assertNotNull(service);
-		assertEquals(8.99, service.getMonthlyPrice());
+	@DisplayName("Checks if not null.")
+	void test1() {
+		assertNotNull(userImage);
+		assertEquals("stranger things", userImage.getUrl()); 
+		
 	}
 	
-	@Test
-	@DisplayName("Check service Id")
-	void check_service_id() {
-		assertNotNull(service);
-		assertEquals(1, service.getId());
-	}
 	
-	@Test
-	@DisplayName("Check service ccontent")
-	void check_service_content() {
-		assertNotNull(service);
-		assertEquals("Stranger Things", service.getContent().get(0).getTitle());
-	}
-
 }

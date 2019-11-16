@@ -62,8 +62,8 @@ class RatingReviewTest {
 	}
 	
 	@Test
-	@DisplayName("Checks content id")
+	@DisplayName("Checks content title")
 	void test4() {
-		assertEquals(13, rating.getContentId());
+		assertEquals("The Mandalorian", rating.getContent().getTitle());
 	}
 }
