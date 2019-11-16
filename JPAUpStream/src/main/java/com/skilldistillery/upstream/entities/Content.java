@@ -4,23 +4,21 @@ package com.skilldistillery.upstream.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 
 @Entity
 public class Content {
 	// F I E L D S
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -45,7 +43,7 @@ public class Content {
 
 	@ManyToOne
 	@JoinColumn(name = "service_id")
-	private Service service;
+	private StreamService service;
 
 	@ManyToMany(mappedBy = "content")
 	private List<RatingReview> ratingReviews;
@@ -53,6 +51,7 @@ public class Content {
 	@ManyToMany(mappedBy = "userContent")
 	private List<UserContent> userContent;
 
+	
 	// C O N S T R U C T O R S
 
 	public Content() {
@@ -60,7 +59,7 @@ public class Content {
 	}
 
 
-	public Content(String title, String description, Media image, Media video, List<Genre> genres, Service service,
+	public Content(String title, String description, Media image, Media video, List<Genre> genres, StreamService streamService,
 			List<RatingReview> ratingReviews, List<UserContent> userContent) {
 		super();
 		this.title = title;
@@ -68,7 +67,7 @@ public class Content {
 		this.image = image;
 		this.video = video;
 		this.genres = genres;
-		this.service = service;
+		this.service = streamService;
 		this.ratingReviews = ratingReviews;
 		this.userContent = userContent;
 	}
@@ -76,12 +75,12 @@ public class Content {
 
 	// G E T T E R S A N D S E T T E R S
 
-	public Service getService() {
+	public StreamService getService() {
 		return service;
 	}
 
-	public void setService(Service service) {
-		this.service = service;
+	public void setService(StreamService streamService) {
+		this.service = streamService;
 	}
 
 	public int getId() {
@@ -233,4 +232,3 @@ public class Content {
 		return true;
 	}
 }
-

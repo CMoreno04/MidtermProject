@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class ServiceTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Service service;
+	private StreamService service;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,7 +32,7 @@ class ServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		service = em.find(Service.class, 1);
+		service = em.find(StreamService.class, 1);
 	}
 
 	@AfterEach

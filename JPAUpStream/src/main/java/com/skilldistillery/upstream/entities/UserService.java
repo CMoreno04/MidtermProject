@@ -32,7 +32,7 @@ public class UserService {
 	@ManyToOne
 	@JoinColumn(name = "service_id") // DB column name
 	@MapsId(value = "serviceId")     // Field in ID class
-	private Service service;
+	private StreamService service;
 
 	
 	

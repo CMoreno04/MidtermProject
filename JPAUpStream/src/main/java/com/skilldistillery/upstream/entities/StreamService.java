@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Service {
+@Table(name = "service")
+public class StreamService {
 
 	// F I E L D S
 
@@ -33,11 +35,11 @@ public class Service {
 	private List<Content> content;
 
 	// C O N S T R U C T O R S
-	public Service() {
+	public StreamService() {
 		super();
 	}
 
-	public Service(String name, double monthlyPrice) {
+	public StreamService(String name, double monthlyPrice) {
 		super();
 		this.name = name;
 		this.monthlyPrice = monthlyPrice;
@@ -104,7 +106,7 @@ public class Service {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Service other = (Service) obj;
+		StreamService other = (StreamService) obj;
 		if (content == null) {
 			if (other.content != null)
 				return false;
