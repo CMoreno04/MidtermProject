@@ -38,7 +38,9 @@ public class UpStreamController {
 	@RequestMapping(path = "getService.do", method = RequestMethod.GET) 
 	public ModelAndView getService(int id) {
 		ModelAndView mv = new ModelAndView();
-		StreamService serv = dao.getService(1);	
+		StreamService serv = dao.getService(id);	
+		
+		
 		List<Content> content = null;
 		List<StreamService> services = dao.getServices();
 		List<List<Content>> contentByService = new ArrayList<List<Content>>();
