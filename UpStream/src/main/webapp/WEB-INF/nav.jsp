@@ -12,7 +12,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand header__text" style="color: #303030" href="index.do">Up-Stream</a>
+  <a class="navbar-brand header__text" style="color: #303030" href="index.do">
+           <img alt="Up-Stream" src="css/logo.png"
+         width="150" height="70"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -20,16 +22,16 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" style="color: #303030" href="getService.do">Services</a>
+        <a class="nav-link" href="getService.do">Services</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link header__text" style="color: #303030" href="#">Top Rated Content</a>
+        <a class="nav-link header__text"  href="#">Top Rated Content</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link header__text" style="color: #303030" href="#">About</a>
+        <a class="nav-link header__text" href="#">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link header__text" style="color: #303030" href="login.do">Log in</a>
+        <a class="nav-link header__text" href="login.do">Log in</a>
       </li>
     </ul>
   
