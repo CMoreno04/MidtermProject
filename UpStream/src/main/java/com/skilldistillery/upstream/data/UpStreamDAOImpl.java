@@ -110,5 +110,13 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return user;
 	}
+//	@Override
+//	public int getTotalOfServicesByUser(int idIn) {
+//		User user = em.find(User.class, idIn);
+//
+//		int total = 0;
+//
+//		return 0;
+//	}
 
 }

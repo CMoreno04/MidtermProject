@@ -27,4 +27,6 @@ public interface UpStreamDAO {
 
 	public User checkUserRegistration(User userIn);
 
+//	public int getTotalOfServicesByUser(int idIn);
+	public StreamService getService(int id);
 }
