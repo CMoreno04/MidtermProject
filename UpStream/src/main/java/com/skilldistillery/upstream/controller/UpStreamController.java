@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.UpStreamDAO;
@@ -34,9 +35,20 @@ public class UpStreamController {
 		return "index";
 	}
 	
-//	@RequestMapping(path = "**.do", method = RequestMethod.GET)
-//	  public String get_Something() {
-//
-//	    return null;
-//	  }
+	@RequestMapping(path = "getService.do", method = RequestMethod.GET) 
+	public ModelAndView getService(int id) {
+		ModelAndView mv = new ModelAndView();
+		StreamService serv = dao.getService(1);	
+		List<Content> content = null;
+		List<StreamService> services = dao.getServices();
+		List<List<Content>> contentByService = new ArrayList<List<Content>>();
+		for (StreamService streamService : services) {
+			content = dao.getTopContent(streamService.getId());
+			contentByService.add(content);
+		}
+		mv.addObject("services", contentByService);
+		mv.addObject("serv", serv);
+		mv.setViewName("service");
+		return mv;
+	}
 }
