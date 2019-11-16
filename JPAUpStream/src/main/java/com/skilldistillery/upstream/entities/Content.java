@@ -30,7 +30,7 @@ public class Content {
 	@ManyToOne
 	@JoinColumn(name = "image_id")
 	private Media image;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "video_id")
 	private Media video;
@@ -38,23 +38,26 @@ public class Content {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "content_genre", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	private List<Genre> genres;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "service_id")
 	private Service service;
 
-	// C O N S T R U C T O R S
+	@ManyToMany(mappedBy = "content")
+	private List<RatingReview> ratingReviews;
+	
+	@ManyToMany(mappedBy = "userContent")
+	private List<UserContent> userContent;
 
+	// C O N S T R U C T O R S
 
 	public Content() {
 		super();
 	}
 
-	
 
-	// G E T T E R S A N D S E T T E R S
-	
-	public Content(String title, String description, Media image, Media video, List<Genre> genres, Service service) {
+	public Content(String title, String description, Media image, Media video, List<Genre> genres, Service service,
+			List<RatingReview> ratingReviews, List<UserContent> userContent) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -62,14 +65,17 @@ public class Content {
 		this.video = video;
 		this.genres = genres;
 		this.service = service;
+		this.ratingReviews = ratingReviews;
+		this.userContent = userContent;
 	}
 
 
+	// G E T T E R S A N D S E T T E R S
 
 	public Service getService() {
 		return service;
 	}
-	
+
 	public void setService(Service service) {
 		this.service = service;
 	}
@@ -105,37 +111,53 @@ public class Content {
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
 	}
-	
+
 	public Media getImage() {
 		return image;
 	}
-	
+
 	public void setImage(Media image) {
 		this.image = image;
 	}
-	
+
 	public Media getVideo() {
 		return video;
 	}
-	
+
 	public void setVideo(Media video) {
 		this.video = video;
 	}
+
+
+	public List<RatingReview> getRatingReviews() {
+		return ratingReviews;
+	}
+
+	public void setRatingReviews(List<RatingReview> ratingReviews) {
+		this.ratingReviews = ratingReviews;
+	}
 	
 	
 
+	public List<UserContent> getUserContent() {
+		return userContent;
+	}
 
-	// T O S T R I N G
 
+	public void setUserContent(List<UserContent> userContent) {
+		this.userContent = userContent;
+	}
+
+	// T O  S T R I N G
 
 	@Override
 	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", description=" + description 
-				+ ", image=" + image + ", video=" + video + ", genres=" + genres + ", service=" + service + "]";
+		return "Content [id=" + id + ", title=" + title + ", description=" + description + ", image=" + image
+				+ ", video=" + video + ", genres=" + genres + ", service=" + service + ", ratingReviews="
+				+ ratingReviews + "]";
 	}
-
-	// H A S H  A N D  E Q A L S
-
+	
+	// H A S H  A N D  E Q U A L S
 
 	@Override
 	public int hashCode() {
@@ -145,13 +167,13 @@ public class Content {
 		result = prime * result + ((genres == null) ? 0 : genres.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result + ((ratingReviews == null) ? 0 : ratingReviews.hashCode());
 		result = prime * result + ((service == null) ? 0 : service.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((userContent == null) ? 0 : userContent.hashCode());
 		result = prime * result + ((video == null) ? 0 : video.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -179,6 +201,11 @@ public class Content {
 				return false;
 		} else if (!image.equals(other.image))
 			return false;
+		if (ratingReviews == null) {
+			if (other.ratingReviews != null)
+				return false;
+		} else if (!ratingReviews.equals(other.ratingReviews))
+			return false;
 		if (service == null) {
 			if (other.service != null)
 				return false;
@@ -189,6 +216,11 @@ public class Content {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
+		if (userContent == null) {
+			if (other.userContent != null)
+				return false;
+		} else if (!userContent.equals(other.userContent))
+			return false;
 		if (video == null) {
 			if (other.video != null)
 				return false;
@@ -196,7 +228,9 @@ public class Content {
 			return false;
 		return true;
 	}
+	
+
 
 	
-	
+
 }

@@ -5,62 +5,62 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity(name="user_content")
+@Entity(name = "user_content")
 public class UserContent {
 	// F I E L D S
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "content_id")
-	private int contentId;
-	
-	@Column(name = "user_id")
-	private int userId;
-	
+	@ManyToOne
+	@JoinColumn(name = "content_id")
+	private Content userContent;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	@Column
 	private boolean favorites;
 
-	
 	// C O N S T R U C T O R S
-	
-	public UserContent() {}
-		
-	public UserContent(int id, int contentId, int userId, boolean favorites) {
+
+	public UserContent() {
 		super();
-		this.id = id;
-		this.contentId = contentId;
-		this.userId = userId;
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserContent(Content content, User user, boolean favorites) {
+		super();
+		this.userContent = content;
+		this.user = user;
 		this.favorites = favorites;
 	}
-	
-	
-	// G E T T E R S   A N D   S E T T E R S
+
+	// G E T T E R S A N D S E T T E R S
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Content getUserContent() {
+		return userContent;
 	}
 
-	public int getContentId() {
-		return contentId;
+	public void setUserContent(Content content) {
+		this.userContent = content;
 	}
 
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public User getUser() {
+		return user;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public boolean isFavorites() {
@@ -70,10 +70,52 @@ public class UserContent {
 	public void setFavorites(boolean favorites) {
 		this.favorites = favorites;
 	}
-	
 
-	// H A S H   A N D   E Q A U A L S
-	
-	
-	// T O  S T R I N G
+	// T O S T R I N G
+
+	@Override
+	public String toString() {
+		return "UserContent [id=" + id + ", content=" + userContent + ", user=" + user + ", favorites=" + favorites
+				+ "]";
+	}
+
+	// H A S H A N D E Q U A L S
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((userContent == null) ? 0 : userContent.hashCode());
+		result = prime * result + (favorites ? 1231 : 1237);
+		result = prime * result + id;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserContent other = (UserContent) obj;
+		if (userContent == null) {
+			if (other.userContent != null)
+				return false;
+		} else if (!userContent.equals(other.userContent))
+			return false;
+		if (favorites != other.favorites)
+			return false;
+		if (id != other.id)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
 }
