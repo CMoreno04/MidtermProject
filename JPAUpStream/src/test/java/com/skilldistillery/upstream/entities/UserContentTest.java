@@ -2,6 +2,7 @@ package com.skilldistillery.upstream.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 
 class UserContentTest {
 	private static EntityManagerFactory emf;
@@ -46,14 +48,14 @@ class UserContentTest {
 	@DisplayName("Checks content id")
 	void test1() {
 		assertNotNull(uc);
-		assertEquals(1, uc.getContentId()); 
+		assertEquals(1, uc.getId()); 
 	}
 	
 	@Test
 	@DisplayName("Checks user id")
 	void test2() {
 		assertNotNull(uc);
-		assertEquals(4, uc.getUserId()); 
+		assertEquals(4, uc.getUser().getId()); 
 	}
 	
 	@Test
