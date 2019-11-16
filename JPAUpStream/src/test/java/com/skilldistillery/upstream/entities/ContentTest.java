@@ -89,5 +89,11 @@ class ContentTest {
 	void get_reviews() {
 		assertEquals("Creepy and imaginative", content.getRatingReviews().get(0).getComment()); 
 	}
+	
+	@Test
+	@DisplayName("get top content")
+	void get_top_content() {
+		assertEquals(4, content.getRatingReviews().get(0).getRating()); 
+	}
 
 }
