@@ -3,6 +3,11 @@
 /*************************************
 * HOME PAGE SERVICE DIV and CONTENTS *
 **************************************/
+.header__text {
+	color: #303030;
+}
+
+
 
 .items {
 	display: inline-block;
