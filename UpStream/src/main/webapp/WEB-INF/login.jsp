@@ -9,19 +9,22 @@
 <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-	<form>
-		<fieldset>
-			<legend>Log In</legend>
-			<div class="form-group">
-				<label for="exampleInputEmail1">Username</label> <input
-					type="text" class="form-control" id="inputUserName" placeholder="Enter username"> 
-			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">Password</label> <input
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="Password">
-			</div>
-		</fieldset>
+
+	<h1 class="header">Log In</h1>
+	<form action="login.do" class="header" method="get">
+		<div class="container">
+		<tr>
+			<td><label for="uname"><b>Username</b></label> <input type="text"
+				placeholder="Enter Username" name="uname" required></td>
+		</tr>
+		<tr>
+				
+			<td><label for="psw"><b>Password</b></label> <input type="password"
+				placeholder="Enter Password" name="psw" required> </td>
+		</tr>
+			<button type="submit">Login</button>
+
+		</div>
 	</form>
 </body>
 </html>

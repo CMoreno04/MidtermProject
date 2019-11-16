@@ -3,7 +3,6 @@ package com.skilldistillery.upstream.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.StreamService;
+import com.skilldistillery.upstream.entities.User;
 
 @Controller
 public class UpStreamController {
@@ -62,4 +62,12 @@ public class UpStreamController {
 		mv.setViewName("ratingsort");
 		return mv;
 	}
+	
+	@RequestMapping( path = "login.do", method = RequestMethod.GET)
+	public ModelAndView login() {
+		User u = new User();
+		ModelAndView mv = new ModelAndView("login", "user", u);
+		return mv;
+		
+	}	
 }
