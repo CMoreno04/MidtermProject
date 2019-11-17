@@ -65,7 +65,7 @@ public class UpStreamController {
 				rev.add(0.0);
 			}
 		}
-		mv.addObject("rating", contentByService);
+		mv.addObject("rating", rev);
 		
 		mv.addObject("content", contentByService);
 		mv.addObject("serv", serv);
