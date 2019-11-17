@@ -67,7 +67,7 @@ public class UpStreamController {
 		List<RatingReview> contentByService = new ArrayList<RatingReview>();
 		List<List<Content>> contents = new ArrayList<List<Content>>();
 		List<Content> conts = new ArrayList<Content>();
-		
+	
 		for (int i = 0; i < services.size(); i++) {
 			
 			contentByService = dao.getTopRatedByService(services.get(i).getId());
@@ -84,12 +84,12 @@ public class UpStreamController {
 		return mv;
 		}
 	
-	@RequestMapping(path = "getContents.do", method = RequestMethod.POST)
-	public ModelAndView getContent(int id) {
+	@RequestMapping(path = "getContents.do", method = RequestMethod.GET)
+	public ModelAndView getContents(int id) {
 		ModelAndView mv = new ModelAndView();
-//		Content content = dao.getContent(1);
-//		mv.addObject("contents", content);
-		mv.setViewName("index");
+		Content content = dao.getContent(id);
+		mv.addObject("contents", content);
+		mv.setViewName("contentpage");
 		return mv;
 	}
 	

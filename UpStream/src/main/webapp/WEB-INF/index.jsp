@@ -20,54 +20,28 @@
 <%@ include file="nav.jsp" %>
 
 <br>
-
-<p><a href="topContByServ.do?id=1" style="text-decoration: none"> Get Content By Rating (under construction)</a></p>
+<!-- 
+<p><a href="topContByServ.do?id=1" style="text-decoration: none"> Get Content By Rating (under construction)</a></p> -->
 
 <c:forEach items="${services}" var="service" varStatus="loop" begin="0" end = "10">
 <!-- SERVICE DIV: new DIV for each service -->
-	
-<!-- DIV for service name AND LINK (needs to be added in a tag)  -->
-	<div>
-	<br>
+	<div class="titlebox">
 		<c:forEach items="${serviceType}" var="typename" begin="${loop.index}" end = "${loop.index}">
-		<p><a href="getService.do?id=${loop.index+1}" style="text-decoration: none"> ${typename.name} </a></p>
+		<h4 class="servicetitle"><a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> ${typename.name} </a></h4>
 		</c:forEach>
 	</div>
 
-
+	<!-- DIV for individual content cards -->
 	<div class="items">
 		<c:forEach items="${service}" var="content" begin="0" end = "10">
-<!-- DIV for individual content cards -->
-    		<a href="getContents.do?id=1" style="text-decoration: none"> 
-    		
-<!--     		
-    		<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div> -->
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    		
-    			<div class="item" style="background-image: url(${content.image.url})">
-    			
-    			<div class="cardimg"> ${content.title} </div>
-    			
-    			
-    			
+    		<a href="getContents.do?id=${content.id}" style="text-decoration: none">     		
+    			<div class="item">
+    				<div class="cardimg" style="background-image: url(${content.image.url})"></div>
+    				<div class="cardtxt">${content.title}</div>
     			</div>
-    		
     		</a>
-    		
     	</c:forEach>
-	</div>
-		
+	</div>	
 </c:forEach>
 
 

@@ -63,10 +63,8 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	
 	public Content getContent(int id) {
 		String query = "SELECT c FROM Content c WHERE c.id = :cid";
-//		List<Content> cont = em.createQuery(query, Content.class).setParameter(":cid", id).getResultList();
-//		return cont.get(0);
-		Content cont = em.createQuery(query, Content.class).setParameter(":cid", id).getSingleResult();
-		return cont;
+		List<Content> cont = em.createQuery(query, Content.class).setParameter("cid", id).getResultList();
+		return cont.get(0);
 	}
 
 	public double getTotalOfServicesByUser(int idIn) {
