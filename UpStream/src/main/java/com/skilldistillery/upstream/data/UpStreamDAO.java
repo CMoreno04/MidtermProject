@@ -43,5 +43,5 @@ public interface UpStreamDAO {
 	
 	public List<StreamService> getUserServices(User user);
 	
-	public List<Content> getUserContent(User user);
+	public List<Content> getUserContent(int idIn);
 }

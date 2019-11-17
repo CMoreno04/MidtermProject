@@ -60,7 +60,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return reviews;
 	}
-	
+
 	public Content getContent(int id) {
 		String query = "SELECT c FROM Content c WHERE c.id = :cid";
 		List<Content> cont = em.createQuery(query, Content.class).setParameter("cid", id).getResultList();
@@ -90,9 +90,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return favorites;
 	}
+
 	public List<Content> getWishListOfUser(int idIn) {
 		List<Content> wishlist = new ArrayList<Content>();
-		
+
 		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
 			if (content.isWishlist()) {
 				wishlist.add(content.getUserContent());
@@ -193,14 +194,14 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		String jpql = "SELECT u FROM User u";
 
 		List<User> userCheck = em.createQuery(jpql, User.class).getResultList();
-		
+
 		for (User userInDB : userCheck) {
-			if(userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
-				
+			if (userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
+
 				return false;
 			}
 		}
-		
+
 		return true;
 
 	}
@@ -216,9 +217,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public List<Content> getUserContent(User user) {
+	public List<Content> getUserContent(int idIn) {
 		List<Content> userContent = new ArrayList<Content>();
-
+		
+		User user = em.find(User.class, idIn);
+		
 		for (UserContent content : user.getUserCont()) {
 			userContent.add(content.getUserContent());
 		}
