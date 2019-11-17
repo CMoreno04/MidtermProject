@@ -10749,3 +10749,17 @@ a.text-dark:hover, a.text-dark:focus {
 .list-group-item-action .list-group-item-heading {
   color: #fff;
 }
+.nav-link {
+	color: #303030 !important;
+}
+.navbar-brand {
+	font-family: -apple-system;
+	font-weight: bold;
+	font-size: large;
+}
+button{
+	background: #00bc8c;
+}
+.header{
+	color: #00bc8c;
+}

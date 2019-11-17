@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +33,17 @@
 	</div>
 		
 </c:forEach>
+
+
+
+<%-- <c:forEach items="${contents}" var="cont" varStatus="loop" begin="0" end = "10">
+	${cont.content.title}
+	
+</c:forEach>
+ --%>
+
+
+
 
 
  <script>

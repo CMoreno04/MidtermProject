@@ -53,11 +53,18 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	public List<RatingReview> getTopRatedByService(int idIn) {
+
 		String jpql = "SELECT r FROM RatingReview r WHERE r.content.service.id=:id ORDER BY r.rating DESC";
 
 		List<RatingReview> reviews = em.createQuery(jpql, RatingReview.class).setParameter("id", idIn).getResultList();
 
 		return reviews;
+	}
+	
+	public Content getContent(int id) {
+		String query = "SELECT c FROM Content c WHERE c.id = :cid";
+		List<Content> cont = em.createQuery(query, Content.class).setParameter("cid", id).getResultList();
+		return cont.get(0);
 	}
 
 	public double getTotalOfServicesByUser(int idIn) {
@@ -120,13 +127,65 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return user;
 	}
-//	@Override
-//	public int getTotalOfServicesByUser(int idIn) {
-//		User user = em.find(User.class, idIn);
-//
-//		int total = 0;
-//
-//		return 0;
-//	}
+
+	@Override
+	public boolean disableUser(User userIn) {
+
+		try {
+			User user = em.find(User.class, userIn.getId());
+
+			user.setActive(false);
+
+			em.getTransaction().begin();
+
+			em.persist(user);
+
+			em.getTransaction().commit();
+
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+
+	@Override
+	public User addUser(User user) {
+
+		em.getTransaction().begin();
+
+		em.persist(user);
+
+		em.getTransaction().commit();
+
+		return user;
+	}
+
+	@Override
+	public boolean removeUser(User user) {
+
+		try {
+			
+			em.getTransaction().begin();
+			
+			em.remove(em.find(User.class, user.getId()));
+
+			em.getTransaction().commit();
+			
+			return true;
+
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
 
 }
