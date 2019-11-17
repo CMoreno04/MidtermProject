@@ -87,7 +87,6 @@ public class UpStreamController {
 			return mv;
 		}
 //		mv.addObject("user", loggedInUser);
-		
 		mv.setViewName("profile");
 	
 		return mv;
