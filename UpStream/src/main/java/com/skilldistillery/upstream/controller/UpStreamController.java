@@ -84,10 +84,27 @@ public class UpStreamController {
 		return mv;
 		}
 	
+	
+	/// NEW STRETCH GOAL ONLY HAVE SO MANY "REVIEWS" ON ONE PAGE BEFORE HAVING TO CLICK A NEXT BUTTON
+	//THIS WAS DONE IN THE SESSIONS LABS
 	@RequestMapping(path = "getContents.do", method = RequestMethod.GET)
 	public ModelAndView getContents(int id) {
 		ModelAndView mv = new ModelAndView();
 		Content content = dao.getContent(id);
+		double total = 0;
+		int i = 0;
+		for (i = 0; i < content.getRatingReviews().size(); i++) {
+			total += content.getRatingReviews().get(i).getRating();
+		}
+		if (i != 0) {
+			mv.addObject("average", total/i);
+		} else {
+			mv.addObject("average", "Content has not been rated yet.");
+		}
+		
+		List<RatingReview> reviews = content.getRatingReviews();
+		
+		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.setViewName("contentpage");
 		return mv;

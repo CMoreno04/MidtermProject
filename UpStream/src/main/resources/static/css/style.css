@@ -1,16 +1,16 @@
 @charset "UTF-8";
 
 body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url(https://cdn.pixabay.com/photo/2017/10/19/16/54/night-2868370_1280.jpg);
-    
-    
-/*    background-image: url(https://images.pexels.com/photos/2409111/pexels-photo-2409111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);*/
-    		background-size: cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url(/css/background.jpg);
+    background-size: cover;
 	background-position: center;
-      background-repeat: no-repeat;
-  background-attachment: fixed;
+    background-repeat: no-repeat;
+  	background-attachment: fixed;
 }
 
+.customdiv {
+	border-radius: 10px;
+}
 
 /*************************************
 * HOME PAGE SERVICE DIV and CONTENTS *
@@ -21,7 +21,7 @@ body {
 
 .items {
 	display: inline-block;
-	padding: 10px 0 20px 0;
+	padding: 10px 0 17px 0;
 	margin-bottom: 5px;
 	width: 100%;
 	overflow-x: hidden;
@@ -86,7 +86,6 @@ body {
 	width: 30vh;
     word-break:break-all;
     overflow: hidden;
-    border-ra
 }
 
 .titlebox {
@@ -95,6 +94,46 @@ body {
 
 .servicetitle {
 	color: #999;
+}
+
+
+/***********************
+*    CONTENT PAGE      *
+***********************/
+.iframe-container{
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; 
+  height: 0;
+}
+.iframe-container iframe{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.img-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; 
+  height: 0;
+}
+
+.img-container img {
+	position: absolute;
+	width: 100%;
+} 
+
+.carousel-control-prev {
+	height:0;
+	top:50%;
+}
+
+.carousel-control-next {
+	height:0;
+    top:50%;
 }
 
 /***********************

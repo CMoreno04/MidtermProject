@@ -45,9 +45,9 @@
     </c:forEach>
 </div> 
 
-<form action="review.do" method="POST" class="container">
+<!-- <form action="review.do" method="POST" class="container">
 
-<!-- Review Form -->
+Review Form
 <h3>Review</h3>
 Rating: <select rating="rating">
 <option value="1">1</option>
@@ -61,7 +61,7 @@ Rating: <select rating="rating">
 
 </textarea>
 <button type="button" class="btn btn-success">Submit</button>
-</form>
+</form> -->
 
 </body>
 </html>
