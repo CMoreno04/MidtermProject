@@ -40,17 +40,12 @@ public interface UpStreamDAO {
 
 	public List<Content> getUserContent(int idIn);
 
-<<<<<<< HEAD
 	// LogIn
 	
 	public User checkUserRegistration(User userIn);
 
 	public boolean checkIsUniqueUser(User user);
-=======
 
-	
-//	public List<Content> getWishListOfUser(int idIn);
->>>>>>> 11e43fc482a669d6d764485690525d3b56d3527e
 
 	// Admin
 	
@@ -59,14 +54,6 @@ public interface UpStreamDAO {
 	public User addUser(User user);
 
 	public boolean removeUser(User user);
-<<<<<<< HEAD
 
-=======
-	
 
-	
-	public List<StreamService> getUserServices(User user);
-	
-	public List<Content> getUserContent(int idIn);
->>>>>>> 11e43fc482a669d6d764485690525d3b56d3527e
 }

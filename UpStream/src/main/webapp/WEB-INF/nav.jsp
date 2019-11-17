@@ -30,7 +30,7 @@
 						Rated Content</a></li>
 				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="login.do">Log In</a>
+				<li class="nav-item"><a class="nav-link" href="login.do">LogIn</a>
 				</li>
 			</ul>
 
