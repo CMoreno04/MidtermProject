@@ -98,7 +98,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		User user;
 
 		try {
-			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn OR u.password LIKE :passwordIn";
 
 			user = em.createQuery(jpql, User.class).setParameter("usernameIn", userIn.getUsername())
 					.setParameter("passwordIn", userIn.getPassword()).getSingleResult();
@@ -153,13 +153,13 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	public boolean removeUser(User user) {
 
 		try {
-			
+
 			em.getTransaction().begin();
-			
+
 			em.remove(em.find(User.class, user.getId()));
 
 			em.getTransaction().commit();
-			
+
 			return true;
 
 		}
@@ -170,6 +170,43 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			return false;
 		}
 
+	}
+
+	@Override
+	public boolean checkIsUniqueUser(User user) {
+		String jpql = "SELECT u FROM User u";
+
+		List<User> userCheck = em.createQuery(jpql, User.class).getResultList();
+		
+		for (User userInDB : userCheck) {
+			if(userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
+				
+				return false;
+			}
+		}
+		
+		return true;
+
+	}
+
+	@Override
+	public List<StreamService> getUserServices(User user) {
+		List<StreamService> userServices = new ArrayList<StreamService>();
+
+		for (UserService service : user.getUserService()) {
+			userServices.add(service.getService());
+		}
+		return userServices;
+	}
+
+	@Override
+	public List<Content> getUserContent(User user) {
+		List<Content> userContent = new ArrayList<Content>();
+
+		for (UserContent content : user.getUserCont()) {
+			userContent.add(content.getUserContent());
+		}
+		return userContent;
 	}
 
 }

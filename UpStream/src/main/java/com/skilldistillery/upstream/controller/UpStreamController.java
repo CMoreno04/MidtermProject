@@ -24,10 +24,10 @@ import com.skilldistillery.upstream.entities.User;
 public class UpStreamController {
 
 	@Autowired
-	private UpStreamDAO dao; 
+	private UpStreamDAO dao;
 
-	@RequestMapping(path = {"/", "index.do"})
-	public String getFilm(Model model) {		
+	@RequestMapping(path = { "/", "index.do" })
+	public String getFilm(Model model) {
 		List<Content> content = null;
 		List<StreamService> services = dao.getServices();
 		List<List<Content>> contentByService = new ArrayList<List<Content>>();
@@ -39,11 +39,11 @@ public class UpStreamController {
 		model.addAttribute("serviceType", services);
 		return "index";
 	}
-	
-	@RequestMapping(path = "getService.do", method = RequestMethod.GET) 
+
+	@RequestMapping(path = "getService.do", method = RequestMethod.GET)
 	public ModelAndView getService(int id) {
 		ModelAndView mv = new ModelAndView();
-		StreamService serv = dao.getService(id);	
+		StreamService serv = dao.getService(id);
 		List<Content> content = null;
 		List<StreamService> services = dao.getServices();
 		List<List<Content>> contentByService = new ArrayList<List<Content>>();
@@ -56,30 +56,30 @@ public class UpStreamController {
 		mv.setViewName("service");
 		return mv;
 	}
-	
 
 	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
-	public ModelAndView getContentByRating(int id) {		
+	public ModelAndView getContentByRating(int id) {
 		ModelAndView mv = new ModelAndView();
-		List<RatingReview> topContent= dao.getTopRatedByService(id);		
+		List<RatingReview> topContent = dao.getTopRatedByService(id);
 		mv.addObject("content", topContent);
 		mv.setViewName("ratingsort");
 		return mv;
 	}
-	
-	@RequestMapping( path = "login", method = RequestMethod.GET)
+
+	@RequestMapping(path = "login", method = RequestMethod.GET)
 	public ModelAndView login() {
 		User u = new User();
 		ModelAndView mv = new ModelAndView("login", "user", u);
 		return mv;
-		
+
 	}
-	@RequestMapping( path = "login.do", method = RequestMethod.POST)
+
+	@RequestMapping(path = "login.do", method = RequestMethod.POST)
 	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		User loggedInUser = dao.checkUserRegistration(user);
-		
-		if(loggedInUser == null) {
+
+		if (loggedInUser == null) {
 			errors.rejectValue("user", "error.user", "Username and/or Password do not match our system");
 		}
 		if (errors.getErrorCount() != 0) {
@@ -87,16 +87,17 @@ public class UpStreamController {
 			return mv;
 		}
 //		mv.addObject("user", loggedInUser);
-		
-		mv.setViewName("profile");
-	
-		return mv;
-		
-	}
-	
-	@RequestMapping(path = "registration.do", method = RequestMethod.GET)
-	public String registerNewUser(User user) {
 
+		mv.setViewName("profile");
+
+		return mv;
+
+	}
+
+	@RequestMapping(path = "registration.do", method = RequestMethod.GET)
+	public String registerNewUser(User user, Model model) {
+		model.addAttribute("user", user);
+		
 		return "register";
 	}
 

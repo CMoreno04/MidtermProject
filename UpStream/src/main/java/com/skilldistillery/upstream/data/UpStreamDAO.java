@@ -32,4 +32,10 @@ public interface UpStreamDAO {
 	public User addUser(User user);
 	
 	public boolean removeUser(User user);
+	
+	public boolean checkIsUniqueUser(User user);
+	
+	public List<StreamService> getUserServices(User user);
+	
+	public List<Content> getUserContent(User user);
 }
