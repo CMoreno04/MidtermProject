@@ -128,49 +128,11 @@ public class UpStreamController {
 	}
 	
 	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
-	public ModelAndView getServices(int id) {
+	public ModelAndView getServices() {
 		ModelAndView mv = new ModelAndView();
 		List<StreamService> servs = dao.getServices();
 		mv.addObject("serv", servs);
 		mv.setViewName("servicespage");
 		return mv;
 	}
-	
-
-	@RequestMapping( path = "login", method = RequestMethod.GET)
-
-	public ModelAndView login() {
-		User u = new User();
-		ModelAndView mv = new ModelAndView("login", "user", u);
-		return mv;
-		
-	}
-	
-	@RequestMapping( path = "login.do", method = RequestMethod.POST)
-
-	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
-		ModelAndView mv = new ModelAndView();
-		User loggedInUser = dao.checkUserRegistration(user);
-		
-		if(loggedInUser == null) {
-			errors.rejectValue("user", "error.user", "Username and/or Password do not match our system");
-		}
-		if (errors.getErrorCount() != 0) {
-			mv.setViewName("login");
-			return mv;
-		}
-//		mv.addObject("user", loggedInUser);
-		
-		mv.setViewName("profile");
-	
-		return mv;
-		
-	}
-	
-	@RequestMapping(path = "registration.do", method = RequestMethod.GET)
-	public String registerNewUser(User user) {
-
-		return "register";
-	}
-
 }

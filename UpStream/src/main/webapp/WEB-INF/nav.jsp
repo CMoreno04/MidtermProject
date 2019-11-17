@@ -24,14 +24,14 @@
 
 		<div class="collapse navbar-collapse" id="navbarColor02">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="getService.do">Services</a>
+				<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 				</li>
 				<li class="nav-item"><a class="nav-link header__text" href="#">Top
 						Rated Content</a></li>
 				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
 				</li>
-				<li class="nav-item"><a class="nav-link header__text"
-					href="login.do">Log in</a></li>
+				<li class="nav-item"><a class="nav-link" href="login.do">Log In</a>
+				</li>
 			</ul>
 
 
