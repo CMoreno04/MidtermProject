@@ -127,14 +127,50 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			user.setActive(false);
 
 			em.getTransaction().begin();
-			
+
 			em.persist(user);
+
+			em.getTransaction().commit();
+
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+
+	@Override
+	public User addUser(User user) {
+
+		em.getTransaction().begin();
+
+		em.persist(user);
+
+		em.getTransaction().commit();
+
+		return user;
+	}
+
+	@Override
+	public boolean removeUser(User user) {
+
+		try {
 			
+			em.getTransaction().begin();
+			
+			em.remove(em.find(User.class, user.getId()));
+
 			em.getTransaction().commit();
 			
 			return true;
-			
-		} catch (Exception e) {
+
+		}
+
+		catch (Exception e) {
 			e.printStackTrace();
 
 			return false;
