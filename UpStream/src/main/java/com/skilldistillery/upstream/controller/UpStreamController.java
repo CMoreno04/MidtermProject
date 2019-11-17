@@ -3,7 +3,6 @@ package com.skilldistillery.upstream.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -52,6 +51,22 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
+		List<Double> rev = new ArrayList<Double>();
+		int i = 0;
+		double total = 0;
+		for (int j = 0; j < content.size(); j++) {
+//			List<RatingReview> rr = content.get(j).getRatingReviews();
+			for (i = 0; i < content.get(j).getRatingReviews().size(); i++) {
+				total += content.get(j).getRatingReviews().get(i).getRating();
+			}
+			if (j != 0) {
+				rev.add(total/j);
+			} else {
+				rev.add(0.0);
+			}
+		}
+		mv.addObject("rating", contentByService);
+		
 		mv.addObject("content", contentByService);
 		mv.addObject("serv", serv);
 		mv.setViewName("service");
@@ -62,6 +77,8 @@ public class UpStreamController {
 	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
 	public ModelAndView getContentByRating(int id) {		
 		ModelAndView mv = new ModelAndView();
+		List<RatingReview> topContent = dao.getTopRatedByService(id);
+		mv.addObject("content", topContent);
 		Content content = null;
 		List<StreamService> services = dao.getServices();
 		List<RatingReview> contentByService = new ArrayList<RatingReview>();
@@ -110,8 +127,18 @@ public class UpStreamController {
 		return mv;
 	}
 	
+	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
+	public ModelAndView getServices(int id) {
+		ModelAndView mv = new ModelAndView();
+		List<StreamService> servs = dao.getServices();
+		mv.addObject("serv", servs);
+		mv.setViewName("servicespage");
+		return mv;
+	}
+	
 
 	@RequestMapping( path = "login", method = RequestMethod.GET)
+
 	public ModelAndView login() {
 		User u = new User();
 		ModelAndView mv = new ModelAndView("login", "user", u);
@@ -120,6 +147,7 @@ public class UpStreamController {
 	}
 	
 	@RequestMapping( path = "login.do", method = RequestMethod.POST)
+
 	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		User loggedInUser = dao.checkUserRegistration(user);

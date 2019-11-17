@@ -30,7 +30,7 @@ public interface UpStreamDAO {
 
 	public User checkUserRegistration(User userIn);
 	
-	public List<Content> getWishListOfUser(int idIn);
+//	public List<Content> getWishListOfUser(int idIn);
 
 //	public int getTotalOfServicesByUser(int idIn);
 	public boolean disableUser(User userIn);
@@ -38,4 +38,10 @@ public interface UpStreamDAO {
 	public User addUser(User user);
 	
 	public boolean removeUser(User user);
+	
+	public boolean checkIsUniqueUser(User user);
+	
+	public List<StreamService> getUserServices(User user);
+	
+	public List<Content> getUserContent(int idIn);
 }
