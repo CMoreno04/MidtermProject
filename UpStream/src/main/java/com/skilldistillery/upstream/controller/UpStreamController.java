@@ -51,6 +51,22 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
+		List<Double> rev = new ArrayList<Double>();
+		int i = 0;
+		double total = 0;
+		for (int j = 0; j < content.size(); j++) {
+//			List<RatingReview> rr = content.get(j).getRatingReviews();
+			for (i = 0; i < content.get(j).getRatingReviews().size(); i++) {
+				total += content.get(j).getRatingReviews().get(i).getRating();
+			}
+			if (j != 0) {
+				rev.add(total/j);
+			} else {
+				rev.add(0.0);
+			}
+		}
+		mv.addObject("rating", contentByService);
+		
 		mv.addObject("content", contentByService);
 		mv.addObject("serv", serv);
 		mv.setViewName("service");
@@ -111,42 +127,15 @@ public class UpStreamController {
 		return mv;
 	}
 	
-
-	@RequestMapping( path = "login.do", method = RequestMethod.GET)
-
-	public ModelAndView login() {
-		User u = new User();
-		ModelAndView mv = new ModelAndView("login", "user", u);
-		return mv;
-		
-	}
-	
-	
-	@RequestMapping( path = "login.do", method = RequestMethod.POST)
-
-	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
+	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
+	public ModelAndView getServices(int id) {
 		ModelAndView mv = new ModelAndView();
-		User loggedInUser = dao.checkUserRegistration(user);
-		
-		if(loggedInUser == null) {
-			errors.rejectValue("user", "error.user", "Username and/or Password do not match our system");
-		}
-		if (errors.getErrorCount() != 0) {
-			mv.setViewName("login");
-			return mv;
-		}
-//		mv.addObject("user", loggedInUser);
-		
-		mv.setViewName("profile");
-	
+		List<StreamService> servs = dao.getServices();
+		mv.addObject("serv", servs);
+		mv.setViewName("servicespage");
 		return mv;
-		
 	}
 	
-	@RequestMapping(path = "registration.do", method = RequestMethod.GET)
-	public String registerNewUser(User user) {
 
-		return "register";
-	}
 
 }
