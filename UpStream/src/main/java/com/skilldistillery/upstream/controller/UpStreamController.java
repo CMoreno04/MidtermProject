@@ -93,4 +93,11 @@ public class UpStreamController {
 		return mv;
 		
 	}
+	
+	@RequestMapping(path = "registration.do", method = RequestMethod.GET)
+	public String registerNewUser(User user) {
+
+		return "register";
+	}
+
 }

@@ -26,8 +26,10 @@ public interface UpStreamDAO {
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn);
 
 	public User checkUserRegistration(User userIn);
-	
+
 	public boolean disableUser(User userIn);
 
-
+	public User addUser(User user);
+	
+	public boolean removeUser(User user);
 }
