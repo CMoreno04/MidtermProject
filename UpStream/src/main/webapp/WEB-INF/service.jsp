@@ -33,9 +33,14 @@
   		<th scope="col" class="col-3">Add</th>
   		
     <c:forEach items="${details}" var="indivContent">
-  	<tr class="d-flex" scope="row"> 
-  		<td class="col-6">${indivContent.title}</td>
-  		<td class="col-3">rating</td>
+  	<tr class="d-flex"> 
+  		<td class="col-6"> <a href="getContents.do?id=${indivContent.id}">${indivContent.title}</a></td>
+  		<td class="col-3">
+  		<c:forEach items="${rating}" var="rat" varStatus="loop" begin="${loop.index}" end="${loop.index}">
+  		${rat}
+  		
+  		
+  		      </c:forEach></td>
   		<td class="col-3"><button type="button" class="btn btn-success">add</button></tr>
   	
     
