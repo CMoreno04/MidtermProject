@@ -128,7 +128,7 @@ public class UpStreamController {
 	}
 	
 	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
-	public ModelAndView getServices(int id) {
+	public ModelAndView getServices() {
 		ModelAndView mv = new ModelAndView();
 		List<StreamService> servs = dao.getServices();
 		mv.addObject("serv", servs);
@@ -172,5 +172,4 @@ public class UpStreamController {
 
 		return "register";
 	}
-
 }
