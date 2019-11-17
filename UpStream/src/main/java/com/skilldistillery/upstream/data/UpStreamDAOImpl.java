@@ -1,5 +1,6 @@
 package com.skilldistillery.upstream.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.StreamService;
+import com.skilldistillery.upstream.entities.User;
+import com.skilldistillery.upstream.entities.UserContent;
+import com.skilldistillery.upstream.entities.UserService;
 
 @Transactional
 @Service
@@ -31,10 +35,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		List<StreamService> services = em.createQuery(query, StreamService.class).getResultList();
 		return services;
 	}
-	
+
 	public StreamService getService(int id) {
 		String query = "SELECT s FROM StreamService s where s.id = :sid";
-		List<StreamService> services = em.createQuery(query, StreamService.class).setParameter("sid", id).getResultList();
+		List<StreamService> services = em.createQuery(query, StreamService.class).setParameter("sid", id)
+				.getResultList();
 		return services.get(0);
 	}
 
@@ -48,6 +53,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	public List<RatingReview> getTopRatedByService(int idIn) {
+
 		String jpql = "SELECT r FROM RatingReview r WHERE r.content.service.id=:id ORDER BY r.rating DESC";
 
 		List<RatingReview> reviews = em.createQuery(jpql, RatingReview.class).setParameter("id", idIn).getResultList();
@@ -63,13 +69,79 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return cont;
 	}
 
-//	@Override
-//	public int getTotalOfServicesByUser(int idIn) {
-//		User user = em.find(User.class, idIn);
-//
-//		int total = 0;
-//
-//		return 0;
-//	}
+	public double getTotalOfServicesByUser(int idIn) {
+		double total = 0;
+
+		User user = em.find(User.class, idIn);
+
+		for (UserService service : user.getUserService()) {
+			total += service.getService().getMonthlyPrice();
+		}
+
+		return total;
+	}
+
+	public List<Content> getFavoritesOfUserById(int idIn) {
+		List<Content> favorites = new ArrayList<Content>();
+
+		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
+			if (content.isFavorites()) {
+				favorites.add(content.getUserContent());
+			}
+		}
+
+		return favorites;
+	}
+
+	public List<RatingReview> getReviewsOfUserByUserId(int idIn) {
+		String jpql = "SELECT r FROM RatingReview r WHERE r.userId = :id";
+
+		List<RatingReview> reviews = em.createQuery(jpql, RatingReview.class).setParameter("id", idIn).getResultList();
+
+		return reviews;
+	}
+
+	@Override
+	public User checkUserRegistration(User userIn) {
+		User user;
+
+		try {
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
+
+			user = em.createQuery(jpql, User.class).setParameter("usernameIn", userIn.getUsername())
+					.setParameter("passwordIn", userIn.getPassword()).getSingleResult();
+			user = userIn;
+		}
+
+		catch (Exception e) {
+			user = null;
+		}
+
+		return user;
+	}
+
+	@Override
+	public boolean disableUser(User userIn) {
+
+		try {
+			User user = em.find(User.class, userIn.getId());
+
+			user.setActive(false);
+
+			em.getTransaction().begin();
+			
+			em.persist(user);
+			
+			em.getTransaction().commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
 
 }

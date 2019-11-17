@@ -45,5 +45,23 @@
     </c:forEach>
 </div> 
 
+<form action="review.do" method="POST" class="container">
+
+<!-- Review Form -->
+<h3>Review</h3>
+Rating: <select rating="rating">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+<br>
+<textarea name="review" rows="10" cols= "50">
+
+</textarea>
+<button type="button" class="btn btn-success">Submit</button>
+</form>
+
 </body>
 </html>

@@ -71,6 +71,15 @@ public class UserService {
 		this.currentSubscrib = currentSubscrib;
 	}
 
+	
+	public StreamService getService() {
+		return service;
+	}
+
+	public void setService(StreamService service) {
+		this.service = service;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

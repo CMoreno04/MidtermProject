@@ -3,9 +3,14 @@ package com.skilldistillery.upstream.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +19,7 @@ import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.StreamService;
+import com.skilldistillery.upstream.entities.User;
 
 @Controller
 public class UpStreamController {
@@ -52,7 +58,7 @@ public class UpStreamController {
 		return mv;
 	}
 	
-	//needs to be debubbed presently priting only index(0) - netflix
+
 	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
 	public ModelAndView getContentByRating(int id) {		
 		ModelAndView mv = new ModelAndView();
@@ -87,4 +93,32 @@ public class UpStreamController {
 		return mv;
 	}
 	
+
+	@RequestMapping( path = "login", method = RequestMethod.GET)
+	public ModelAndView login() {
+		User u = new User();
+		ModelAndView mv = new ModelAndView("login", "user", u);
+		return mv;
+		
+	}
+	
+	@RequestMapping( path = "login.do", method = RequestMethod.POST)
+	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
+		ModelAndView mv = new ModelAndView();
+		User loggedInUser = dao.checkUserRegistration(user);
+		
+		if(loggedInUser == null) {
+			errors.rejectValue("user", "error.user", "Username and/or Password do not match our system");
+		}
+		if (errors.getErrorCount() != 0) {
+			mv.setViewName("login");
+			return mv;
+		}
+//		mv.addObject("user", loggedInUser);
+		
+		mv.setViewName("profile");
+	
+		return mv;
+		
+	}
 }
