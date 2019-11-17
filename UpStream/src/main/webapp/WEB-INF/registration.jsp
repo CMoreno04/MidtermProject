@@ -15,7 +15,7 @@
 			<div class="col-xs-6 col-md-4"></div>
 			<div class="col-xs-6 col-md-4 text-center">
 
-				<form:form action="**.do" method="POST" modelAttribute="user">
+				<form:form action="registration.do" method="POST" modelAttribute="user">
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<form:label path="firstName">First Name</form:label>
