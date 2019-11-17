@@ -64,5 +64,12 @@ class UserContentTest {
 		assertNotNull(uc);
 		assertEquals(false, uc.isFavorites()); 
 	}
+	@Test
+	@DisplayName("Checks wishlist")
+	void test4() {
+		assertNotNull(uc);
+		assertEquals(false, uc.isWishlist());
+		
+	}
 	
 }

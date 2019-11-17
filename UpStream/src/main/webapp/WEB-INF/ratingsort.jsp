@@ -35,6 +35,17 @@
 </c:forEach>
 
 
+
+<%-- <c:forEach items="${contents}" var="cont" varStatus="loop" begin="0" end = "10">
+	${cont.content.title}
+	
+</c:forEach>
+ --%>
+
+
+
+
+
  <script>
   const slider = document.querySelector(".items");
   let isDown = false;

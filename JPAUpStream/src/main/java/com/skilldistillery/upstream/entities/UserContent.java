@@ -26,7 +26,9 @@ public class UserContent {
 
 	@Column
 	private boolean favorites;
-
+	
+	@Column
+	private boolean wishlist;
 	// C O N S T R U C T O R S
 
 	public UserContent() {
@@ -34,11 +36,12 @@ public class UserContent {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserContent(Content content, User user, boolean favorites) {
+	public UserContent(Content content, User user, boolean favorites, boolean wishlist) {
 		super();
 		this.userContent = content;
 		this.user = user;
 		this.favorites = favorites;
+		this.wishlist = wishlist;
 	}
 
 	// G E T T E R S A N D S E T T E R S
@@ -71,12 +74,20 @@ public class UserContent {
 		this.favorites = favorites;
 	}
 
+
+	public boolean isWishlist() {
+		return wishlist;
+	}
+
+	public void setWishlist(boolean wishlist) {
+		this.wishlist = wishlist;
+	}
 	// T O S T R I N G
 
 	@Override
 	public String toString() {
-		return "UserContent [id=" + id + ", content=" + userContent + ", user=" + user + ", favorites=" + favorites
-				+ "]";
+		return "UserContent [id=" + id + ", userContent=" + userContent + ", user=" + user + ", favorites=" + favorites
+				+ ", wishlist=" + wishlist + "]";
 	}
 
 	// H A S H A N D E Q U A L S
@@ -85,10 +96,11 @@ public class UserContent {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((userContent == null) ? 0 : userContent.hashCode());
 		result = prime * result + (favorites ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((userContent == null) ? 0 : userContent.hashCode());
+		result = prime * result + (wishlist ? 1231 : 1237);
 		return result;
 	}
 
@@ -101,11 +113,6 @@ public class UserContent {
 		if (getClass() != obj.getClass())
 			return false;
 		UserContent other = (UserContent) obj;
-		if (userContent == null) {
-			if (other.userContent != null)
-				return false;
-		} else if (!userContent.equals(other.userContent))
-			return false;
 		if (favorites != other.favorites)
 			return false;
 		if (id != other.id)
@@ -114,6 +121,13 @@ public class UserContent {
 			if (other.user != null)
 				return false;
 		} else if (!user.equals(other.user))
+			return false;
+		if (userContent == null) {
+			if (other.userContent != null)
+				return false;
+		} else if (!userContent.equals(other.userContent))
+			return false;
+		if (wishlist != other.wishlist)
 			return false;
 		return true;
 	}
