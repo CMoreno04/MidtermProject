@@ -112,7 +112,7 @@ public class UpStreamController {
 	}
 	
 
-	@RequestMapping( path = "login", method = RequestMethod.GET)
+	@RequestMapping( path = "login.do", method = RequestMethod.GET)
 
 	public ModelAndView login() {
 		User u = new User();
