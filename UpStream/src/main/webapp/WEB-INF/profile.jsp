@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>${contents.title}</title>
+<title>${user.name } Profile</title>
 
 <link href="/css/bootstrap.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
@@ -18,6 +18,9 @@
 <body>
 
 	<%@ include file="nav.jsp"%>
+	<div class="userProfile">
+	<h1>${user.name } </h1>
+	</div>
 
 
 	<c:forEach items="${userService.name}" var="details" varStatus="loop">

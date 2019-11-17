@@ -28,7 +28,7 @@ public interface UpStreamDAO {
 
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn);
 
-	public User checkUserRegistration(User userIn);
+
 	
 //	public List<Content> getWishListOfUser(int idIn);
 
@@ -39,7 +39,7 @@ public interface UpStreamDAO {
 	
 	public boolean removeUser(User user);
 	
-	public boolean checkIsUniqueUser(User user);
+
 	
 	public List<StreamService> getUserServices(User user);
 	
