@@ -61,6 +61,8 @@ public class UpStreamController {
 	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
 	public ModelAndView getContentByRating(int id) {		
 		ModelAndView mv = new ModelAndView();
+		List<RatingReview> topContent = dao.getTopRatedByService(id);
+		mv.addObject("content", topContent);
 		Content content = null;
 		List<StreamService> services = dao.getServices();
 		List<RatingReview> contentByService = new ArrayList<RatingReview>();
@@ -111,6 +113,7 @@ public class UpStreamController {
 	
 
 	@RequestMapping( path = "login", method = RequestMethod.GET)
+
 	public ModelAndView login() {
 		User u = new User();
 		ModelAndView mv = new ModelAndView("login", "user", u);
@@ -119,6 +122,7 @@ public class UpStreamController {
 	}
 	
 	@RequestMapping( path = "login.do", method = RequestMethod.POST)
+
 	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		User loggedInUser = dao.checkUserRegistration(user);
