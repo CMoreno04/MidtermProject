@@ -3,7 +3,6 @@ package com.skilldistillery.upstream.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,12 +52,39 @@ public class UpStreamController {
 		return mv;
 	}
 	
+	//needs to be debubbed presently priting only index(0) - netflix
 	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
 	public ModelAndView getContentByRating(int id) {		
 		ModelAndView mv = new ModelAndView();
-		List<RatingReview> topContent= dao.getTopRatedByService(id);		
-		mv.addObject("content", topContent);
+		Content content = null;
+		List<StreamService> services = dao.getServices();
+		List<RatingReview> contentByService = new ArrayList<RatingReview>();
+		List<List<Content>> contents = new ArrayList<List<Content>>();
+		List<Content> conts = new ArrayList<Content>();
+		
+		for (int i = 0; i < services.size(); i++) {
+			
+			contentByService = dao.getTopRatedByService(services.get(i).getId());
+			
+			for (RatingReview review: contentByService) {
+				content = review.getContent();
+				conts.add(content);
+			}
+			contents.add(conts);
+		}
+		mv.addObject("services", contents);
+		mv.addObject("serviceType", services);
 		mv.setViewName("ratingsort");
 		return mv;
+		}
+	
+	@RequestMapping(path = "getContents.do", method = RequestMethod.POST)
+	public ModelAndView getContent(int id) {
+		ModelAndView mv = new ModelAndView();
+//		Content content = dao.getContent(1);
+//		mv.addObject("contents", content);
+		mv.setViewName("index");
+		return mv;
 	}
+	
 }
