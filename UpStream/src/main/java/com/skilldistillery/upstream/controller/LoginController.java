@@ -40,7 +40,7 @@ public class LoginController {
 			mv.setViewName("login");
 			return mv;
 		}
-		mv.addObject("user", loggedInUser);
+		session.setAttribute("user", loggedInUser);
 		mv.setViewName("profile");
 	
 		return mv;
@@ -52,6 +52,7 @@ public class LoginController {
 
 		return "register";
 	}
+	
 
 
 }
