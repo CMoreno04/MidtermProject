@@ -40,8 +40,8 @@
 					</div>
 
 					<div class="form-group col-md-6">
-						<form:label for="userImage">Image</form:label>
-						<form:select id="userImage" class="form-control">
+						<form:label path="userImage">Image</form:label>
+						<form:select path="userImage" class="form-control">
 							<form:option value="1">Anna</form:option>
 							<form:option value="2">Jerry, The Minion</form:option>
 							

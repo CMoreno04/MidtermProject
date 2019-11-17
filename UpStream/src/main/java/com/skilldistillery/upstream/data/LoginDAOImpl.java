@@ -52,4 +52,22 @@ public class LoginDAOImpl implements LoginDAO {
 		return true;
 
 	}
+	@Override
+	public User findUserByUsernameAndPassword(String usernameIn, String passwordIn) {
+		User user;
+
+		try {
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
+
+			user = em.createQuery(jpql, User.class).setParameter("usernameIn", usernameIn)
+					.setParameter("passwordIn", passwordIn).getSingleResult();
+		
+		}
+
+		catch (Exception e) {
+			user = null;
+		}
+
+		return user;
+	}
 }
