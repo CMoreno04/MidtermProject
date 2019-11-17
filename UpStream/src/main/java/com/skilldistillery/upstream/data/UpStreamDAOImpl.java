@@ -60,6 +60,12 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return reviews;
 	}
+	
+	public Content getContent(int id) {
+		String query = "SELECT c FROM Content c WHERE c.id = :cid";
+		List<Content> cont = em.createQuery(query, Content.class).setParameter("cid", id).getResultList();
+		return cont.get(0);
+	}
 
 	public double getTotalOfServicesByUser(int idIn) {
 		double total = 0;
@@ -83,6 +89,16 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 
 		return favorites;
+	}
+	public List<Content> getWishListOfUser(int idIn) {
+		List<Content> wishlist = new ArrayList<Content>();
+		
+		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
+			if (content.isWishlist()) {
+				wishlist.add(content.getUserContent());
+			}
+		}
+		return wishlist;
 	}
 
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn) {

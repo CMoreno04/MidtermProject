@@ -3,6 +3,7 @@ package com.skilldistillery.upstream.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -62,11 +63,61 @@ public class UpStreamController {
 		ModelAndView mv = new ModelAndView();
 		List<RatingReview> topContent = dao.getTopRatedByService(id);
 		mv.addObject("content", topContent);
+		Content content = null;
+		List<StreamService> services = dao.getServices();
+		List<RatingReview> contentByService = new ArrayList<RatingReview>();
+		List<List<Content>> contents = new ArrayList<List<Content>>();
+		List<Content> conts = new ArrayList<Content>();
+	
+		for (int i = 0; i < services.size(); i++) {
+			
+			contentByService = dao.getTopRatedByService(services.get(i).getId());
+			
+			for (RatingReview review: contentByService) {
+				content = review.getContent();
+				conts.add(content);
+			}
+			contents.add(conts);
+		}
+		mv.addObject("services", contents);
+		mv.addObject("serviceType", services);
 		mv.setViewName("ratingsort");
+		return mv;
+		}
+	
+	
+	/// NEW STRETCH GOAL ONLY HAVE SO MANY "REVIEWS" ON ONE PAGE BEFORE HAVING TO CLICK A NEXT BUTTON
+	//THIS WAS DONE IN THE SESSIONS LABS
+	@RequestMapping(path = "getContents.do", method = RequestMethod.GET)
+	public ModelAndView getContents(int id) {
+		ModelAndView mv = new ModelAndView();
+		Content content = dao.getContent(id);
+		double total = 0;
+		int i = 0;
+		for (i = 0; i < content.getRatingReviews().size(); i++) {
+			total += content.getRatingReviews().get(i).getRating();
+		}
+		if (i != 0) {
+			mv.addObject("average", total/i);
+		} else {
+			mv.addObject("average", "Content has not been rated yet.");
+		}
+		
+		List<RatingReview> reviews = content.getRatingReviews();
+		
+		mv.addObject("reviews", reviews);
+		mv.addObject("contents", content);
+		mv.setViewName("contentpage");
 		return mv;
 	}
 
+
 	@RequestMapping(path = "login", method = RequestMethod.GET)
+
+	
+
+	@RequestMapping( path = "login", method = RequestMethod.GET)
+
 	public ModelAndView login() {
 		User u = new User();
 		ModelAndView mv = new ModelAndView("login", "user", u);
@@ -75,6 +126,10 @@ public class UpStreamController {
 	}
 
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
+
+	
+	@RequestMapping( path = "login.do", method = RequestMethod.POST)
+
 	public ModelAndView logindo(@Valid User user, HttpSession session, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		User loggedInUser = dao.checkUserRegistration(user);
