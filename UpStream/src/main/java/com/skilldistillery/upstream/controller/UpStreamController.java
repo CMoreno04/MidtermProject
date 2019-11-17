@@ -52,6 +52,22 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
+		List<Double> rev = new ArrayList<Double>();
+		int i = 0;
+		double total = 0;
+		for (int j = 0; j < content.size(); j++) {
+//			List<RatingReview> rr = content.get(j).getRatingReviews();
+			for (i = 0; i < content.get(j).getRatingReviews().size(); i++) {
+				total += content.get(j).getRatingReviews().get(i).getRating();
+			}
+			if (j != 0) {
+				rev.add(total/j);
+			} else {
+				rev.add(0.0);
+			}
+		}
+		mv.addObject("rating", contentByService);
+		
 		mv.addObject("content", contentByService);
 		mv.addObject("serv", serv);
 		mv.setViewName("service");
