@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>${user.name } Profile</title>
+<title>${user.username } Profile</title>
 
 <link href="/css/bootstrap.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
@@ -19,15 +19,15 @@
 
 	<%@ include file="nav.jsp"%>
 	<div class="userProfile">
-	<h1>${user.name } </h1>
+	<h1>${user.username } </h1>
 	</div>
 
 
-	<c:forEach items="${userService.name}" var="details" varStatus="loop">
+<%-- 	<c:forEach items="${userService.username}" var="details" varStatus="loop">
 		<div class="container-fluid">
 			<div class="card text-white bg-success mb-3"
 				style="max-width: 20rem;">
-				<div class="card-header">${userService.name }</div>
+				<div class="card-header">${userService.username }</div>
 				<div class="card-body">
 					<c:forEach items="${userContent}" var="details" varStatus="loop">
 						<p class="card-text">${userContent.title }</p>
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-	</c:forEach>
+	</c:forEach> --%>
 
 
 	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

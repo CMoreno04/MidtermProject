@@ -40,7 +40,7 @@ public class LoginController {
 			mv.setViewName("login");
 			return mv;
 		}
-//		mv.addObject("user", loggedInUser);
+		mv.addObject("user", loggedInUser);
 		mv.setViewName("profile");
 	
 		return mv;
