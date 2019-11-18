@@ -27,7 +27,8 @@ public class UserContent {
 	@Column
 	private boolean favorites;
 	
-//	private boolean wishlist;
+	@Column(name= "wish_list")
+	private boolean wishlist;
 	
 	// C O N S T R U C T O R S
 
@@ -41,7 +42,7 @@ public class UserContent {
 		this.userContent = content;
 		this.user = user;
 		this.favorites = favorites;
-//		this.wishlist = wishlist;
+		this.wishlist = wishlist;
 	}
 
 	// G E T T E R S A N D S E T T E R S
@@ -75,13 +76,13 @@ public class UserContent {
 	}
 
 
-//	public boolean isWishlist() {
-//		return wishlist;
-//	}
-//
-//	public void setWishlist(boolean wishlist) {
-//		this.wishlist = wishlist;
-//	}
+	public boolean isWishlist() {
+		return wishlist;
+	}
+
+	public void setWishlist(boolean wishlist) {
+		this.wishlist = wishlist;
+	}
 	// T O S T R I N G
 
 	@Override
@@ -100,7 +101,7 @@ public class UserContent {
 		result = prime * result + id;
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((userContent == null) ? 0 : userContent.hashCode());
-//		result = prime * result + (wishlist ? 1231 : 1237);
+		result = prime * result + (wishlist ? 1231 : 1237);
 		return result;
 	}
 
@@ -127,8 +128,8 @@ public class UserContent {
 				return false;
 		} else if (!userContent.equals(other.userContent))
 			return false;
-//		if (wishlist != other.wishlist)
-//			return false;
+		if (wishlist != other.wishlist)
+			return false;
 		return true;
 	}
 
