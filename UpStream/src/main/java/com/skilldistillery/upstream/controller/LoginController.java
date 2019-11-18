@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,7 +23,7 @@ public class LoginController {
 	private UpStreamDAO USdao;
 
 	@RequestMapping(path = "login.do", method = RequestMethod.GET)
-	public String login(User user, Model model, HttpSession session) {
+	public String login(User user, Model model, HttpSession session, Errors error) {
 
 		model.addAttribute("user", user);
 
@@ -31,14 +32,18 @@ public class LoginController {
 	}
 
 	@RequestMapping(path = "login.do", method = RequestMethod.POST)
-	public String logindo(User user, HttpSession session, Model model) {
-		
+	public String logindo(User user, HttpSession session, Model model, Errors error) {
+
 		user = dao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-		
+
 		if (dao.checkIsUniqueUser(user)) {
 
+			if (user == null) {
+				return "login";
+			}
+
 			session.setAttribute("user", user);
-			
+
 			model.addAttribute("user", user);
 			model.addAttribute("userService", USdao.getUserServices(user));
 			model.addAttribute("userContent", USdao.getUserContent(user.getId()));
