@@ -208,17 +208,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return userContent;
 	}
 
-	@Override
-	public User checkUserRegistration(User userIn) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean checkIsUniqueUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	@Override
 	public List<Content> getWishListOfUser(int idIn) {
