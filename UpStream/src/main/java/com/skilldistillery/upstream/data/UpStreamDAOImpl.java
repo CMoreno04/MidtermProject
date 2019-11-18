@@ -91,27 +91,16 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return favorites;
 	}
 
-//	public List<Content> getWishListOfUser(int idIn) {
-//		List<Content> wishlist = new ArrayList<Content>();
-//		
-//		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
-//			if (content.isWishlist()) {
-//				wishlist.add(content.getUserContent());
-//			}
-//		}
-//		return wishlist;
-//	}
-
-//	public List<Content> getWishListOfUser(int idIn) {
-//		List<Content> wishlist = new ArrayList<Content>();
-//
-//		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
-//			if (content.isWishlist()) {
-//				wishlist.add(content.getUserContent());
-//			}
-//		}
-//		return wishlist;
-//	}
+	public List<Content> getWishListOfUser(int idIn) {
+		List<Content> wishlist = new ArrayList<Content>();
+		
+		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
+			if (content.isWishlist()) {
+				wishlist.add(content.getUserContent());
+			}
+		}
+		return wishlist;
+	}
 
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn) {
 		String jpql = "SELECT r FROM RatingReview r WHERE r.userId = :id";
@@ -195,14 +184,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			userContent.add(content.getUserContent());
 		}
 		return userContent;
-	}
-
-	
-
-	@Override
-	public List<Content> getWishListOfUser(int idIn) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
