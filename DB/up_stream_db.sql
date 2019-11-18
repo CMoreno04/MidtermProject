@@ -156,13 +156,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_service` ;
 
 CREATE TABLE IF NOT EXISTS `user_service` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `service_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `subscribe_date` DATE NULL,
   `current_subscrib` TINYINT NULL DEFAULT 1,
   INDEX `service_id_idx` (`service_id` ASC),
   INDEX `user_id_idx` (`user_id` ASC),
-  PRIMARY KEY (`service_id`, `user_id`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_user_service_service`
     FOREIGN KEY (`service_id`)
     REFERENCES `service` (`id`)
@@ -415,15 +416,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Up_Stream`;
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 4, '101015', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 3, '071214', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 3, '131016', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (3, 3, '121119', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 2, '020216', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 2, '010117', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 1, '030411', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 1, '050515', 1);
-INSERT INTO `user_service` (`service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (3, 1, '121119', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (1, 1, 4, '101015', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (2, 1, 3, '071214', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (3, 2, 3, '131016', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (4, 3, 3, '121119', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (5, 1, 2, '020216', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (6, 2, 2, '010117', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (7, 1, 1, '030411', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (8, 2, 1, '050515', 1);
+INSERT INTO `user_service` (`id`, `service_id`, `user_id`, `subscribe_date`, `current_subscrib`) VALUES (9, 3, 1, '121119', 1);
 
 COMMIT;
 

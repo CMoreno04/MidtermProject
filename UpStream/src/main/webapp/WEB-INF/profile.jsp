@@ -20,6 +20,11 @@
 	<%@ include file="nav.jsp"%>
 	<div id="userProfile">
 	<h1 >${user.username } </h1>
+	<form:form action="goToUpdateUser.do" id="update button" class="header"
+				method="GET">
+				<button type="submit">Update Profile</button>
+			</form:form>
+	
 
 
 	<c:forEach items="${userService}" var="service" varStatus="loop">
