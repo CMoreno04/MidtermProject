@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.skilldistillery.upstream.data.LoginDAO;
+import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
-public class LoginController {
+public class LoginRegisterController {
+	
+	@Autowired 
+	private RegisterDAO rdao;
 
 	@Autowired
 	private LoginDAO dao;
@@ -61,6 +65,7 @@ public class LoginController {
 
 	@RequestMapping(path = "register.do", method = RequestMethod.GET)
 	public String registerNewUser(User user) {
+		
 
 		return "registration";
 	}
