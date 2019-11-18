@@ -17,13 +17,12 @@ public class LoginDAOImpl implements LoginDAO {
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("UpStreamPU");
 	private EntityManager em = emf.createEntityManager();
 
-
 	@Override
 	public User checkUserRegistration(User userIn) {
 		User user;
 
 		try {
-			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn OR u.password LIKE :passwordIn";
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
 
 			user = em.createQuery(jpql, User.class).setParameter("usernameIn", userIn.getUsername())
 					.setParameter("passwordIn", userIn.getPassword()).getSingleResult();
@@ -36,20 +35,42 @@ public class LoginDAOImpl implements LoginDAO {
 
 		return user;
 	}
+
 	@Override
 	public boolean checkIsUniqueUser(User user) {
 		String jpql = "SELECT u FROM User u";
 
 		List<User> userCheck = em.createQuery(jpql, User.class).getResultList();
+		
+		if (user != null) {
+			for (User userInDB : userCheck) {
+				if (userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
 
-		for (User userInDB : userCheck) {
-			if (userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
-
-				return false;
+					return true;
+				}
 			}
 		}
 
-		return true;
+		return false;
 
+	}
+
+	@Override
+	public User findUserByUsernameAndPassword(String usernameIn, String passwordIn) {
+		User user;
+
+		try {
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
+
+			user = em.createQuery(jpql, User.class).setParameter("usernameIn", usernameIn)
+					.setParameter("passwordIn", passwordIn).getSingleResult();
+
+		}
+
+		catch (Exception e) {
+			user = null;
+		}
+
+		return user;
 	}
 }

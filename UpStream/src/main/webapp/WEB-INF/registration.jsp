@@ -7,8 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
+<%@ include file="nav.jsp"%>
 	<br>
 	<div class="container-fluid" style="padding-top: 2in;">
 		<div class="row row-no-gutters">
@@ -40,8 +45,8 @@
 					</div>
 
 					<div class="form-group col-md-6">
-						<form:label for="userImage">Image</form:label>
-						<form:select id="userImage" class="form-control">
+						<form:label path="userImage">Image</form:label>
+						<form:select path="userImage" class="form-control">
 							<form:option value="1">Anna</form:option>
 							<form:option value="2">Jerry, The Minion</form:option>
 							
