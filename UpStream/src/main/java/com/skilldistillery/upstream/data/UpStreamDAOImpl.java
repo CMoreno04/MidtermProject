@@ -1,6 +1,5 @@
 package com.skilldistillery.upstream.data;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +52,8 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return reviews;
 	}
+	
+	
 
 	public List<RatingReview> getTopRatedByService(int idIn) {
 
@@ -93,27 +94,16 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return favorites;
 	}
 
-//	public List<Content> getWishListOfUser(int idIn) {
-//		List<Content> wishlist = new ArrayList<Content>();
-//		
-//		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
-//			if (content.isWishlist()) {
-//				wishlist.add(content.getUserContent());
-//			}
-//		}
-//		return wishlist;
-//	}
-
-//	public List<Content> getWishListOfUser(int idIn) {
-//		List<Content> wishlist = new ArrayList<Content>();
-//
-//		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
-//			if (content.isWishlist()) {
-//				wishlist.add(content.getUserContent());
-//			}
-//		}
-//		return wishlist;
-//	}
+	public List<Content> getWishListOfUser(int idIn) {
+		List<Content> wishlist = new ArrayList<Content>();
+		
+		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
+			if (content.isWishlist()) {
+				wishlist.add(content.getUserContent());
+			}
+		}
+		return wishlist;
+	}
 
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn) {
 		String jpql = "SELECT r FROM RatingReview r WHERE r.userId = :id";
@@ -193,16 +183,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return userContent;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public boolean removeUserService(int userId, int servId) {
 
@@ -246,8 +226,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			return false;
 		}
 		
-		
-		
+	
 	}
 
 }
