@@ -7,4 +7,7 @@ public interface RegisterDAO {
 	public User addUser(User user);
 
 	public boolean checkIsUniqueUser(User user);
+	
+	public User updateUser(User user);
+	
 }

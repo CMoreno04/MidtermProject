@@ -51,4 +51,20 @@ public class RegisterDAOImple implements RegisterDAO {
 		return false;
 
 	}
+	@Override
+	public User updateUser(User user) {
+//		System.out.println("RegisterDAOImple.updateUser(): " + user);
+		User updatedUser = em.find(User.class, user.getId());
+//		System.out.println("RegisterDAOImple.updateUser(): " + updatedUser);
+		
+		updatedUser.setFirstName(user.getFirstName());
+		updatedUser.setLastName(user.getLastName());
+		updatedUser.setUsername(user.getUsername());
+		updatedUser.setPassword(user.getPassword());
+		em.flush();
+		
+		
+		return updatedUser;
+	}
+	
 }
