@@ -16,7 +16,8 @@
   <table class="table table-hover"> 
   	<c:forEach items="${serv}" var="service">
   		<tr class="d-flex">
-  		  		<td class="col-3">${service.name}</td>
+  		  		<td class="col-3"><a href="getService.do?id=${service.id}">${service.name}</a>
+  		  		<img src="${service.logo}" alt=""width="250"height="150"/></td>
   		  		<td class="col-3">${service.monthlyPrice}</td>
   		  		<td class="col-3"><button type="button" class="btn btn-success">add</button></td>
   		</tr>

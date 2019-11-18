@@ -5,20 +5,24 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.upstream.entities.User;
 
+@Transactional
+@Service
 public class LoginDAOImpl implements LoginDAO {
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("UpStreamPU");
 	private EntityManager em = emf.createEntityManager();
-
 
 	@Override
 	public User checkUserRegistration(User userIn) {
 		User user;
 
 		try {
-			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn OR u.password LIKE :passwordIn";
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
 
 			user = em.createQuery(jpql, User.class).setParameter("usernameIn", userIn.getUsername())
 					.setParameter("passwordIn", userIn.getPassword()).getSingleResult();
@@ -31,20 +35,24 @@ public class LoginDAOImpl implements LoginDAO {
 
 		return user;
 	}
+
+
 	@Override
-	public boolean checkIsUniqueUser(User user) {
-		String jpql = "SELECT u FROM User u";
+	public User findUserByUsernameAndPassword(String usernameIn, String passwordIn) {
+		User user;
 
-		List<User> userCheck = em.createQuery(jpql, User.class).getResultList();
+		try {
+			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
 
-		for (User userInDB : userCheck) {
-			if (userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
+			user = em.createQuery(jpql, User.class).setParameter("usernameIn", usernameIn)
+					.setParameter("passwordIn", passwordIn).getSingleResult();
 
-				return false;
-			}
 		}
 
-		return true;
+		catch (Exception e) {
+			user = null;
+		}
 
+		return user;
 	}
 }

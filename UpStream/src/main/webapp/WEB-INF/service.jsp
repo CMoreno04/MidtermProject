@@ -34,11 +34,30 @@
   		
     <c:forEach items="${details}" var="indivContent" varStatus="loop2">
   	<tr class="d-flex"> 
-  		<td class="col-6"> <a href="getContents.do?id=${indivContent.id}">${indivContent.title}</a></td>
+  		<td class="col-6"> <a href="getContents.do?id=${indivContent.id}">${indivContent.title}<br></a>
+  		</td>
   		<td class="col-3">
-  		<c:forEach items="${rating}" var="rat" begin="${loop2.index}" end="${loop2.index}">
-  			${rat}
+  		<c:forEach items="${rating}" var="rat" varStatus="loop" begin="${loop2.index}" end="${loop2.index}">
   		
+  		<c:choose>
+                <c:when test="${rat <= '1'}">
+                ⚡
+                </c:when> 
+                <c:when test="${rat <= '2.5'}">
+                ⚡⚡
+                </c:when> 
+                <c:when test="${rat <= '3.5'}">
+                ⚡⚡⚡
+                </c:when> 
+                <c:when test="${rat <= '4.5'}">
+                ⚡⚡⚡⚡
+                </c:when> 
+                <c:when test="${rat <= '5'}">
+                ⚡⚡⚡⚡⚡
+                </c:when> 
+               <c:otherwise> ${rat} </c:otherwise> 
+            </c:choose>
+            
   		      </c:forEach></td>
   		<td class="col-3"><button type="button" class="btn btn-success">add</button></tr>
   	

@@ -27,8 +27,9 @@ public class UserContent {
 	@Column
 	private boolean favorites;
 	
-	@Column
+	@Column(name= "wish_list")
 	private boolean wishlist;
+	
 	// C O N S T R U C T O R S
 
 	public UserContent() {
@@ -87,7 +88,7 @@ public class UserContent {
 	@Override
 	public String toString() {
 		return "UserContent [id=" + id + ", userContent=" + userContent + ", user=" + user + ", favorites=" + favorites
-				+ ", wishlist=" + wishlist + "]";
+				+ ", wishlist=" + "]";
 	}
 
 	// H A S H A N D E Q U A L S

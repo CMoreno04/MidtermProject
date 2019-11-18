@@ -11,19 +11,23 @@
 <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-
+<%@ include file="nav.jsp" %>
 	<h1 class="header">Log In</h1>
 	<form:form action="login.do" class="header" method="POST" modelAttribute="user">
 		<div class="container">
 		
-			<label for="uname"><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" name="uname" required><br>
-			<label for="psw"><b>Password</b></label> <input type="password"
-				placeholder="Enter Password" name="psw" required> <br>
+			<label for="username"><b>Username</b></label> 
+			<input type="text" placeholder="Enter Username" name="username" required><br>
+			<label for="password"><b>Password</b></label> 
+			<input type="password" placeholder="Enter Password" name="password" required> <br>
 	
 			<button type="submit">Login</button>
 
 		</div>
+	</form:form>
+	<form:form action="register.do" method="GET">
+	<button type="submit">Register</button>
+	
 	</form:form>
 </body>
 </html>

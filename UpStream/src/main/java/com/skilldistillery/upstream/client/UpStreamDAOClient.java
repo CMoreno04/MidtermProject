@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.data.UpStreamDAOImpl;
+import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.User;
 
 public class UpStreamDAOClient {
@@ -21,13 +22,13 @@ public class UpStreamDAOClient {
 	public static void main(String[] args) {
 		UpStreamDAOClient app = new UpStreamDAOClient();
 
-		User user= new User(false, true, "tito", "123", "man", "ecko", null);
-		
-		
-		
-		System.out.println(dao.removeUser(em.find(User.class, 5)));
-		
+		User user = new User(false, true, "tito", "123", "man", "ecko", null);
 
+		for (Content string : dao.getUserContent(3)) {
+
+			System.out.println(string.getTitle() + " " + string.getService().getName());
+
+		}
 	}
 
 }

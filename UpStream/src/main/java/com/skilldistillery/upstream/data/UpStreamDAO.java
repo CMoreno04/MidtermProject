@@ -9,39 +9,44 @@ import com.skilldistillery.upstream.entities.User;
 
 public interface UpStreamDAO {
 
+	// Content
 	public List<Content> getTopContent(int serviceId);
 
 	public List<Content> getFavoritesOfUserById(int idIn);
 
+	public List<Content> getWishListOfUser(int idIn);
+
+	public Content getContent(int id);
+	
+	//Service 
+
+	public StreamService getService(int id);
+
 	public List<StreamService> getServices();
+	
+	//Rating
 
 	public List<RatingReview> getTopRatedByContent(int idIn);
 
 	public List<RatingReview> getTopRatedByService(int idIn);
 
-//	public int getTotalOfServicesByUser(int idIn);
-	public StreamService getService(int id);
-	public Content getContent(int id);
+	public List<RatingReview> getReviewsOfUserByUserId(int idIn);
 
+	// User
+
+	public List<StreamService> getUserServices(User user);
 
 	public double getTotalOfServicesByUser(int idIn);
 
-	public List<RatingReview> getReviewsOfUserByUserId(int idIn);
+	public List<Content> getUserContent(int idIn);
 
 
+	// Admin
 	
-//	public List<Content> getWishListOfUser(int idIn);
-
-//	public int getTotalOfServicesByUser(int idIn);
 	public boolean disableUser(User userIn);
 
-	public User addUser(User user);
-	
-	public boolean removeUser(User user);
-	
 
-	
-	public List<StreamService> getUserServices(User user);
-	
-	public List<Content> getUserContent(int idIn);
+	public boolean removeUser(User user);
+
+
 }
