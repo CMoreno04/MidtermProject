@@ -10768,3 +10768,10 @@ button{
 #register{
 	margin:20%
 }
+
+#userProfile{
+	color: white;
+	max-width:20%;
+	margin:20% !important;
+	align:center !important;
+}

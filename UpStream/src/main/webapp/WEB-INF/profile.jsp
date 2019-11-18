@@ -18,9 +18,8 @@
 <body>
 
 	<%@ include file="nav.jsp"%>
-	<div class="userProfile">
-	<h1 style="color:white;" >${user.username } </h1>
-	</div>
+	<div id="userProfile">
+	<h1 >${user.username } </h1>
 
 
 	<c:forEach items="${userService}" var="service" varStatus="loop">
@@ -38,6 +37,7 @@
 			</div>
 		</div>
 	</c:forEach> 
+	</div>
 
 
 	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

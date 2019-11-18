@@ -99,5 +99,10 @@ public class LoginRegisterController {
 		
 
 	}
+	@RequestMapping(path = "logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
+		return "redirect:login.do";
+	}
 
 }

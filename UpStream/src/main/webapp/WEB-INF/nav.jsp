@@ -31,9 +31,9 @@
 						Rated Content</a></li>
 				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Profile</a>
+				<li class="nav-item"><a class="nav-link" href="goProfile.do">Profile</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Logout</a>
+				<li class="nav-item"><a class="nav-link" href="logout.do">Logout</a>
 				</li>
 			</ul>
 			</div>
