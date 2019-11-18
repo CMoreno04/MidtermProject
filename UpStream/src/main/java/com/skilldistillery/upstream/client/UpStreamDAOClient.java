@@ -25,7 +25,7 @@ public class UpStreamDAOClient {
 		
 		
 		
-		System.out.println(dao.removeUser(em.find(User.class, 5)));
+		System.out.println(dao.getUserContent(3));
 		
 
 	}

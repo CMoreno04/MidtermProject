@@ -16,14 +16,18 @@
 	<form:form action="login.do" class="header" method="POST" modelAttribute="user">
 		<div class="container">
 		
-			<label path="username"><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" path="username" required><br>
-			<label path="password"><b>Password</b></label> <input type="password"
-				placeholder="Enter Password" path="password" required> <br>
+			<label for="username"><b>Username</b></label> 
+			<input type="text" placeholder="Enter Username" name="username" required><br>
+			<label for="password"><b>Password</b></label> 
+			<input type="password" placeholder="Enter Password" name="password" required> <br>
 	
 			<button type="submit">Login</button>
 
 		</div>
+	</form:form>
+	<form:form action="register.do" method="GET">
+	<button type="submit">Register</button>
+	
 	</form:form>
 </body>
 </html>

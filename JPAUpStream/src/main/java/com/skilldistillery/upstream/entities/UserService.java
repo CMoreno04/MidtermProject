@@ -21,6 +21,7 @@ public class UserService {
 	
 	@Column(name = "subscribe_date")
 	private LocalDate subscribeDate;
+	
 	@Column(name = "current_subscrib")
 	private boolean currentSubscrib;
 	

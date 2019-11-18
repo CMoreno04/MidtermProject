@@ -19,23 +19,23 @@
 
 	<%@ include file="nav.jsp"%>
 	<div class="userProfile">
-	<h1>${user.username } </h1>
+	<h1 style="color:white;" >${user.username } </h1>
 	</div>
 
 
-<%-- 	<c:forEach items="${userService.username}" var="details" varStatus="loop">
+	<c:forEach items="${userService}" var="service" varStatus="loop">
 		<div class="container-fluid">
 			<div class="card text-white bg-success mb-3"
 				style="max-width: 20rem;">
-				<div class="card-header">${userService.username }</div>
+				<div class="card-header">${service.name }</div>
 				<div class="card-body">
-					<c:forEach items="${userContent}" var="details" varStatus="loop">
-						<p class="card-text">${userContent.title }</p>
+					<c:forEach items="${userContent}" var="content" varStatus="loop">
+						<p class="card-text">${content.title }</p>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
-	</c:forEach> --%>
+	</c:forEach> 
 
 
 	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
