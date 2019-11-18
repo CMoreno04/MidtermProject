@@ -284,7 +284,7 @@ COMMIT;
 START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (1, 'Netflix', 8.99, 'https://assets.brand.microsites.netflix.io/assets/493f5bba-81a4-11e9-bf79-066b49664af6_cm_1440w.png?v=2');
-INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (2, 'HBO', 14.99, 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/422px-HBO_logo.svg.png');
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (2, 'HBO', 14.99, 'https://f-scope.net/images/hbo-logo-png-10.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (3, 'Disney Plus', 6.99, 'https://www.reviews.org/au/app/uploads/2019/11/disney-plus-logo-300x174.png');
 
 COMMIT;
