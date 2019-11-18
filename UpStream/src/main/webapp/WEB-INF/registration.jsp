@@ -7,8 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
+<%@ include file="nav.jsp"%>
 	<br>
 	<div class="container-fluid" style="padding-top: 2in;">
 		<div class="row row-no-gutters">
