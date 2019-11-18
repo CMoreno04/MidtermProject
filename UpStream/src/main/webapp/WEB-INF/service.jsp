@@ -32,13 +32,12 @@
   		<th scope="col" class="col-3">Rating</th>
   		<th scope="col" class="col-3">Add</th>
   		
-    <c:forEach items="${details}" var="indivContent">
+    <c:forEach items="${details}" var="indivContent" varStatus="loop2">
   	<tr class="d-flex"> 
   		<td class="col-6"> <a href="getContents.do?id=${indivContent.id}">${indivContent.title}</a></td>
   		<td class="col-3">
-  		<c:forEach items="${rating}" var="rat" varStatus="loop" begin="${loop.index}" end="${loop.index}">
-  		${rat}
-  		
+  		<c:forEach items="${rating}" var="rat" begin="${loop2.index}" end="${loop2.index}">
+  			${rat}
   		
   		      </c:forEach></td>
   		<td class="col-3"><button type="button" class="btn btn-success">add</button></tr>
