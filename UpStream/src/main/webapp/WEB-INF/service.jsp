@@ -57,7 +57,7 @@
                 </c:when> 
                <c:otherwise> ${rat} </c:otherwise> 
             </c:choose>
-  		
+            
   		      </c:forEach></td>
   		<td class="col-3"><button type="button" class="btn btn-success">add</button></tr>
   	

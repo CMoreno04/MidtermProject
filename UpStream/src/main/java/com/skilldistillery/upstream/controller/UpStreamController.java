@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.skilldistillery.upstream.data.RatingReviewDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
@@ -25,6 +26,9 @@ public class UpStreamController {
 
 	@Autowired
 	private UpStreamDAO dao; 
+	
+	@Autowired
+	private RatingReviewDAO rrDao;
 
 	@RequestMapping(path = {"/", "index.do"})
 	public String getFilm(Model model) {		
@@ -119,7 +123,7 @@ public class UpStreamController {
 			mv.addObject("average", "Content has not been rated yet.");
 		}
 		
-		List<RatingReview> reviews = content.getRatingReviews();
+		List<RatingReview> reviews = rrDao.getTopRatedByContentId(content.getId());
 		
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
