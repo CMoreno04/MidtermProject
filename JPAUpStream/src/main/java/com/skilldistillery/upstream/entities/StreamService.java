@@ -27,6 +27,9 @@ public class StreamService {
 	@Column(name = "monthly_price")
 	private double monthlyPrice;
 	
+	@Column
+	private String logo;
+	
 	@OneToMany(mappedBy = "service")
 	private List<UserService> userService;
 
@@ -67,6 +70,22 @@ public class StreamService {
 		this.monthlyPrice = monthlyPrice;
 	}
 	
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public List<UserService> getUserService() {
+		return userService;
+	}
+
+	public void setUserService(List<UserService> userService) {
+		this.userService = userService;
+	}
+
 	public List<Content> getContent() {
 		return content;
 	}
@@ -91,10 +110,12 @@ public class StreamService {
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((logo == null) ? 0 : logo.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(monthlyPrice);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((userService == null) ? 0 : userService.hashCode());
 		return result;
 	}
 
@@ -114,12 +135,22 @@ public class StreamService {
 			return false;
 		if (id != other.id)
 			return false;
+		if (logo == null) {
+			if (other.logo != null)
+				return false;
+		} else if (!logo.equals(other.logo))
+			return false;
 		if (Double.doubleToLongBits(monthlyPrice) != Double.doubleToLongBits(other.monthlyPrice))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (userService == null) {
+			if (other.userService != null)
+				return false;
+		} else if (!userService.equals(other.userService))
 			return false;
 		return true;
 	}
