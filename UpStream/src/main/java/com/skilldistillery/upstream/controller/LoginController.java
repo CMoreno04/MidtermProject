@@ -47,6 +47,12 @@ public class LoginController {
 
 			return "login";
 		}
+
+		session.setAttribute("user", loggedInUser);
+		mv.setViewName("profile");
+	
+		return mv;
+
 	}
 
 	@RequestMapping(path = "register.do", method = RequestMethod.GET)
@@ -54,5 +60,6 @@ public class LoginController {
 
 		return "registration";
 	}
+	
 
 }

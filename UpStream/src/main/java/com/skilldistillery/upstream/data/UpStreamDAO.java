@@ -40,12 +40,6 @@ public interface UpStreamDAO {
 
 	public List<Content> getUserContent(int idIn);
 
-	// LogIn
-	
-	public User checkUserRegistration(User userIn);
-
-	public boolean checkIsUniqueUser(User user);
-
 
 	// Admin
 	

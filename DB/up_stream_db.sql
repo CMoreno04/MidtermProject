@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `service` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `monthly_price` DOUBLE NOT NULL,
+  `logo` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -185,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `user_content` (
   `content_id` INT NULL,
   `user_id` INT NULL,
   `favorites` TINYINT NULL DEFAULT 0,
+  `wish_list` TINYINT NULL DEFAULT 0,
   INDEX `fk_user_content_content_idx` (`content_id` ASC),
   INDEX `fk_user_content_user_idx` (`user_id` ASC),
   PRIMARY KEY (`id`),
@@ -281,9 +283,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Up_Stream`;
-INSERT INTO `service` (`id`, `name`, `monthly_price`) VALUES (1, 'Netflix', 8.99);
-INSERT INTO `service` (`id`, `name`, `monthly_price`) VALUES (2, 'HBO', 14.99);
-INSERT INTO `service` (`id`, `name`, `monthly_price`) VALUES (3, 'Disney Plus', 6.99);
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (1, 'Netflix', 8.99, 'https://assets.brand.microsites.netflix.io/assets/493f5bba-81a4-11e9-bf79-066b49664af6_cm_1440w.png?v=2');
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (2, 'HBO', 14.99, 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/422px-HBO_logo.svg.png');
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (3, 'Disney Plus', 6.99, 'https://www.reviews.org/au/app/uploads/2019/11/disney-plus-logo-300x174.png');
 
 COMMIT;
 
@@ -431,17 +433,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Up_Stream`;
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (1, 1, 4, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (2, 4, 4, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (3, 12, 2, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (4, 10, 2, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (5, 7, 2, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (6, 8, 3, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (7, 2, 3, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (8, 17, 3, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (9, 13, 1, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (10, 3, 1, 0);
-INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`) VALUES (11, 18, 1, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (1, 1, 4, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (2, 4, 4, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (3, 12, 2, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (4, 10, 2, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (5, 7, 2, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (6, 8, 3, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (7, 2, 3, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (8, 17, 3, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (9, 13, 1, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (10, 3, 1, 0, 0);
+INSERT INTO `user_content` (`id`, `content_id`, `user_id`, `favorites`, `wish_list`) VALUES (11, 18, 1, 0, 0);
 
 COMMIT;
 
