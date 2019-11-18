@@ -20,7 +20,7 @@
 			<div class="col-xs-6 col-md-4"></div>
 			<div class="col-xs-6 col-md-4 text-center">
 
-				<form:form action="**.do" method="POST" modelAttribute="user">
+				<form:form action="register.do" method="POST" modelAttribute="user">
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<form:label path="firstName">First Name</form:label>
@@ -44,7 +44,7 @@
 							required="required" path="password" placeholder="Password" />
 					</div>
 
-					<div class="form-group col-md-6">
+<%-- 					<div class="form-group col-md-6">
 						<form:label path="userImage">Image</form:label>
 						<form:select path="userImage" class="form-control">
 							<form:option value="1">Anna</form:option>
@@ -52,7 +52,7 @@
 							
 						</form:select>
 						<br> <br>
-					</div>
+					</div> --%>
 					<button type="submit" class="btn btn-success">Submit</button>
 			</div>
 			</form:form>

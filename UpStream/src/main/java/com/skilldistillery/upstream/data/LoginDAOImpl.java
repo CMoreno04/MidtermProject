@@ -36,24 +36,6 @@ public class LoginDAOImpl implements LoginDAO {
 		return user;
 	}
 
-	@Override
-	public boolean checkIsUniqueUser(User user) {
-		String jpql = "SELECT u FROM User u";
-
-		List<User> userCheck = em.createQuery(jpql, User.class).getResultList();
-		
-		if (user != null) {
-			for (User userInDB : userCheck) {
-				if (userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
-
-					return true;
-				}
-			}
-		}
-
-		return false;
-
-	}
 
 	@Override
 	public User findUserByUsernameAndPassword(String usernameIn, String passwordIn) {
