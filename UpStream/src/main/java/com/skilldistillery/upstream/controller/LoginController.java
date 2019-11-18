@@ -30,15 +30,19 @@ public class LoginController {
 
 	}
 
-	@RequestMapping(path = "login.do", method = RequestMethod.POST )
-	public String logindo(User user,HttpSession session, Model model) {
-		user=dao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-		if (!dao.checkIsUniqueUser(user)) {
+	@RequestMapping(path = "login.do", method = RequestMethod.POST)
+	public String logindo(User user, HttpSession session, Model model) {
+		
+		user = dao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+		
+		if (dao.checkIsUniqueUser(user)) {
+
+			session.setAttribute("user", user);
 			
-			model.addAttribute("user",user);
-			model.addAttribute("userService",USdao.getUserServices(user));
-			model.addAttribute("userContent",USdao.getUserContent(user.getId()));
-			
+			model.addAttribute("user", user);
+			model.addAttribute("userService", USdao.getUserServices(user));
+			model.addAttribute("userContent", USdao.getUserContent(user.getId()));
+
 			return "profile";
 
 		}
@@ -48,11 +52,6 @@ public class LoginController {
 			return "login";
 		}
 
-		session.setAttribute("user", loggedInUser);
-		mv.setViewName("profile");
-	
-		return mv;
-
 	}
 
 	@RequestMapping(path = "register.do", method = RequestMethod.GET)
@@ -60,6 +59,5 @@ public class LoginController {
 
 		return "registration";
 	}
-	
 
 }

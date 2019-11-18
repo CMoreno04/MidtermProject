@@ -45,11 +45,11 @@ public class LoginDAOImpl implements LoginDAO {
 		for (User userInDB : userCheck) {
 			if (userInDB.getUsername().equalsIgnoreCase(user.getUsername())) {
 
-				return false;
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 
 	}
 	@Override
