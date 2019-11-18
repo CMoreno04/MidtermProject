@@ -28,6 +28,7 @@ public class UserContent {
 	private boolean favorites;
 	
 //	private boolean wishlist;
+	
 	// C O N S T R U C T O R S
 
 	public UserContent() {
