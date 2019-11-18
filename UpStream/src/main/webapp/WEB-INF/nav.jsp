@@ -21,7 +21,25 @@
 			aria-expanded="true" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		<c:if test="${not empty user}">
 
+		<div class="collapse navbar-collapse" id="navbarColor02">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
+				</li>
+				<li class="nav-item"><a class="nav-link header__text" href="#">Top
+						Rated Content</a></li>
+				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Profile</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Logout</a>
+				</li>
+			</ul>
+			</div>
+			</c:if>
+			
+		<c:if test="${empty user}">
 		<div class="collapse navbar-collapse" id="navbarColor02">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
@@ -40,6 +58,7 @@
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form> -->
 		</div>
+		</c:if>
 	</nav>
 </body>
 </html>

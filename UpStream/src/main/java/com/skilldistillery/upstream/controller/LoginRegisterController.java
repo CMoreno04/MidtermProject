@@ -29,9 +29,7 @@ public class LoginRegisterController {
 	private UpStreamDAO USdao;
 
 	@RequestMapping(path = "login.do", method = RequestMethod.GET)
-	public String login(@Valid User user, Model model, HttpSession session, Errors error) {
-
-		model.addAttribute("user", user);
+	public String login() {
 
 		return "login";
 
@@ -94,8 +92,6 @@ public class LoginRegisterController {
 			System.out.println(newUser);
 			session.setAttribute("user", user);
 			model.addAttribute("user", user);
-//			model.addAttribute("userService", USdao.getUserServices(user));
-//			model.addAttribute("userContent", USdao.getUserContent(user.getId()));
 			
 			return "profile";
 			
