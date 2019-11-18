@@ -57,6 +57,7 @@
                 </c:when>
 											<c:when test="${rat <= '5'}">
                 ⚡⚡⚡⚡⚡
+
                 </c:when>
 											<c:otherwise> ${rat} </c:otherwise>
 										</c:choose>
@@ -80,6 +81,20 @@
 			</div>
 		</c:forEach>
 	</div>
+
+                </c:when> 
+               <c:otherwise> ${rat} </c:otherwise> 
+            </c:choose>
+            
+  		      </c:forEach></td>
+  		<td class="col-3"><button type="button" class="btn btn-success">add</button></tr>
+  	
+    
+    </c:forEach>
+    </table>
+  </div>
+    </c:forEach>
+</div> 
 
 </body>
 </html>
