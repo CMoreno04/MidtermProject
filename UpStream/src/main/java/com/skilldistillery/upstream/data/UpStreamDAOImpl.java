@@ -148,17 +148,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-	@Override
-	public User addUser(User user) {
-
-		em.getTransaction().begin();
-
-		em.persist(user);
-
-		em.getTransaction().commit();
-
-		return user;
-	}
 
 	@Override
 	public boolean removeUser(User user) {

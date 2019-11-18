@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.LoginDAO;
+import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
-public class LoginController {
+public class LoginRegisterController {
 	
 	@Autowired 
 	private LoginDAO dao;
+	
+	@Autowired 
+	private RegisterDAO rdao;
 	
 	@RequestMapping( path = "login.do", method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -49,6 +53,7 @@ public class LoginController {
 	
 	@RequestMapping(path = "registration.do", method = RequestMethod.GET)
 	public String registerNewUser(User user) {
+		
 
 		return "register";
 	}
