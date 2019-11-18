@@ -1,7 +1,6 @@
 package com.skilldistillery.upstream.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -41,12 +40,17 @@ public class UserService {
 		super();
 	}
 
-	public UserService(UserServiceId id, LocalDate subscribeDate, boolean currentSubscrib) {
+	
+
+	public UserService(LocalDate subscribeDate, boolean currentSubscrib, User user, StreamService service) {
 		super();
-		this.id = id;
 		this.subscribeDate = subscribeDate;
 		this.currentSubscrib = currentSubscrib;
+		this.user = user;
+		this.service = service;
 	}
+
+
 
 	public UserServiceId getId() {
 		return id;

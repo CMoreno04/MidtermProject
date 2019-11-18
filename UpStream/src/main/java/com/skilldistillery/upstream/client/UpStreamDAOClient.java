@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.data.UpStreamDAOImpl;
-import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.User;
 
 public class UpStreamDAOClient {
@@ -24,11 +23,15 @@ public class UpStreamDAOClient {
 
 		User user = new User(false, true, "tito", "123", "man", "ecko", null);
 
-		for (Content string : dao.getUserContent(3)) {
-
-			System.out.println(string.getTitle() + " " + string.getService().getName());
-
-		}
+//		String jpql = "SELECT r FROM UserService r WHERE r.user.id=:userId AND r.service.id=:servId";
+//		
+//		System.out.println(em.createQuery(jpql, UserService.class).setParameter("userId", 3).setParameter("servId", 3).getSingleResult());
+		
+//		System.out.println(dao.removeUserService(3, 3));
+		
+		
+		
+		
 	}
 
 }

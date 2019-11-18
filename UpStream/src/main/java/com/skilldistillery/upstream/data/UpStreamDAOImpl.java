@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -16,13 +15,15 @@ import com.skilldistillery.upstream.entities.StreamService;
 import com.skilldistillery.upstream.entities.User;
 import com.skilldistillery.upstream.entities.UserContent;
 import com.skilldistillery.upstream.entities.UserService;
+import com.skilldistillery.upstream.entities.UserServiceId;
 
 @Transactional
 @Service
 public class UpStreamDAOImpl implements UpStreamDAO {
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("UpStreamPU");
-	private EntityManager em = emf.createEntityManager();
+	@PersistenceContext
+	private EntityManager em;
+
 
 	public List<Content> getTopContent(int serviceId) {
 		String query = "SELECT c FROM Content c JOIN FETCH c.service s WHERE s.id = :sid";
@@ -112,8 +113,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return reviews;
 	}
 
-	
-
 	@Override
 	public boolean disableUser(User userIn) {
 
@@ -139,7 +138,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-
 	@Override
 	public boolean removeUser(User user) {
 
@@ -162,9 +160,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 
 	}
-	
-
-
 
 	@Override
 	public List<StreamService> getUserServices(User user) {
@@ -179,13 +174,59 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	@Override
 	public List<Content> getUserContent(int idIn) {
 		List<Content> userContent = new ArrayList<Content>();
-		
+
 		User user = em.find(User.class, idIn);
-		
+
 		for (UserContent content : user.getUserCont()) {
 			userContent.add(content.getUserContent());
 		}
 		return userContent;
+	}
+
+	@Override
+	public boolean removeUserService(int userId, int servId) {
+
+		try {
+			String jpql = "SELECT r FROM UserService r WHERE r.user.id=:userId AND r.service.id=:servId";
+
+			em.getTransaction().begin();
+			
+			em.remove(em.createQuery(jpql, UserService.class).setParameter("userId", userId).setParameter("servId", servId).getSingleResult());
+
+//			em.flush();
+			
+			em.getTransaction().commit();
+
+			return true;
+
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+
+	@Override
+	public boolean addUserService(int userId, int servId) {
+		UserServiceId svcId = new UserServiceId(servId, userId);
+		UserService svc = new UserService();
+		svc.setId(svcId);
+		try {
+			
+			em.persist(svc);
+			em.flush();
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	
 	}
 
 }
