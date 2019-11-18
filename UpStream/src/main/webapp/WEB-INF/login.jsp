@@ -11,7 +11,7 @@
 <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-
+<%@ include file="nav.jsp" %>
 	<h1 class="header">Log In</h1>
 	<form:form action="login.do" class="header" method="POST" modelAttribute="user">
 		<div class="container">
