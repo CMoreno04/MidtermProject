@@ -29,9 +29,13 @@ public class LoginRegisterController {
 	private UpStreamDAO USdao;
 
 	@RequestMapping(path = "login.do", method = RequestMethod.GET)
-	public String login() {
+	public ModelAndView login() {
+		User user = new User();
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", user);
+		mv.setViewName("login");
 
-		return "login";
+		return mv;
 
 	}
 
@@ -41,9 +45,13 @@ public class LoginRegisterController {
 		user = dao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
 
 		if (rdao.checkIsUniqueUser(user)) {
+			System.out.println("IF");
 
 			if (user == null) {
-				return "login";
+				user = null;
+				session.removeAttribute("user");
+				model = null;
+				return "redirect:login.do";
 			}
 
 			session.setAttribute("user", user);
@@ -57,8 +65,15 @@ public class LoginRegisterController {
 		}
 
 		else {
-
-			return "login";
+			System.out.println("Else");
+			user = null;
+			session.removeAttribute("user");
+			model = null;
+			error.rejectValue("username", "error.username", "Username or password do not match out records");
+//			Boolean err = false;
+//			model.addAttribute("Error", err);
+			
+			return "redirect:login.do";
 		}
 
 	}
@@ -78,6 +93,7 @@ public class LoginRegisterController {
 			
 			if (user != null) {
 				 error.rejectValue("username", "error.username", "Username already in use");
+				 ((ModelAndView) model).addObject("Error", error);
 				return "registration";
 			}
 			

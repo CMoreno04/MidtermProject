@@ -16,24 +16,25 @@
 		<table class="table table-hover">
 			<c:forEach items="${serv}" var="service">
 				<tr class="d-flex">
-					<td class="col-3">
-						<a href="getService.do?id=${service.id}">
-						<img src="${service.logo}" alt="" height="50vh" alt="${service.name}">
-						</a>
-					</td>
+					<td class="col-3"><a href="getService.do?id=${service.id}">
+							<img src="${service.logo}" alt="" height="50vh"
+							alt="${service.name}">
+					</a></td>
 					<td class="col-3">${service.monthlyPrice}</td>
-
 					<c:if test="${not empty user }">
 						<td class="col-3">
 							<form action="addUserService.do">
-							<input type="hidden" name="userId" value="${user.id}">
-							<input type="hidden" name="servId" value="${serv.id}">
-								<button type="submit" class="btn btn-success">add</button>
+								<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
+								<input type="hidden" name="servId" value="${service.id}">
+									
+								<input class="btn btn-success btn-sm" type="submit" value="add">
+<!-- 								<button type="submit" class="btn btn-success">add</button> -->
+
 							</form>
 						</td>
 					</c:if>
-					
-					
+
+
 				</tr>
 			</c:forEach>
 		</table>

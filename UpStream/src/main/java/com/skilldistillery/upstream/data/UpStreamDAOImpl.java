@@ -1,5 +1,6 @@
 package com.skilldistillery.upstream.data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import com.skilldistillery.upstream.entities.StreamService;
 import com.skilldistillery.upstream.entities.User;
 import com.skilldistillery.upstream.entities.UserContent;
 import com.skilldistillery.upstream.entities.UserService;
-import com.skilldistillery.upstream.entities.UserServiceId;
 
 @Transactional
 @Service
@@ -160,16 +160,20 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public List<StreamService> getUserServices(User user) {
-		List<StreamService> userServices = new ArrayList<StreamService>();
-		System.err.println("in get user service" + user);
+		List<StreamService> streamingServ = new ArrayList<StreamService>();
 
-		if (user.getUserService() != null) {
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId";
 
-			for (UserService service : user.getUserService()) {
-				userServices.add(service.getService());
+		List<UserService> userservices = em.createQuery(jpql, UserService.class).setParameter("userId", user.getId())
+				.getResultList();
+
+		if (userservices != null) {
+
+			for (UserService service : userservices) {
+				streamingServ.add(service.getService());
 			}
 		}
-		return userServices;
+		return streamingServ;
 	}
 
 	@Override
@@ -184,6 +188,18 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 		return userContent;
 	}
+
+//	@Override
+//	public List<UserContent> addUserContent(int idIn, int contentId) {
+//		User user = em.find(User.class, idIn);
+//		List<UserContent> userContent = user.getUserCont();
+//
+//		for (UserContent content : user.getUserCont()) {
+//			userContent.add()
+//		}
+//		return userContent;
+//	}
+//	
 
 	@Override
 	public boolean removeUserService(int userId, int servId) {
@@ -213,13 +229,12 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean addUserService(int userId, int servId) {
-		UserServiceId svcId = new UserServiceId(servId, userId);
-		UserService svc = new UserService();
-		svc.setId(svcId);
+	public boolean addUserService(User user, int sid) {
+		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
 
-			em.persist(svc);
+//			em.getTransaction().begin();
+			em.persist(us);
 			em.flush();
 
 			return true;
@@ -228,7 +243,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 }

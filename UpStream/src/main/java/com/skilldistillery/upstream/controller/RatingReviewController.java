@@ -16,6 +16,7 @@ import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.User;
+import com.skilldistillery.upstream.entities.UserContent;
 
 @Controller
 public class RatingReviewController {
@@ -151,5 +152,13 @@ public class RatingReviewController {
 			mv.setViewName("profile");
 			return mv;
 		}
-	} 
+	}
+	
+//	@RequestMapping(path = "addToUserContent.do", params = "contentId", method = RequestMethod.POST)
+//	public ModelAndView addContentToUser(@RequestParam("contentId") int contentId, User user, HttpSession session) {
+//		User activeUser = (User) session.getAttribute("user");
+//		//activeUser.getUserCont().add(usDAO.getContent(contentId));
+//
+//	}
+
 }
