@@ -20,14 +20,15 @@
 <%@ include file="nav.jsp" %>
 
 <br>
-<!-- 
-<p><a href="topContByServ.do?id=1" style="text-decoration: none"> Get Content By Rating (under construction)</a></p> -->
-
 <c:forEach items="${services}" var="service" varStatus="loop" begin="0" end = "10">
 <!-- SERVICE DIV: new DIV for each service -->
 	<div class="titlebox">
 		<c:forEach items="${serviceType}" var="typename" begin="${loop.index}" end = "${loop.index}">
-		<h4 class="servicetitle"><a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> ${typename.name} </a></h4>
+<%-- 	<h4 class="servicetitle"><a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> 
+		${typename.name} </a></h4> --%>
+		<a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle">
+		<img src="${typename.logo}" width="60vh" alt="${typename.name}">
+		</a>
 		</c:forEach>
 	</div>
 
