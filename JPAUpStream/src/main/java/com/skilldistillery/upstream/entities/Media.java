@@ -2,6 +2,7 @@ package com.skilldistillery.upstream.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +21,10 @@ public class Media {
 	@Column
 	private String url;
 	
-	@OneToMany(mappedBy="image")
+	@OneToMany(mappedBy="image", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Content> contenImages;
 	
-	@OneToMany(mappedBy="video")
+	@OneToMany(mappedBy="video", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Content> contenVideos;
 	
 	

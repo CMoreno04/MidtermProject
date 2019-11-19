@@ -2,6 +2,7 @@ package com.skilldistillery.upstream.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,11 +31,11 @@ public class StreamService {
 	@Column
 	private String logo;
 	
-	@OneToMany(mappedBy = "service")
+	@OneToMany(mappedBy = "service",cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<UserService> userService;
 
 
-	@ManyToMany(mappedBy = "service")
+	@ManyToMany(mappedBy = "service", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Content> content;
 
 	// C O N S T R U C T O R S
