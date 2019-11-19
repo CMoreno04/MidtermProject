@@ -23,13 +23,13 @@
 				placeholder="Enter Password" name="password" required> <br>
 
 			<button type="submit">Login</button>
+
+		</div>
+	</form:form>
 			<form:form action="register.do" id="register button" class="header"
 				method="GET">
 				<button type="submit">Register</button>
 			</form:form>
-
-		</div>
-	</form:form>
 
 </body>
 </html>
