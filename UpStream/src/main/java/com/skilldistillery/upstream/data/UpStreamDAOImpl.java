@@ -183,6 +183,21 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return userContent;
 	}
 
+	
+//	@Override
+//	public List<UserContent> addUserContent(int idIn, int contentId) {
+//		User user = em.find(User.class, idIn);
+//		List<UserContent> userContent = user.getUserCont();
+//
+//		for (UserContent content : user.getUserCont()) {
+//			userContent.add()
+//		}
+//		return userContent;
+//	}
+//	
+	
+	
+	
 	@Override
 	public boolean removeUserService(int userId, int servId) {
 

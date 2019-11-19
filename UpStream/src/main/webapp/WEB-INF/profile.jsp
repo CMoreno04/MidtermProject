@@ -37,26 +37,21 @@
 	        </tr>
     	</table>
 	</div>
-	
-	
-	
-	
-	
-	<div id="userProfile">
-	<h1 >${user.username } </h1>
-	<form:form action="goToUpdateUser.do" id="update button" class="header"
-				method="GET">
-				<button type="submit">Update Profile</button>
-			</form:form>
-	
 
-
+	<div class="container text-center" style="padding-top: 30px">
+	<table class="table">
+	<tr class="row">
+	
 	<c:forEach items="${userService}" var="service" varStatus="loop">
+	<td class="col">
+		
+		
+		
 		<div class="container-fluid">
 			<div class="card text-white bg-success mb-3"
 				style="max-width: 20rem;">
 				<div class="card-header">${service.name}</div>
-				<div class="card-body">
+				<div class="card-body" style="background-color: rgba(32, 201, 151, 0.4);">
 					<c:forEach items="${userContent}" var="content" varStatus="loop">
 					<c:if test="${content.service.name == service.name}">
 						<p class="card-text">${content.title }</p>
@@ -65,13 +60,15 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		
+	</td>
 	</c:forEach> 
+	</tr>
+	</table>
 	</div>
-
-
-
-
-
 
 
 
