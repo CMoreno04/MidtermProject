@@ -28,7 +28,8 @@ public class RatingReviewController {
 	private UpStreamDAO usDAO;
 
 	@RequestMapping(path = "createReview.do", params = "contentId", method = RequestMethod.POST)
-	public ModelAndView createReview(@RequestParam("contentId") int contentId, RatingReview rating, User user, HttpSession session) {
+	public ModelAndView createReview(@RequestParam("contentId") int contentId, RatingReview rating, User user,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		rating.setContent(usDAO.getContent(contentId));
 		Content content = usDAO.getContent(contentId);
@@ -44,7 +45,8 @@ public class RatingReviewController {
 					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
 				}
 			}
-		} else {}
+		} else {
+		}
 		mv.addObject("reviews", dao.getTopRatedByContentId(contentId));
 		mv.addObject("contents", content);
 		mv.addObject("averageRating", dao.getAverageRating(content.getId()).get(0));
@@ -52,9 +54,9 @@ public class RatingReviewController {
 		return mv;
 	}
 
-	
-	@RequestMapping(path = "updateReview.do", params = {"contentId", "updateById"}, method = RequestMethod.POST)
-	public ModelAndView updateReview(@RequestParam("contentId") int contentId, int updateById, RatingReview rev, User user, HttpSession session) {
+	@RequestMapping(path = "updateReview.do", params = { "contentId", "updateById" }, method = RequestMethod.POST)
+	public ModelAndView updateReview(@RequestParam("contentId") int contentId, int updateById, RatingReview rev,
+			User user, HttpSession session) {
 		rev.setContent(usDAO.getContent(contentId));
 		ModelAndView mv = new ModelAndView();
 		RatingReview forundReview = dao.updateReview(updateById, rev);
@@ -70,16 +72,19 @@ public class RatingReviewController {
 					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
 				}
 			}
-		} else {}
+		} else {
+		}
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.addObject("averageRating", dao.getAverageRating(content.getId()).get(0));
 		mv.setViewName("contentpage");
 		return mv;
 	}
-	
-	@RequestMapping(path = "updateReviewFromProf.do", params = {"contentId", "updateById"}, method = RequestMethod.POST)
-	public ModelAndView updateReviewFromProfile(@RequestParam("contentId") int contentId, int updateById, RatingReview rev, User user, HttpSession session) {
+
+	@RequestMapping(path = "updateReviewFromProf.do", params = { "contentId",
+			"updateById" }, method = RequestMethod.POST)
+	public ModelAndView updateReviewFromProfile(@RequestParam("contentId") int contentId, int updateById,
+			RatingReview rev, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
 		try {
@@ -93,8 +98,7 @@ public class RatingReviewController {
 			mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 			return mv;
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", usDAO.getUserServices(activeUser));
 			mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
@@ -102,20 +106,19 @@ public class RatingReviewController {
 			mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 			return mv;
-		} 
+		}
 	}
-	
-	
-	
-	
-	@RequestMapping(path = "deleteReview.do", params = {"contentId", "revId"}, method = RequestMethod.POST)
-	public ModelAndView deleteReview(@RequestParam("contentId") int contentId, int revId, User user, HttpSession session) {
+
+	@RequestMapping(path = "deleteReview.do", params = { "contentId", "revId" }, method = RequestMethod.GET)
+	public ModelAndView deleteReview(@RequestParam("contentId") int contentId, @RequestParam("revId") int revId,
+			User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Content content = usDAO.getContent(contentId);
-		
+
 		dao.deleteReview(revId);
-		List<RatingReview> reviews = dao.getTopRatedByContentId(content.getId());
 		
+		List<RatingReview> reviews = dao.getTopRatedByContentId(content.getId());
+
 		if (user != null) {
 			User activeUser = (User) session.getAttribute("user");
 			mv.addObject("user", activeUser);
@@ -126,30 +129,31 @@ public class RatingReviewController {
 					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
 				}
 			}
-		} else {}
-		mv.addObject("reviews", reviews);
-		mv.addObject("contents", content);
-		mv.addObject("averageRating", dao.getAverageRating(content.getId()).get(0));
+		} else {
+		}
+			mv.addObject("reviews", reviews);
+			mv.addObject("contents", content);
+			mv.addObject("averageRating", dao.getAverageRating(content.getId()).get(0));
 		mv.setViewName("contentpage");
 		return mv;
 	}
-	
-	@RequestMapping(path = "deleteReviewFromProfile.do", params = {"contentId", "revId"}, method = RequestMethod.POST)
-	public ModelAndView deleteReviewFromProfile(@RequestParam("contentId") int contentId, int revId, User user, HttpSession session) {
+
+	@RequestMapping(path = "deleteReviewFromProfile.do", params = { "contentId", "revId" }, method = RequestMethod.POST)
+	public ModelAndView deleteReviewFromProfile(@RequestParam("contentId") int contentId, int revId, User user,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
 		try {
-		Content content = usDAO.getContent(contentId);
-		dao.deleteReview(revId);		
-		mv.addObject("user", activeUser);
-		mv.addObject("userService", usDAO.getUserServices(activeUser));
-		mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
-		mv.addObject("reviews", usDAO.getReviewsOfUserByUserId(activeUser.getId()));
-		mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
-		mv.setViewName("profile");
-		return mv;
-		}
-		catch (Exception e) {
+			Content content = usDAO.getContent(contentId);
+			dao.deleteReview(revId);
+			mv.addObject("user", activeUser);
+			mv.addObject("userService", usDAO.getUserServices(activeUser));
+			mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
+			mv.addObject("reviews", usDAO.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
+			mv.setViewName("profile");
+			return mv;
+		} catch (Exception e) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", usDAO.getUserServices(activeUser));
 			mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
@@ -159,7 +163,7 @@ public class RatingReviewController {
 			return mv;
 		}
 	}
-	
+
 //	@RequestMapping(path = "addToUserContent.do", params = "contentId", method = RequestMethod.POST)
 //	public ModelAndView addContentToUser(@RequestParam("contentId") int contentId, User user, HttpSession session) {
 //		User activeUser = (User) session.getAttribute("user");
