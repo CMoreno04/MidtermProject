@@ -175,7 +175,7 @@
 	
 	<!-- insert for user id?>?? -->
 	<input type="hidden" name="userId" value="${user.id}">
- 	<%-- <input type="hidden" name="id" value="${rev.id}"> --%>
+ 	 <input type="hidden" name="revId" value="${rev.id}"> 
 	<input type="hidden" name="contentId" value="${contents.id}"> 
 	<input class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left nav__links" type="submit" value="Add review"><br>	
 	
@@ -271,7 +271,7 @@
 			<textarea class="form-control"  name="comment" style="background-color: rgba(255, 255, 255, 0.4); color: black;">${rev.comment}</textarea>
 				<input type="hidden" name="userId" value="${user.id}">
 				<input type="hidden" name="contentId" value="${contents.id}">
-				<input type="hidden" name="updateById" value="${rev.id}"> <br>
+				<input type="hidden" name="revId" value="${rev.id}"> <br>
 				<input class="btn btn-warning btn-sm" type="submit" value="Update">
 		</form>
 	    </div>

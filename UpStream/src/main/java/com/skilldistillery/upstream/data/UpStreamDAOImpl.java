@@ -123,11 +123,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 			user.setActive(false);
 
-
 			em.persist(user);
 
 			em.flush();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -140,15 +139,18 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean removeUser(User user) {
+	public boolean removeUser(User userIn) {
+		User user = em.find(User.class, userIn.getId());
+		
 		try {
-			em.remove(em.find(User.class, user.getId()));
+			
+			em.remove(user);
 			em.flush();
+			
 			return true;
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 
 			return false;
 		}
@@ -225,7 +227,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-
 	public boolean addUserService(User user, int sid) {
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
@@ -274,10 +275,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 				.setParameter("userId", userId).getSingleResult();
 
 		try {
-			
-				em.remove(userCont);
 
-				em.flush();
+			em.remove(userCont);
+
+			em.flush();
 
 			return true;
 		}

@@ -112,8 +112,10 @@ public class RatingReviewController {
 	public ModelAndView deleteReview(@RequestParam("contentId") int contentId, int revId, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Content content = usDAO.getContent(contentId);
+		
 		dao.deleteReview(revId);
 		List<RatingReview> reviews = dao.getTopRatedByContentId(content.getId());
+		
 		if (user != null) {
 			User activeUser = (User) session.getAttribute("user");
 			mv.addObject("user", activeUser);
