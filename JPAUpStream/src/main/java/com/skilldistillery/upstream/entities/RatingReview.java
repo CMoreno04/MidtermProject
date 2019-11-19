@@ -1,5 +1,6 @@
 package com.skilldistillery.upstream.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,13 +23,13 @@ public class RatingReview {
 	@Column
 	private String comment;
 	
-	@Column(name="rating")
+	@Column(name="rating", 
 	private Integer rating;
 	
 	@Column(name = "user_id")
 	private int userId;
 	
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "content_id")
 	private Content content;
 	

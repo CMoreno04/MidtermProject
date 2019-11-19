@@ -2,6 +2,7 @@ package com.skilldistillery.upstream.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,12 +27,12 @@ public class UserService {
 	@Column(name = "current_subscrib")
 	private boolean currentSubscrib;
 	
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "user_id") // DB column name
 //	@MapsId(value = "userId")     // Field in ID class
 	private User users;
 	
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "service_id") // DB column name
 //	@MapsId(value = "serviceId")     // Field in ID class
 	private StreamService service;

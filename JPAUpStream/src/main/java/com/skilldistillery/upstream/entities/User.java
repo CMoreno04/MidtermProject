@@ -39,14 +39,14 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "image_id")
 	private UserImage userImage;
 
-	@ManyToMany(mappedBy = "user")
+	@ManyToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<UserContent> userCont;
 
-	@OneToMany(mappedBy = "users")
+	@OneToMany(mappedBy = "users", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<UserService> userService;
 
 	// C O N S T R U C T O R S
