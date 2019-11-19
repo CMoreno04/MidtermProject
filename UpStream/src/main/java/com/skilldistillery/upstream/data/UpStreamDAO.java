@@ -51,7 +51,9 @@ public interface UpStreamDAO {
 
 	public boolean removeUser(User user);
 	
-	public boolean addUserService(UserService userServ);
+//	public boolean addUserService(UserService userServ);
+
+	public boolean addUserService(User user, int sid);
 
 
 }
