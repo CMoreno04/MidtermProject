@@ -19,7 +19,7 @@
 		<div class="row row-no-gutters">
 			<div class="col-xs-6 col-md-4"></div>
 			<div class="col-xs-6 col-md-4 text-center">
-				<h1>Update</h1>
+				<h1>${user.username } Profile Update</h1>
 				<form:form action="updateUser.do" method="POST" modelAttribute="user">
 					<div class="form-row center">
 							<form:label path="firstName">First Name</form:label>
@@ -32,8 +32,7 @@
 								path="lastName" placeholder="${user.lastName }"  default="${user.lastName }" value="${user.lastName }"/>
 						</div>
 					<div class="form-row center">
-						<form:label path="username">Username</form:label>
-						<form:input type="text" class="form-control" required="required"
+						<form:input type="hidden" disabled="disabled" class="form-control" required="required"
 							path="username" value="${user.username }"  />
 					</div>
 					<div class="form-row center">
