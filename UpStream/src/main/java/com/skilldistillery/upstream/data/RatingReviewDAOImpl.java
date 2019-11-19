@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 
 @Transactional
@@ -62,4 +63,26 @@ public class RatingReviewDAOImpl implements RatingReviewDAO {
 				.setParameter("uid", userId).setParameter("cid", contentId).getResultList();
 		return userReviews;
 	}
+
+	@Override
+	public List<Double> getAverageRating(int contentId) {
+		String query = "SELECT AVG(r.rating) FROM RatingReview r WHERE r.content.id = :cid";
+		List<Double> average = (List<Double>) em.createQuery(query).setParameter("cid", contentId).getResultList();
+		return average;
+	}
+	
+	@Override
+	public List<Double> getAverageRatingList() {
+		String query = "SELECT AVG(r.rating) FROM Content c JOIN c.ratingReviews r";
+		List<Double> average = (List<Double>) em.createQuery(query).getResultList();
+		return average;
+	}
+	
+	@Override
+	public List<Content> getService(int servId) {
+		String query = "SELECT c FROM Content c JOIN FETCH c.service s WHERE s.id = :sid";
+		List<Content> service = em.createQuery(query, Content.class).setParameter("sid", servId).getResultList();
+		return service;
+	}
+
 }

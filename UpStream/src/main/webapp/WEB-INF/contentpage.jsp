@@ -57,9 +57,7 @@
 	
 	<!-- description column -->
 	<div class="col-md">
-	
-	
-	
+
 	<table class="table table-hover"> 
   	<tr class="d-flex">
   		<th class="col-12"><h4>${contents.title}</h4></th>
@@ -68,25 +66,37 @@
   		<td class="col">
   		<c:if test = "${reviews != null}">
   			<c:choose>
-    			<c:when test="${average <= '1'}">
+    			<c:when test="${averageRating <= '1'}">
 				⚡
     			</c:when> 
-    			<c:when test="${average <= '2.5'}">
+    			<c:when test="${averageRating <= '2.5'}">
     			⚡⚡
     			</c:when> 
-    			<c:when test="${average <= '3.5'}">
+    			<c:when test="${averageRating <= '3.5'}">
     			⚡⚡⚡
     			</c:when> 
-    			<c:when test="${average <= '4.5'}">
+    			<c:when test="${averageRating <= '4.5'}">
     			⚡⚡⚡⚡
     			</c:when> 
-				<c:when test="${average < '5'}">
+				<c:when test="${averageRating <= '5'}">
 				⚡⚡⚡⚡⚡
     			</c:when> 
- 			   <c:otherwise> ${average} </c:otherwise> 
+ 			   <c:otherwise> Content has not been rated yet. </c:otherwise> 
 			</c:choose>
 		</c:if>
   		</td>
+  		<td class="col">
+			<img src="${contents.service.logo}" width="50px"> 
+		</td>
+  	</tr>
+  	<tr class="d-flex">
+		<td class="col">
+		<div style="display: inline-flex;">
+	  		<c:forEach items="${contents.genres}" var="genre" varStatus="loop">
+	  			<h6><span class="badge badge-secondary">${genre.name}</span></h6>&nbsp;&nbsp; 
+	  		</c:forEach>
+	  	</div>
+  		<td>
   	</tr>
   	<tr class="d-flex">
   		<td class="col">
@@ -107,12 +117,7 @@
 	</div>
 </div>
 
-
-<%-- <c:if test="${userreview != null}">
-
-${userreview}
-</c:if> --%>
-
+<!-- START OF COMMENT BOX   IF USER IS LOGGED IN AND HAS NOT MADE A COMMENT -->
 <c:if test="${not empty user}">
 <c:if test="${userreview == null}">
 <div class="container" style="margin-top: 60px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35);">
@@ -145,6 +150,19 @@ ${userreview}
 </div>
 </c:if>
 </c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--  START REVIEWS  -->
 <div class="container" style="margin-top: 60px">
 

@@ -25,14 +25,14 @@ body {
 	background-size: cover;
 	background-position: center;
     background-repeat: no-repeat; */
-    display: inline-flex;
+/*     display: inline-flex;
 	color: #fff;
     width: 100%;
 	height: 80%;
     background-size: cover;
 	background-position: center;
-	border-radius: 10px;
-}
+	border-radius: 10px;*/
+} 
 
 .items {
 	display: inline-block;
@@ -105,9 +105,9 @@ body {
 
 .titlebox {
 	margin-left: 30px;
-	display: inline-block;
+/* 	display: inline-block;
 	overflow: hidden;
-	position: relative;
+	position: relative; */
 }
 
 .servicetitle {
@@ -154,6 +154,33 @@ body {
     top:50%;
 }
 
+
+/***********************
+*      PROFILE PAGE    *
+***********************/
+.profile-pic {
+    background-color: white;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsTiCmktIKpEbqMkD-ArsbCaVHYcgEW-tpMixez8pbPeQDgDQi&s);
+    background-size: 70%;
+	background-position: center;
+    background-repeat: no-repeat;
+    height: 20vh;
+    width: 20vh;
+    border-radius: 100%;
+}
+
+.prof-box {
+    display: flex;
+    max-width: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.prof-name {
+    margin-left: 40px;
+    margin-right: 40px;
+}
 /***********************
 *      SCROLL BAR      *
 ***********************/
