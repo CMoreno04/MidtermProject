@@ -31,7 +31,7 @@
 		        	<h3 class="prof-name">${user.username} </h3>
 		        </td>
 		        <td class="col">
-		        	<form action="goToUpdateUser.do" method="GET">
+		        	<form action="goToUpdateUser.do" method="GET" >
 		        		<input type="submit" value="Update Profile" class="btn btn-success btn-sm">
 		       	 	</form>
 		       	 	<form action="deleteUser.do" method="GET">

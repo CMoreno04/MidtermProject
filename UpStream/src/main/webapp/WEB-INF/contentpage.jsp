@@ -124,31 +124,33 @@
 <c:if test="${not empty user}">
 <c:if test="${userreview == null}">
 <div class="container" style="margin-top: 60px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35);">
-    <form action="createReview.do" method="POST" class="container">
-    <!-- <div class="form-group"> -->
-    <!-- Review Form -->
-    <h3>Review</h3>
-    <div class="form-group">
-    Rating: <br>
-    <select name="rating" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
-        <option value="1">⚡</option>
-        <option value="2">⚡⚡</option>
-        <option value="3" selected>⚡⚡⚡</option>
-        <option value="4">⚡⚡⚡⚡</option>
-        <option value="5">⚡⚡⚡⚡⚡</option>
-    </select>
-    </div>
-    <br>
-    Comment: <br>
-    <textarea class="form-control" name="comment" rows="5" cols= "50" style="background-color: rgba(255, 255, 255, 0.4); color: black;"></textarea>
-    
-    <!-- insert for user id?>?? -->
-    <input type="hidden" name="userId" value="${user.id}">
-     <input type="hidden" name="revId" value="${rev.id}"> 
-    <input type="hidden" name="contentId" value="${contents.id}"> 
-    <input class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left nav__links" type="submit" value="Add review"><br>   
-    
-    </form>
+
+	<form action="createReview.do" method="POST" class="container">
+	<!-- <div class="form-group"> -->
+	<!-- Review Form -->
+	<h3>Review</h3>
+	<div class="form-group">
+	Rating: <br>
+	<select name="rating" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
+		<option value="1">⚡</option>
+		<option value="2">⚡⚡</option>
+		<option value="3" selected>⚡⚡⚡</option>
+		<option value="4">⚡⚡⚡⚡</option>
+		<option value="5">⚡⚡⚡⚡⚡</option>
+	</select>
+	</div>
+	<br>
+	Comment: <br>
+	<textarea class="form-control" name="comment" rows="5" cols= "50" style="background-color: rgba(255, 255, 255, 0.4); color: black;"></textarea>
+	
+	<!-- insert for user id?>?? -->
+	<input type="hidden" name="userId" value="${user.id}">
+ 	 <input type="hidden" name="revId" value="${rev.id}"> 
+	<input type="hidden" name="contentId" value="${contents.id}"> 
+	<input class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left nav__links" type="submit" value="Add review"><br>	
+	
+	</form>
+
 </div>
 </c:if>
 </c:if>
@@ -196,54 +198,55 @@
     </button>
     
 <!-- Modal START -->
-    <div class="modal fade" id="exampleModalScrollable${rev.rating}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">Update Review</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          
-          <div class="modal-body">
-    <!--       <form action="updateReview.do" method="POST" style="margin-right: 10px"> -->
-    
-          <form action="updateReview.do" method="POST"  modelAttribute="review" style="margin-right: 10px">
-             Rating:<br>
-            <select name="rating" selected="${rev.rating}" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
-                <option value="1" ${rev.rating == '1' ? 'selected' : ''}>⚡</option>
-                <option value="2" ${rev.rating == '2' ? 'selected' : ''}>⚡⚡</option>
-                <option value="3" ${rev.rating == '3' ? 'selected' : ''}>⚡⚡⚡</option>
-                <option value="4" ${rev.rating == '4' ? 'selected' : ''}>⚡⚡⚡⚡</option>
-                <option value="5" ${rev.rating == '5' ? 'selected' : ''}>⚡⚡⚡⚡⚡</option>
-            </select><br>
-            Comment:<br>
-            <textarea class="form-control"  name="comment" style="background-color: rgba(255, 255, 255, 0.4); color: black;">${rev.comment}</textarea>
-                <input type="hidden" name="userId" value="${user.id}">
-                <input type="hidden" name="contentId" value="${contents.id}">
-                <input type="hidden" name="revId" value="${rev.id}"> <br>
-                <input class="btn btn-warning btn-sm" type="submit" value="Update">
-        </form>
-        </div>
-        </div>
-      </div>
-    </div>
-        
-<!-- DELETE BUTTON -->        
-        <form action="deleteReview.do" method="POST">
-            <input type="hidden" name="userId" value="${user.id}">
-            <input type="hidden" name="contentId" value="${contents.id}">
-            <input type="hidden" name="revId" value="${rev.id}">
-            <input class="btn btn-danger btn-sm" type="submit" value="delete">
-        </form>   
-    </div>
-    </div>
-    </td>            
-    </tr>
-    </c:when>
-    <c:when test="${empty user}"></c:when> 
-    <c:when test="${user.id != rev.userId}"></c:when>
+
+	<div class="modal fade" id="exampleModalScrollable${rev.rating}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-scrollable" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalScrollableTitle">Update Review</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      
+	      <div class="modal-body">
+	<!--       <form action="updateReview.do" method="POST" style="margin-right: 10px"> -->
+	
+	      <form action="updateReview.do" method="POST"  modelAttribute="review" style="margin-right: 10px">
+	     	 Rating:<br>
+			<select name="rating" selected="${rev.rating}" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
+				<option value="1" ${rev.rating == '1' ? 'selected' : ''}>⚡</option>
+				<option value="2" ${rev.rating == '2' ? 'selected' : ''}>⚡⚡</option>
+				<option value="3" ${rev.rating == '3' ? 'selected' : ''}>⚡⚡⚡</option>
+				<option value="4" ${rev.rating == '4' ? 'selected' : ''}>⚡⚡⚡⚡</option>
+				<option value="5" ${rev.rating == '5' ? 'selected' : ''}>⚡⚡⚡⚡⚡</option>
+			</select><br>
+			Comment:<br>
+			<textarea class="form-control"  name="comment" style="background-color: rgba(255, 255, 255, 0.4); color: black;">${rev.comment}</textarea>
+				<input type="hidden" name="userId" value="${user.id}">
+				<input type="hidden" name="contentId" value="${contents.id}">
+				<input type="hidden" name="revId" value="${rev.id}"> <br>
+				<input class="btn btn-warning btn-sm" type="submit" value="Update">
+		</form>
+	    </div>
+	    </div>
+	  </div>
+	</div>
+		
+<!-- DELETE BUTTON -->		
+		<form action="deleteReview.do" method="POST">
+			<input type="hidden" name="userId" value="${user.id}">
+			<input type="hidden" name="contentId" value="${contents.id}">
+			<input type="hidden" name="revId" value="${rev.id}">
+			<input class="btn btn-danger btn-sm" type="submit" value="delete">
+		</form>	
+	</div>
+	</div>
+	</td>		       
+	</tr>
+	</c:when>
+	<c:when test="${empty user}"></c:when> 
+	<c:when test="${user.id != rev.userId}"></c:when>
 </c:choose>
 </c:forEach>
 </table>
