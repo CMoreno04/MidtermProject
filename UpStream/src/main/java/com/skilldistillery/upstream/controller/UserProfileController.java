@@ -55,6 +55,7 @@ public class UserProfileController {
 	            mv.setViewName("profile");
 	        	mv.addObject("userService", USdao.getUserServices(updatedUser));
 				mv.addObject("userContent", USdao.getUserContent(updatedUser.getId()));
+				
 
 //	        }
 	        return mv;

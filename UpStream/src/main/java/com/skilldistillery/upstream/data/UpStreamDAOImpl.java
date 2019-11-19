@@ -160,16 +160,20 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public List<StreamService> getUserServices(User user) {
-		List<StreamService> userServices = new ArrayList<StreamService>();
-		System.err.println("in get user service" + user);
+		List<StreamService> streamingServ = new ArrayList<StreamService>();
 
-		if (user.getUserService() != null) {
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId";
 
-			for (UserService service : user.getUserService()) {
-				userServices.add(service.getService());
+		List<UserService> userservices = em.createQuery(jpql, UserService.class).setParameter("userId", user.getId())
+				.getResultList();
+
+		if (userservices != null) {
+
+			for (UserService service : userservices) {
+				streamingServ.add(service.getService());
 			}
 		}
-		return userServices;
+		return streamingServ;
 	}
 
 	@Override
@@ -185,7 +189,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return userContent;
 	}
 
-	
 //	@Override
 //	public List<UserContent> addUserContent(int idIn, int contentId) {
 //		User user = em.find(User.class, idIn);
@@ -197,9 +200,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 //		return userContent;
 //	}
 //	
-	
-	
-	
+
 	@Override
 	public boolean removeUserService(int userId, int servId) {
 
@@ -233,9 +234,9 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		try {
 
 //			em.getTransaction().begin();
-			em.persist(us);	
+			em.persist(us);
 			em.flush();
-			
+
 			return true;
 
 		} catch (Exception e) {
