@@ -108,8 +108,8 @@
   	<tr class="d-flex text-center">
  
  <!-- Change or add buttons here as nesesary..  May need to be switched to input fields when mapped. --> 	
-  	<td class="col-6"><button type="button" class="btn btn-success">Currently Watching</button></td>
-  	<td class="col-6"><button type="button" class="btn btn-primary">Wish list</button></td>
+  	<td class="col"><button type="button" class="btn btn-success">Currently Watching</button></td>
+  	<!-- <td class="col-6"><button type="button" class="btn btn-primary">Wish list</button></td> -->
   	</tr>
     </table>
 	

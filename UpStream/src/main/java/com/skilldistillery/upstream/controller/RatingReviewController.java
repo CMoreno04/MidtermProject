@@ -90,6 +90,7 @@ public class RatingReviewController {
 			mv.addObject("userService", usDAO.getUserServices(activeUser));
 			mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", usDAO.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 			return mv;
 		} 
@@ -98,6 +99,7 @@ public class RatingReviewController {
 			mv.addObject("userService", usDAO.getUserServices(activeUser));
 			mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", usDAO.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 			return mv;
 		} 
@@ -141,6 +143,7 @@ public class RatingReviewController {
 		mv.addObject("userService", usDAO.getUserServices(activeUser));
 		mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
 		mv.addObject("reviews", usDAO.getReviewsOfUserByUserId(activeUser.getId()));
+		mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
 		mv.setViewName("profile");
 		return mv;
 		}
@@ -149,6 +152,7 @@ public class RatingReviewController {
 			mv.addObject("userService", usDAO.getUserServices(activeUser));
 			mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", usDAO.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", usDAO.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 			return mv;
 		}

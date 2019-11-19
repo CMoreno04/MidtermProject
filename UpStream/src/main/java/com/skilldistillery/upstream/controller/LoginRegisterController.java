@@ -60,6 +60,7 @@ public class LoginRegisterController {
 			model.addAttribute("userService", USdao.getUserServices(user));
 			model.addAttribute("userContent", USdao.getUserContent(user.getId()));
 			model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(user.getId()));
+			model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(user.getId()));
 			return "profile";
 
 		}
