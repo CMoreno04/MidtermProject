@@ -2,8 +2,10 @@ package com.skilldistillery.upstream.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +44,7 @@ public class User {
 	@ManyToMany(mappedBy = "user")
 	private List<UserContent> userCont;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private List<UserService> userService;
 
 	// C O N S T R U C T O R S
