@@ -234,7 +234,7 @@
 	</div>
 		
 <!-- DELETE BUTTON -->		
-		<form action="deleteReview.do" method="POST">
+		<form action="deleteReview.do" method="GET" >
 			<input type="hidden" name="userId" value="${user.id}">
 			<input type="hidden" name="contentId" value="${contents.id}">
 			<input type="hidden" name="revId" value="${rev.id}">
