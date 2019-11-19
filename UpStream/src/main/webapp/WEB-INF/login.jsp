@@ -25,6 +25,9 @@
 			<button type="submit">Login</button>
 
 		</div>
+		<c:if test="${Error == not null }">
+			<p><strong>Username or password does not match our system. Please try again or register.</strong></p>
+			</c:if>
 	</form:form>
 			<form:form action="register.do" id="register button" class="header"
 				method="GET">
