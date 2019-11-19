@@ -25,7 +25,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	private EntityManager em;
 
 	public List<Content> getTopContent(int serviceId) {
-		String query = "SELECT c FROM Content c JOIN FETCH c.service s WHERE s.id = :sid";
+		String query = "SELECT c FROM Content c JOIN FETCH c.service s WHERE s.id = :sid ORDER BY c.id DESC";
 		List<Content> content = em.createQuery(query, Content.class).setParameter("sid", serviceId).getResultList();
 		return content;
 	}

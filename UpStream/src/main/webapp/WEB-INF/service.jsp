@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/form" prefix="form"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/form" prefix="form"%> --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
@@ -18,12 +18,20 @@
 <body>
 
 	<%@ include file="nav.jsp"%>
-	<h2>${serv.name}</h2>
-	<div class="card">
-		<c:forEach items="${content}" var="details" varStatus="loop"
-			begin="${serv.id -1}" end="${serv.id-1}">
+	<%-- <h2>${serviceName.name}</h2> --%>
+	
+	<br>
+<!-- 	<div class="titlebox text-center"> -->
+<div class="container">
+		<img src="${serviceName.logo}" height="50vh" alt="${serviceName.name}">
+</div>
+	<br>
+	
+	
+	
+<%-- 		<c:forEach items="${content}" var="details" varStatus="loop" begin="${serv.id -1}" end="${serv.id-1}">
 
-
+ --%>
 			<div class="container">
 
 				<table class="table table-hover">
@@ -34,12 +42,14 @@
 						<th scope="col" class="col-3">Rating</th>
 						<th scope="col" class="col-3">Add</th>
 
-						<c:forEach items="${details}" var="indivContent" varStatus="loop2">
+						<c:forEach items="${content}" var="indivContent" varStatus="loop2">
 							<tr class="d-flex">
 								<td class="col-6"><a
 									href="getContents.do?id=${indivContent.id}">${indivContent.title}<br></a>
 								</td>
-								<td class="col-3"><c:forEach items="${rating}" var="rat"
+								<td class="col-3">
+								
+								<c:forEach items="${rating}" var="rat"
 										varStatus="loop" begin="${loop2.index}" end="${loop2.index}">
 
 										<c:choose>
@@ -61,16 +71,19 @@
 											<c:otherwise> ${rat} </c:otherwise>
 										</c:choose>
 
-									</c:forEach></td>
-									
-								<td class="col-3"><c:if test="${not empty user }">
-										<td class="col-3">
-											<form action="">
-												<input name="userId" value="${user.id}" /> 
-												<input name="serviceId" value="${serv.id}" />
+									</c:forEach>
+									</td>
+
+								<td class="col-3">
+								
+								<c:if test="${not empty user }">
+										
+										<form action="">
+												<%-- <input name="userId" value="${user.id}" /> <input
+													name="serviceId" value="${serv.id}" /> --%>
 												<button type="submit" class="btn btn-success">add</button>
-											</form>
-										</td>
+											</form> 
+										
 									</c:if>
 							</tr>
 
@@ -78,9 +91,9 @@
 						</c:forEach>
 				</table>
 			</div>
-		</c:forEach>
-	</div>
-           
+<%-- 		</c:forEach> --%>
+	
+
 
 </body>
 </html>

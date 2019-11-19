@@ -18,6 +18,30 @@
 <body>
 
 	<%@ include file="nav.jsp"%>
+	
+	<!-- PROFILE PIC AND USERNAME.  NEEDS TO BE REDONE FOR MOBILE>>>s-->
+	<div class="prof-box header-box container text-center" style="margin-top: 20px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
+        <table>
+	        <tr class="row d-flex">
+		        <td class="col text-center">
+		        	<div class="profile-pic text-center" style="margin-right: 10px"></div>
+		        </td>
+		        <td class="col">
+		        	<h3 class="prof-name">${user.username} </h3>
+		        </td>
+		        <td class="col">
+		        	<form action="goToUpdateUser.do" method="GET">
+		        		<input type="submit" value="Update Profile" class="btn btn-success btn-sm">
+		       	 	</form>
+		        </td>
+	        </tr>
+    	</table>
+	</div>
+	
+	
+	
+	
+	
 	<div id="userProfile">
 	<h1 >${user.username } </h1>
 	<form:form action="goToUpdateUser.do" id="update button" class="header"
@@ -45,16 +69,109 @@
 	</div>
 
 
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  START REVIEWS and CRUD-->
+<div class="container">
+	<h4>Your Reviews:</h4>
+	<table class="table">
+	<c:forEach items="${reviews}" var="rev" varStatus="loop">
+	<tr class="d-flex">
+		<td class="col-sm-4">
+		<a href="getContents.do?id=${rev.content.id}">${rev.content.title}</a>
+		</td>
+		<td class="col-sm-4">
+		<c:choose>
+    			<c:when test="${rev.rating == '1'}">
+				⚡
+    			</c:when> 
+    			<c:when test="${rev.rating == '2'}">
+    			⚡⚡
+    			</c:when> 
+    			<c:when test="${rev.rating == '3'}">
+    			⚡⚡⚡
+    			</c:when> 
+    			<c:when test="${rev.rating == '4'}">
+    			⚡⚡⚡⚡
+    			</c:when> 
+				<c:when test="${rev.rating == '5'}">
+				⚡⚡⚡⚡⚡
+    			</c:when> 
+ 			   <c:otherwise> No rating </c:otherwise> 
+			</c:choose>
+		</td>
+		<td class="col-sm-4">${rev.comment}</td>
+	</tr>
+<!-- update and delete -->
+	<tr class="d-flex bg-secondary">
+		<td class="col">
+			<div class="text-right">
+				<div class="text-center" style="display: inline-flex;">
+<!-- Submit buttons -->
+<!-- Button TO TRIGGER MODAL -->
+	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.content.id}" style="margin-right: 10px">
+	  Update Review
+	</button>
+<!-- Modal START -->
+	<div class="modal fade" id="exampleModalScrollable${rev.content.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-scrollable" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalScrollableTitle">Update Review</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div> 
+	      <div class="modal-body">
+	<!--       <form action="updateReview.do" method="POST" style="margin-right: 10px"> -->
+	      <form action="updateReviewFromProf.do" method="POST"  modelAttribute="review" style="margin-right: 10px">
+	     	 Rating:<br>
+			<select name="rating" selected="${rev.rating}" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
+				<option value="1" ${rev.rating == '1' ? 'selected' : ''}>⚡</option>
+				<option value="2" ${rev.rating == '2' ? 'selected' : ''}>⚡⚡</option>
+				<option value="3" ${rev.rating == '3' ? 'selected' : ''}>⚡⚡⚡</option>
+				<option value="4" ${rev.rating == '4' ? 'selected' : ''}>⚡⚡⚡⚡</option>
+				<option value="5" ${rev.rating == '5' ? 'selected' : ''}>⚡⚡⚡⚡⚡</option>
+			</select><br>
+			Comment:<br>
+			<textarea class="form-control"  name="comment" style="background-color: rgba(255, 255, 255, 0.4); color: black;">${rev.comment}</textarea>
+				<input type="hidden" name="userId" value="${user.id}">
+				<input type="hidden" name="contentId" value="${rev.content.id}">
+				<input type="hidden" name="updateById" value="${rev.id}"> <br>
+				<input class="btn btn-warning btn-sm" type="submit" value="Update">
+		</form>
+	    </div>
+	    </div>
+	  </div>
+	</div>
+<!-- DELETE BUTTON -->		
+		<form action="deleteReviewFromProfile.do" method="POST">
+			<input type="hidden" name="userId" value="${user.id}">
+			<input type="hidden" name="contentId" value="${rev.content.id}">
+			<input type="hidden" name="revId" value="${rev.id}">
+			<input class="btn btn-danger btn-sm" type="submit" value="delete">
+		</form>	
+	</div>
+	</div>
+	</td>		       
+	</tr>
+	</c:forEach>
+	</table>
+ </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

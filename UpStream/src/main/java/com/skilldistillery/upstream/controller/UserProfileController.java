@@ -26,7 +26,7 @@ public class UserProfileController {
 		model.addAttribute("user", activeUser);
 		model.addAttribute("userService", USdao.getUserServices(activeUser));
 		model.addAttribute("userContent", USdao.getUserContent(activeUser.getId()));
-
+		model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(activeUser.getId()));
 		return "profile";
 		
 		
@@ -50,6 +50,7 @@ public class UserProfileController {
 //	        } else {
 	        	session.removeAttribute("user");
 	        	session.setAttribute("user", updatedUser);
+	        	mv.addObject("reviews", USdao.getReviewsOfUserByUserId(updatedUser.getId()));
 	            mv.addObject("user", updatedUser);
 	            mv.setViewName("profile");
 	        	mv.addObject("userService", USdao.getUserServices(updatedUser));
@@ -58,5 +59,4 @@ public class UserProfileController {
 //	        }
 	        return mv;
 	    }
-
 }
