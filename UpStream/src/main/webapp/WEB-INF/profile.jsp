@@ -38,6 +38,7 @@
 		       	 		<!-- <input type="hidden" > -->
 						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
 					</form>
+
 		        </td>
 	        </tr>
     	</table>
