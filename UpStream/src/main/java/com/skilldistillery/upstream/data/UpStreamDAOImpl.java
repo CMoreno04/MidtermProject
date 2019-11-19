@@ -231,11 +231,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	public boolean addUserService(User user, int sid) {
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
+
 //			em.getTransaction().begin();
 			em.persist(us);	
 			em.flush();
 			
-//			em.getTransaction().commit();
 			return true;
 
 		} catch (Exception e) {
