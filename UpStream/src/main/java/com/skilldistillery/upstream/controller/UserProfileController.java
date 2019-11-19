@@ -48,9 +48,13 @@ public class UserProfileController {
 //	        if (!user.equals(updatedUser)) {
 //	            mv.setViewName("updateUser");
 //	        } else {
+	        	session.removeAttribute("user");
 	        	session.setAttribute("user", updatedUser);
 	            mv.addObject("user", updatedUser);
 	            mv.setViewName("profile");
+	        	mv.addObject("userService", USdao.getUserServices(updatedUser));
+				mv.addObject("userContent", USdao.getUserContent(updatedUser.getId()));
+
 //	        }
 	        return mv;
 	    }

@@ -90,8 +90,10 @@ public class LoginRegisterController {
 			User newUser = rdao.addUser(user);
 			System.out.println(user);
 			System.out.println(newUser);
-			session.setAttribute("user", user);
-			model.addAttribute("user", user);
+			session.setAttribute("user", newUser);
+			model.addAttribute("user", newUser);
+			model.addAttribute("userService", USdao.getUserServices(newUser));
+			model.addAttribute("userContent", USdao.getUserContent(newUser.getId()));
 			
 			return "profile";
 			
