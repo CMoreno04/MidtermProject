@@ -67,12 +67,18 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return cont.get(0);
 	}
 
-	public double getTotalOfServicesByUser(int idIn) {
+	public double getTotalOfServicesByUser(int userId) {
 		double total = 0;
+		
+		User user = em.find(User.class, userId);
+		
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId";
+		
+		List<UserService> userservices = em.createQuery(jpql, UserService.class).setParameter("userId", user.getId())
+				.getResultList();
 
-		User user = em.find(User.class, idIn);
 
-		for (UserService service : user.getUserService()) {
+		for (UserService service : userservices) {
 			total += service.getService().getMonthlyPrice();
 		}
 
@@ -233,7 +239,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
 
-//			em.getTransaction().begin();
 			em.persist(us);
 			em.flush();
 
@@ -244,5 +249,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			return false;
 		}
 	}
+
+	
 
 }
