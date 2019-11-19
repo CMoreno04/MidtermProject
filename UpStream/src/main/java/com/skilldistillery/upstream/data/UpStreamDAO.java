@@ -14,7 +14,7 @@ public interface UpStreamDAO {
 
 	public List<Content> getFavoritesOfUserById(int idIn);
 
-//	public List<Content> getWishListOfUser(int idIn);
+	public List<Content> getWishListOfUser(int idIn);
 
 	public Content getContent(int id);
 	
@@ -51,6 +51,7 @@ public interface UpStreamDAO {
 	public boolean removeUser(User user);
 	
 	public boolean addUserService(int userId, int servId);
+
 
 
 }
