@@ -2,6 +2,8 @@ package com.skilldistillery.upstream.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import com.skilldistillery.upstream.data.RatingReviewDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
+import com.skilldistillery.upstream.entities.User;
 
 @Controller
 public class RatingReviewController {
@@ -24,7 +27,7 @@ public class RatingReviewController {
 	private UpStreamDAO usDAO;
 
 	@RequestMapping(path = "createReview.do", params = "contentId", method = RequestMethod.POST)
-	public ModelAndView createReview(@RequestParam("contentId") int contentId, RatingReview rating) {
+	public ModelAndView createReview(@RequestParam("contentId") int contentId, RatingReview rating, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		rating.setContent(usDAO.getContent(contentId));
 		Content content = usDAO.getContent(contentId);
@@ -40,9 +43,19 @@ public class RatingReviewController {
 		}
 		RatingReview createRev = dao.createReview(rating);
 		rating.getContent();
+		if (user != null) {
+			User activeUser = (User) session.getAttribute("user");
+			mv.addObject("user", activeUser);
+			if (activeUser != null) {
+				mv.addObject("userService", usDAO.getUserServices(activeUser));
+				mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
+				if (dao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
+					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+			}
+		} else {}
 		mv.addObject("reviews", dao.getTopRatedByContentId(contentId));
 		mv.addObject("contents", content);
-
 		mv.addObject("review", rating);
 		mv.setViewName("contentpage");
 		return mv;
@@ -50,7 +63,7 @@ public class RatingReviewController {
 
 	
 	@RequestMapping(path = "updateReview.do", params = {"contentId", "updateById"}, method = RequestMethod.POST)
-	public ModelAndView updateReview(@RequestParam("contentId") int contentId, int updateById, RatingReview rev) {
+	public ModelAndView updateReview(@RequestParam("contentId") int contentId, int updateById, RatingReview rev, User user, HttpSession session) {
 		rev.setContent(usDAO.getContent(contentId));
 		
 		ModelAndView mv = new ModelAndView();
@@ -69,8 +82,18 @@ public class RatingReviewController {
 		} else {
 			mv.addObject("average", "Content has not been rated yet.");
 		}
-
 		List<RatingReview> reviews = dao.getTopRatedByContentId(content.getId());
+		if (user != null) {
+			User activeUser = (User) session.getAttribute("user");
+			mv.addObject("user", activeUser);
+			if (activeUser != null) {
+				mv.addObject("userService", usDAO.getUserServices(activeUser));
+				mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
+				if (dao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
+					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+			}
+		} else {}
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.setViewName("contentpage");
@@ -80,7 +103,7 @@ public class RatingReviewController {
 	
 	
 	@RequestMapping(path = "deleteReview.do", params = {"contentId", "revId"}, method = RequestMethod.POST)
-	public ModelAndView deleteReview(@RequestParam("contentId") int contentId, int revId) {
+	public ModelAndView deleteReview(@RequestParam("contentId") int contentId, int revId, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Content content = usDAO.getContent(contentId);
 		dao.deleteReview(revId);
@@ -95,6 +118,17 @@ public class RatingReviewController {
 			mv.addObject("average", "Content has not been rated yet.");
 		}
 		List<RatingReview> reviews = dao.getTopRatedByContentId(content.getId());
+		if (user != null) {
+			User activeUser = (User) session.getAttribute("user");
+			mv.addObject("user", activeUser);
+			if (activeUser != null) {
+				mv.addObject("userService", usDAO.getUserServices(activeUser));
+				mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
+				if (dao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
+					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+			}
+		} else {}
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.setViewName("contentpage");

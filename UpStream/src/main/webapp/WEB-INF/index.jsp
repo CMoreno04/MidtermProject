@@ -27,7 +27,22 @@
 <!-- SERVICE DIV: new DIV for each service -->
 	<div class="titlebox">
 		<c:forEach items="${serviceType}" var="typename" begin="${loop.index}" end = "${loop.index}">
-		<h4 class="servicetitle"><a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> ${typename.name} </a></h4>
+		
+ 		<div class="service__logo" style="background-image: url(${typename.logo})">
+		asdasdaasdasdasdasda<br>
+		<br>
+		<br>
+		</div> -
+		
+		${typename.logo}
+		<h4 class="servicetitle">
+		<a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> ${typename.name} </a>
+		</h4>
+		
+		
+		
+		
+		
 		</c:forEach>
 	</div>
 

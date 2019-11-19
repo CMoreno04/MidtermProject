@@ -18,11 +18,8 @@ public class RatingReviewDAOImpl implements RatingReviewDAO {
 	
 	@Override
 	public List<RatingReview> getTopRatedByContentId(int idIn) {
-
 		String jpql = "SELECT r FROM RatingReview r WHERE r.content.id=:id ORDER BY r.id DESC";
-
 		List<RatingReview> reviews = em.createQuery(jpql, RatingReview.class).setParameter("id", idIn).getResultList();
-
 		return reviews;
 	}
 	
@@ -56,5 +53,13 @@ public class RatingReviewDAOImpl implements RatingReviewDAO {
 	@Override
 	public RatingReview getRatingById(int revId) {
 		return em.find(RatingReview.class, revId);
+	}
+	
+	@Override
+	public List<RatingReview> getRatingByUserId(int userId, int contentId) {
+		String query = "SELECT r FROM RatingReview r WHERE r.userId = :uid AND r.content.id = :cid";
+		List<RatingReview> userReviews = em.createQuery(query, RatingReview.class)
+				.setParameter("uid", userId).setParameter("cid", contentId).getResultList();
+		return userReviews;
 	}
 }
