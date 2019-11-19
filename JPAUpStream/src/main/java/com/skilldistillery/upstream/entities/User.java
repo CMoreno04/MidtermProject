@@ -1,5 +1,7 @@
 package com.skilldistillery.upstream.entities;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -42,7 +44,7 @@ public class User {
 	@ManyToMany(mappedBy = "user")
 	private List<UserContent> userCont;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "users")
 	private List<UserService> userService;
 
 	// C O N S T R U C T O R S
@@ -223,6 +225,36 @@ public class User {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
+	}
+
+	// M E T H O D S
+
+	public boolean addUserService(StreamService streamServ) {
+
+		UserService usrServ= new UserService(LocalDate.now(), true, this, streamServ);
+		
+		
+		if (userService.isEmpty()) {
+			userService = new ArrayList<UserService>();
+		}
+
+		if (!userService.contains(usrServ)) {
+			
+			userService.add(usrServ);
+
+			return true;
+		}
+
+		else {
+			return false;
+		}
+
+	}
+	
+	public void removeUserService() {
+		
+		
+
 	}
 
 }
