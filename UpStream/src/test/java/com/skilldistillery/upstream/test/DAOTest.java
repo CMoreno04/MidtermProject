@@ -40,9 +40,4 @@ public class DAOTest {
 		userService= null;
 	}
 
-	@Test
-	private void testAddUserService() {
-		assertEquals(true, dao.addUserService(userService));
-
-	}
 }

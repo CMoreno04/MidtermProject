@@ -67,12 +67,17 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return cont.get(0);
 	}
 
-	public double getTotalOfServicesByUser(int idIn) {
+	public double getTotalOfServicesByUser(int userId) {
 		double total = 0;
 
-		User user = em.find(User.class, idIn);
+		User user = em.find(User.class, userId);
 
-		for (UserService service : user.getUserService()) {
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId";
+
+		List<UserService> userservices = em.createQuery(jpql, UserService.class).setParameter("userId", user.getId())
+				.getResultList();
+
+		for (UserService service : userservices) {
 			total += service.getService().getMonthlyPrice();
 		}
 
@@ -157,16 +162,20 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public List<StreamService> getUserServices(User user) {
-		List<StreamService> userServices = new ArrayList<StreamService>();
-		System.err.println("in get user service" + user);
+		List<StreamService> streamingServ = new ArrayList<StreamService>();
 
-		if (user.getUserService() != null) {
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId";
 
-			for (UserService service : user.getUserService()) {
-				userServices.add(service.getService());
+		List<UserService> userservices = em.createQuery(jpql, UserService.class).setParameter("userId", user.getId())
+				.getResultList();
+
+		if (userservices != null) {
+
+			for (UserService service : userservices) {
+				streamingServ.add(service.getService());
 			}
 		}
-		return userServices;
+		return streamingServ;
 	}
 
 	@Override
@@ -181,6 +190,18 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 		return userContent;
 	}
+
+//	@Override
+//	public List<UserContent> addUserContent(int idIn, int contentId) {
+//		User user = em.find(User.class, idIn);
+//		List<UserContent> userContent = user.getUserCont();
+//
+//		for (UserContent content : user.getUserCont()) {
+//			userContent.add()
+//		}
+//		return userContent;
+//	}
+//	
 
 	@Override
 	public boolean removeUserService(int userId, int servId) {
@@ -209,18 +230,65 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-	@Override
-	public boolean addUserService(UserService userServ) {
 
+	public boolean addUserService(User user, int sid) {
+		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
 
-			em.persist(userServ);
+			em.persist(us);
 			em.flush();
 
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean addUserContent(User user, int cid) {
+		UserContent uc = new UserContent(em.find(Content.class, cid), user, false, false);
+
+		if (!user.getUserCont().contains(uc)) {
+
+			try {
+
+				em.persist(uc);
+				em.flush();
+
+				return true;
+
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean removeUserContent(int userId, int contentId) {
+
+		String jpql = "SELECT c FROM UserContent c WHERE c.userContent.id=:contentId AND c.user.id=:userId";
+
+		UserContent userCont = em.createQuery(jpql, UserContent.class).setParameter("contentId", contentId)
+				.setParameter("userId", userId).getSingleResult();
+
+		try {
+			
+				em.remove(userCont);
+
+				em.flush();
+
+			return true;
+		}
+
+		catch (Exception e) {
+
 			return false;
 		}
 

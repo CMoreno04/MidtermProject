@@ -1,5 +1,7 @@
 package com.skilldistillery.upstream.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
+import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
@@ -55,6 +58,7 @@ public class UserProfileController {
 	            mv.setViewName("profile");
 	        	mv.addObject("userService", USdao.getUserServices(updatedUser));
 				mv.addObject("userContent", USdao.getUserContent(updatedUser.getId()));
+				
 
 //	        }
 	        return mv;

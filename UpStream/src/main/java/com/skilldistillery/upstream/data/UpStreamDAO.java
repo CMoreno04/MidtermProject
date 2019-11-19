@@ -6,7 +6,6 @@ import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.StreamService;
 import com.skilldistillery.upstream.entities.User;
-import com.skilldistillery.upstream.entities.UserService;
 
 public interface UpStreamDAO {
 
@@ -15,9 +14,11 @@ public interface UpStreamDAO {
 
 	public List<Content> getFavoritesOfUserById(int idIn);
 
-//	public List<Content> getWishListOfUser(int idIn);
+	public List<Content> getWishListOfUser(int idIn);
 
 	public Content getContent(int id);
+	
+	public boolean removeUserContent(int userId, int contentId);
 	
 	//Service 
 
@@ -37,12 +38,16 @@ public interface UpStreamDAO {
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn);
 
 	// User
+	
+	public boolean addUserService(User user, int sid);
 
 	public List<StreamService> getUserServices(User user);
 
 	public double getTotalOfServicesByUser(int idIn);
 
 	public List<Content> getUserContent(int idIn);
+	
+	public boolean addUserContent(User user,int cid);
 
 
 	// Admin
@@ -51,7 +56,8 @@ public interface UpStreamDAO {
 
 	public boolean removeUser(User user);
 	
-	public boolean addUserService(UserService userServ);
+
+
 
 
 }

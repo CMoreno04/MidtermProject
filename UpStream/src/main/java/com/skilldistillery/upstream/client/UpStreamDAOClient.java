@@ -40,7 +40,7 @@ public class UpStreamDAOClient {
 //		emf.close();
 
 
-		System.out.println(dao.addUserService(usrServ));
+		//System.out.println(dao.addUserService(usrServ));
 
 
 	}
