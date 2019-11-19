@@ -6,7 +6,6 @@ import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.StreamService;
 import com.skilldistillery.upstream.entities.User;
-import com.skilldistillery.upstream.entities.UserService;
 
 public interface UpStreamDAO {
 
@@ -51,7 +50,6 @@ public interface UpStreamDAO {
 
 	public boolean removeUser(User user);
 	
-//	public boolean addUserService(UserService userServ);
 
 	public boolean addUserService(User user, int sid);
 
