@@ -23,7 +23,7 @@ public class RatingReview {
 	@Column
 	private String comment;
 	
-	@Column(name="rating", 
+	@Column(name="rating")
 	private Integer rating;
 	
 	@Column(name = "user_id")

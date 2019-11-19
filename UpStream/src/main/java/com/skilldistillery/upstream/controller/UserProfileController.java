@@ -68,7 +68,8 @@ public class UserProfileController {
 	    @RequestMapping(path = "deleteUser.do", method = RequestMethod.GET)
 	    public ModelAndView goToDeleteUser(@Valid User user, HttpSession session) {
 	        ModelAndView mv = new ModelAndView();
-	        boolean userDeleted = USdao.removeUser(user);
+	        User oldUser = (User) session.getAttribute("user");
+	        boolean userDeleted = USdao.removeUser(oldUser);
 	        if(userDeleted) {
 	        session.removeAttribute("user");
 	        mv.setViewName("deleteUser");

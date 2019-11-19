@@ -123,12 +123,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 			user.setActive(false);
 
-			em.getTransaction().begin();
 
 			em.persist(user);
 
-			em.getTransaction().commit();
-
+			em.flush();
+			
 			return true;
 
 		} catch (Exception e) {
@@ -142,14 +141,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public boolean removeUser(User user) {
-
 		try {
-
 			em.remove(em.find(User.class, user.getId()));
 			em.flush();
-
 			return true;
-
 		}
 
 		catch (Exception e) {

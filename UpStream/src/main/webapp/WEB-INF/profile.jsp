@@ -35,9 +35,10 @@
 		        		<input type="submit" value="Update Profile" class="btn btn-success btn-sm">
 		       	 	</form>
 		       	 	<form action="deleteUser.do" method="GET">
-                        <!-- <input type="hidden" > -->
-                        <input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
-                    </form>
+		       	 		<!-- <input type="hidden" > -->
+						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
+					</form>
+
 		        </td>
 	        </tr>
     	</table>
