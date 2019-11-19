@@ -48,13 +48,13 @@
 		
 		
 		<div class="container-fluid">
-			<div class="card text-white bg-success mb-3"
-				style="max-width: 20rem;">
-				<div class="card-header">${service.name}</div>
-				<div class="card-body" style="background-color: rgba(32, 201, 151, 0.4);">
+			<div class="card text-white mb-3" style="background-color: rgba(32, 201, 151, 0.2);">
+				<!-- style="max-width: 20rem;"> -->
+				<div class="card-header bg-secondary">${service.name}</div>
+				<div class="card-body">
 					<c:forEach items="${userContent}" var="content" varStatus="loop">
 					<c:if test="${content.service.name == service.name}">
-						<p class="card-text">${content.title }</p>
+					<p class="card-text"><a href="getContents.do?id=${content.id}">${content.title}</a></p>
 					</c:if>
 					</c:forEach>
 				</div>
