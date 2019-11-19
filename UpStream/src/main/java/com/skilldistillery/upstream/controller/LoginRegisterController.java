@@ -43,7 +43,10 @@ public class LoginRegisterController {
 		if (rdao.checkIsUniqueUser(user)) {
 
 			if (user == null) {
-				return "login";
+				user = null;
+				session.removeAttribute("user");
+				model = null;
+				return "redirect:login.do";
 			}
 
 			session.setAttribute("user", user);
@@ -57,8 +60,12 @@ public class LoginRegisterController {
 		}
 
 		else {
-
-			return "login";
+			user = null;
+			session.removeAttribute("user");
+			Boolean err = false;
+			model.addAttribute("Error", err);
+			
+			return "redirect:login.do";
 		}
 
 	}
@@ -78,6 +85,7 @@ public class LoginRegisterController {
 			
 			if (user != null) {
 				 error.rejectValue("username", "error.username", "Username already in use");
+				 ((ModelAndView) model).addObject("Error", error);
 				return "registration";
 			}
 			
