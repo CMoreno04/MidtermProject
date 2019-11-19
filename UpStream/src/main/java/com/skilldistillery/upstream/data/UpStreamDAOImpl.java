@@ -24,7 +24,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-
 	public List<Content> getTopContent(int serviceId) {
 		String query = "SELECT c FROM Content c JOIN FETCH c.service s WHERE s.id = :sid ORDER BY c.id DESC";
 		List<Content> content = em.createQuery(query, Content.class).setParameter("sid", serviceId).getResultList();
@@ -52,8 +51,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		return reviews;
 	}
-	
-	
 
 	public List<RatingReview> getTopRatedByService(int idIn) {
 
@@ -96,7 +93,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	public List<Content> getWishListOfUser(int idIn) {
 		List<Content> wishlist = new ArrayList<Content>();
-		
+
 		for (UserContent content : em.find(User.class, idIn).getUserCont()) {
 			if (content.isWishlist()) {
 				wishlist.add(content.getUserContent());
@@ -164,9 +161,13 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	@Override
 	public List<StreamService> getUserServices(User user) {
 		List<StreamService> userServices = new ArrayList<StreamService>();
+		System.err.println("in get user service" + user);
 
-		for (UserService service : user.getUserService()) {
-			userServices.add(service.getService());
+		if (user.getUserService() != null) {
+
+			for (UserService service : user.getUserService()) {
+				userServices.add(service.getService());
+			}
 		}
 		return userServices;
 	}
@@ -176,9 +177,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		List<Content> userContent = new ArrayList<Content>();
 
 		User user = em.find(User.class, idIn);
-
-		for (UserContent content : user.getUserCont()) {
-			userContent.add(content.getUserContent());
+		if (user.getUserCont() != null) {
+			for (UserContent content : user.getUserCont()) {
+				userContent.add(content.getUserContent());
+			}
 		}
 		return userContent;
 	}
@@ -205,11 +207,12 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			String jpql = "SELECT r FROM UserService r WHERE r.user.id=:userId AND r.service.id=:servId";
 
 			em.getTransaction().begin();
-			
-			em.remove(em.createQuery(jpql, UserService.class).setParameter("userId", userId).setParameter("servId", servId).getSingleResult());
+
+			em.remove(em.createQuery(jpql, UserService.class).setParameter("userId", userId)
+					.setParameter("servId", servId).getSingleResult());
 
 //			em.flush();
-			
+
 			em.getTransaction().commit();
 
 			return true;
@@ -230,18 +233,17 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		UserService svc = new UserService();
 		svc.setId(svcId);
 		try {
-			
+
 			em.persist(svc);
 			em.flush();
-			
+
 			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		
-	
+
 	}
 
 }
