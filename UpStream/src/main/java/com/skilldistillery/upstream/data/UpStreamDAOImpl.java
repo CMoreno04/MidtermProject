@@ -140,11 +140,8 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 		try {
 
-			em.getTransaction().begin();
-
 			em.remove(em.find(User.class, user.getId()));
-
-			em.getTransaction().commit();
+			em.flush();
 
 			return true;
 
@@ -214,8 +211,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public boolean addUserService(UserService userServ) {
-	
-		
+
 		try {
 
 			em.persist(userServ);

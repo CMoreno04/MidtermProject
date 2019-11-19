@@ -32,7 +32,7 @@ public class UserProfileController {
 		
 	}
     @RequestMapping(path = "goToUpdateUser.do", method = RequestMethod.GET)
-    public ModelAndView goToUpdateActor(@Valid User user, HttpSession session) {
+    public ModelAndView goToUpdateUser(@Valid User user, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         User oldUser = (User) session.getAttribute("user");
         mv.addObject("user", oldUser);
@@ -42,7 +42,7 @@ public class UserProfileController {
     }
 	
 	 @RequestMapping(path = "updateUser.do", params = "username", method = RequestMethod.POST)
-	    public ModelAndView updateActor(@Valid User user, HttpSession session) {
+	    public ModelAndView updateUser(@Valid User user, HttpSession session) {
 	        ModelAndView mv = new ModelAndView();
 	        User updatedUser = rdao.updateUser(user);
 //	        if (!user.equals(updatedUser)) {
@@ -57,6 +57,18 @@ public class UserProfileController {
 				mv.addObject("userContent", USdao.getUserContent(updatedUser.getId()));
 
 //	        }
+	        return mv;
+	    }
+	    @RequestMapping(path = "deleteUser.do", method = RequestMethod.GET)
+	    public ModelAndView goToDeleteUser(@Valid User user, HttpSession session) {
+	        ModelAndView mv = new ModelAndView();
+	        boolean userDeleted = USdao.removeUser(user);
+	        if(userDeleted) {
+	        session.removeAttribute("user");
+	        mv.setViewName("deleteUser");
+	        }else {
+	        	mv.setViewName("redirect:goProfile.do");
+	        }
 	        return mv;
 	    }
 }
