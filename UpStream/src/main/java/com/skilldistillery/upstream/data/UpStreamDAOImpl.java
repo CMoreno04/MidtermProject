@@ -217,21 +217,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	
 		
 		try {
-<<<<<<< HEAD
-			
-			
+
 			em.persist(userServ);
-			
-			em.flush();
-			
-			
-			
-=======
-
-			em.persist(svc);
 			em.flush();
 
->>>>>>> 9977990846a550979623be3cbbd786294853d2b6
 			return true;
 
 		} catch (Exception e) {

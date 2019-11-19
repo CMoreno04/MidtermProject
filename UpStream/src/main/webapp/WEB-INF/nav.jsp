@@ -21,7 +21,7 @@
 			aria-expanded="true" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<c:if test="${not empty user}">
+		<c:if test="${not empty sessionScope.user}">
 
 		<div class="collapse navbar-collapse" id="navbarColor02">
 			<ul class="navbar-nav mr-auto">
@@ -37,7 +37,7 @@
 			</div>
 			</c:if>
 			
-		<c:if test="${empty user}">
+		<c:if test="${empty sessionScope.user}">
 		<div class="collapse navbar-collapse" id="navbarColor02">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
