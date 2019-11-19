@@ -1,5 +1,6 @@
 package com.skilldistillery.upstream.data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import com.skilldistillery.upstream.entities.StreamService;
 import com.skilldistillery.upstream.entities.User;
 import com.skilldistillery.upstream.entities.UserContent;
 import com.skilldistillery.upstream.entities.UserService;
-import com.skilldistillery.upstream.entities.UserServiceId;
 
 @Transactional
 @Service
@@ -228,22 +228,20 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean addUserService(int userId, int servId) {
-		UserServiceId svcId = new UserServiceId(servId, userId);
-		UserService svc = new UserService();
-		svc.setId(svcId);
+	public boolean addUserService(User user, int sid) {
+		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
-
-			em.persist(svc);
+//			em.getTransaction().begin();
+			em.persist(us);	
 			em.flush();
-
+			
+//			em.getTransaction().commit();
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 }

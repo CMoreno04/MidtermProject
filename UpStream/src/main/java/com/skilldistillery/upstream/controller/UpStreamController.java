@@ -92,11 +92,37 @@ public class UpStreamController {
 
 	//IF USER CLICKS GET SERVICES ON MENU WILL SHOW LIST OF SERVICES WITH PRICES
 	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
-	public ModelAndView getServices() {
+	public ModelAndView getServices(User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		List<StreamService> servs = dao.getServices();
 		mv.addObject("serv", servs);
+		mv.addObject("user", user);
 		mv.setViewName("servicespage");
 		return mv;
 	}
+	
+	@RequestMapping(path = "addUserService.do", params = "servId", method = RequestMethod.GET)
+	public ModelAndView addUserService(int servId, User user, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		User activeUser = (User) session.getAttribute("user");
+		
+		boolean service = dao.addUserService(activeUser, servId);
+		if (service) {	
+			mv.addObject("user", activeUser);
+			mv.addObject("userService", dao.getUserServices(activeUser));
+			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.setViewName("profile");
+			
+		} else {
+			mv.addObject("user", activeUser);
+			mv.addObject("userService", dao.getUserServices(activeUser));
+			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.setViewName("servicespage");
+		}
+		return mv;
+		
+	}
+	
 }
