@@ -112,6 +112,7 @@ public class UpStreamController {
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 			
 		} else {
@@ -119,6 +120,7 @@ public class UpStreamController {
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("servicespage");
 		}
 		return mv;
