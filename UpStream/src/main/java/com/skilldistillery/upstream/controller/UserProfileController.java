@@ -1,20 +1,18 @@
 package com.skilldistillery.upstream.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
-import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
@@ -30,6 +28,7 @@ public class UserProfileController {
 		model.addAttribute("userService", USdao.getUserServices(activeUser));
 		model.addAttribute("userContent", USdao.getUserContent(activeUser.getId()));
 		model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(activeUser.getId()));
+		model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
 		return "profile";
 		
 		
@@ -55,6 +54,7 @@ public class UserProfileController {
 	        	session.setAttribute("user", updatedUser);
 	        	mv.addObject("reviews", USdao.getReviewsOfUserByUserId(updatedUser.getId()));
 	            mv.addObject("user", updatedUser);
+	            mv.addObject("servTotal", USdao.getTotalOfServicesByUser(updatedUser.getId()));
 	            mv.setViewName("profile");
 	        	mv.addObject("userService", USdao.getUserServices(updatedUser));
 				mv.addObject("userContent", USdao.getUserContent(updatedUser.getId()));
@@ -63,15 +63,24 @@ public class UserProfileController {
 //	        }
 	        return mv;
 	    }
+	 
 	    @RequestMapping(path = "deleteUser.do", method = RequestMethod.GET)
 	    public ModelAndView goToDeleteUser(@Valid User user, HttpSession session) {
+	    	
 	        ModelAndView mv = new ModelAndView();
-	        boolean userDeleted = USdao.removeUser(user);
+	        
+	        User oldUser = (User) session.getAttribute("user");
+	        boolean userDeleted = USdao.disableUser(oldUser);
 	        if(userDeleted) {
+	        
+	      
 	        session.removeAttribute("user");
 	        mv.setViewName("deleteUser");
-	        }else {
-	        	mv.setViewName("redirect:goProfile.do");
+	        
+	        }
+	        
+	        else {
+	        	mv.setViewName("index");
 	        }
 	        return mv;
 	    }

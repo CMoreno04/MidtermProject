@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,23 +104,45 @@ public class UpStreamController {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
 		
-		boolean service = dao.addUserService(activeUser, servId);
+		boolean service = dao.addUserService(activeUser.getId(), servId);
 		if (service) {	
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
-			
 		} else {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
 			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("servicespage");
 		}
-		return mv;
-		
+		return mv;	
 	}
 	
+	@RequestMapping(path = "addContentToProfile.do", params = "contentId", method = RequestMethod.GET)
+	public ModelAndView addUserContent(@RequestParam("contentId") int contentId, User user, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		User activeUser = (User) session.getAttribute("user");
+		boolean content = dao.addUserContent(activeUser.getId(), contentId);
+		if (content) {	
+			mv.addObject("user", activeUser);
+			mv.addObject("userService", dao.getUserServices(activeUser));
+			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
+			mv.setViewName("profile");
+		} else {
+			mv.addObject("user", activeUser);
+			mv.addObject("userService", dao.getUserServices(activeUser));
+			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
+			mv.setViewName("servicespage");
+		}
+		return mv;	
+	}
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
 
 
 <!DOCTYPE html>
@@ -9,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>${user.username } Profile</title>
+<title>${user.username} Profile</title>
 
 <link href="/css/bootstrap.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
@@ -30,40 +31,71 @@
 		        	<h3 class="prof-name">${user.username} </h3>
 		        </td>
 		        <td class="col">
-		        	<form action="goToUpdateUser.do" method="GET">
+		        	<form action="goToUpdateUser.do" method="GET" >
 		        		<input type="submit" value="Update Profile" class="btn btn-success btn-sm">
 		       	 	</form>
+		       	 	<form action="deleteUser.do" method="GET">
+		       	 		<!-- <input type="hidden" > -->
+						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
+					</form>
+
 		        </td>
 	        </tr>
     	</table>
 	</div>
+	<!-- END USER INFRO BOX -->
 
-	<div class="container text-center" style="padding-top: 30px">
+
+<!-- START TOTALER -->
+	<div class="container text-center" style="margin-top: 30px">
+	<h4>Your monthly expenditure:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	<fmt:setLocale value="en_US" />
+	<fmt:formatNumber value="${servTotal}" type="currency" />	
+	</h4></div>
+
+
+<!-- START USER SERVICES CARDS -->
+	<div class="container text-center" style="margin-top: 30px">
 	<table class="table">
 	<tr class="row">
 	
 	<c:forEach items="${userService}" var="service" varStatus="loop">
-	<td class="col">
-		
+	<td class="col-4">
 		
 		
 		<div class="container-fluid">
-			<div class="card text-white bg-success mb-3"
-				style="max-width: 20rem;">
-				<div class="card-header">${service.name}</div>
-				<div class="card-body" style="background-color: rgba(32, 201, 151, 0.4);">
+			<div class="card text-white mb-3 text-center d-flex" style="background-color: rgba(32, 201, 151, 0.2);">
+				<!-- style="max-width: 20rem;"> -->
+				<div class="card-header bg-secondary">
+				<table class="text-center table d-flex">
+				<tr class="d-flex">
+				<td class="col" style="text-align: center; background-color: #000">
+					${service.name}
+				</td>
+				<td class="col">
+					<form>
+						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
+					</form>
+				</td>
+				</tr>
+				</table>
+				</div>
+			
+				
+				
+				
+				
+				
+				
+				<div class="card-body">
 					<c:forEach items="${userContent}" var="content" varStatus="loop">
 					<c:if test="${content.service.name == service.name}">
-						<p class="card-text">${content.title }</p>
+					<p class="card-text"><a href="getContents.do?id=${content.id}">${content.title}</a></p>
 					</c:if>
 					</c:forEach>
 				</div>
 			</div>
-		</div>
-		
-		
-		
-		
+		</div>		
 	</td>
 	</c:forEach> 
 	</tr>
@@ -72,15 +104,8 @@
 
 
 
-
-
-
-
-
-
-
 <!--  START REVIEWS and CRUD-->
-<div class="container">
+<div class="container" style="margin-top: 50px">
 	<h4>Your Reviews:</h4>
 	<table class="table">
 	<c:forEach items="${reviews}" var="rev" varStatus="loop">

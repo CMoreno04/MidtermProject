@@ -123,11 +123,9 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 			user.setActive(false);
 
-			em.getTransaction().begin();
-
 			em.persist(user);
 
-			em.getTransaction().commit();
+			em.flush();
 
 			return true;
 
@@ -141,19 +139,18 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean removeUser(User user) {
-
+	public boolean removeUser(User userIn) {
+		User user = em.find(User.class, userIn.getId());
+		
 		try {
-
-			em.remove(em.find(User.class, user.getId()));
+			
+			em.remove(user);
 			em.flush();
-
+			
 			return true;
-
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 
 			return false;
 		}
@@ -230,8 +227,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-
-	public boolean addUserService(User user, int sid) {
+	public boolean addUserService(int userId, int sid) {
+		User user = em.find(User.class, userId);
+		
+		System.out.println(user);
+	
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
 
@@ -247,27 +247,31 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean addUserContent(User user, int cid) {
+	public boolean addUserContent(int userIn, int cid) {
+
+		User user = em.find(User.class, userIn);
+		
+		System.out.println(user);
+
 		UserContent uc = new UserContent(em.find(Content.class, cid), user, false, false);
 
-		if (!user.getUserCont().contains(uc)) {
+//		if (!user.getUserCont().contains(uc)) {
 
-			try {
-
-				em.persist(uc);
-				em.flush();
-
-				return true;
-
-			}
-
-			catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
+		try {
+			em.persist(uc);
+			em.flush();
+			
+			
+			return true;
 		}
 
-		return false;
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+//		}
+
+//		return false;
 	}
 
 	@Override
@@ -279,10 +283,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 				.setParameter("userId", userId).getSingleResult();
 
 		try {
-			
-				em.remove(userCont);
 
-				em.flush();
+			em.remove(userCont);
+
+			em.flush();
 
 			return true;
 		}
