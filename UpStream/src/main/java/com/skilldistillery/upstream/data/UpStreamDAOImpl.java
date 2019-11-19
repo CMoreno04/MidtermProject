@@ -293,5 +293,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 
 	}
+//Admin
+	@Override
+	public Content createContent(Content content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

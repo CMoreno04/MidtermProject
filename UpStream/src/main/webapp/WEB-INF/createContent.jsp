@@ -15,7 +15,7 @@
 	<%@ include file="nav.jsp"%>
 	<br>
 	
-	<form action="addContent.do" method="POST">
+	<form action="createContent.do" method="POST">
 	<div class="form-row center">
 					Title: <input type="text" name ="title" required="required"/><br>
 					Description: <input type="text" name ="description" required="required"/><br>
@@ -24,7 +24,7 @@
 					Genre: <input type="text" name ="genres" /><br>
 					Stream Service: <input type="text" name ="service" /><br>
 					Rating Reviews: <input type="text" name ="ratingReviews" /><br>
-					<input class="btn btn-submit" type="submit" value="Add Buffet" />
+					<input class="btn btn-submit" type="submit" value="Add Content" />
 	</form>"
 	</div>
 </body>

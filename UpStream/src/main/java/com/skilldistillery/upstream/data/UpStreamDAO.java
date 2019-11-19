@@ -55,6 +55,8 @@ public interface UpStreamDAO {
 	public boolean disableUser(User userIn);
 
 	public boolean removeUser(User user);
+
+	public Content createContent(Content content);
 	
 
 
