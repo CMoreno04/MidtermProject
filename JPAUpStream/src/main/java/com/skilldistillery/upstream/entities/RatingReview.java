@@ -50,12 +50,22 @@ public class RatingReview {
 		return id;
 	}
 
+	
+
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
 	}
 
 	public String getComment() {
@@ -99,7 +109,7 @@ public class RatingReview {
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
-		result = prime * result + rating;
+		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + userId;
 		return result;
 	}
@@ -125,7 +135,10 @@ public class RatingReview {
 			return false;
 		if (id != other.id)
 			return false;
-		if (rating != other.rating)
+		if (rating == null) {
+			if (other.rating != null)
+				return false;
+		} else if (!rating.equals(other.rating))
 			return false;
 		if (userId != other.userId)
 			return false;
