@@ -57,9 +57,7 @@
 	
 	<!-- description column -->
 	<div class="col-md">
-	
-	
-	
+
 	<table class="table table-hover"> 
   	<tr class="d-flex">
   		<th class="col-12"><h4>${contents.title}</h4></th>
@@ -68,25 +66,37 @@
   		<td class="col">
   		<c:if test = "${reviews != null}">
   			<c:choose>
-    			<c:when test="${average <= '1'}">
+    			<c:when test="${averageRating <= '1'}">
 				⚡
     			</c:when> 
-    			<c:when test="${average <= '2.5'}">
+    			<c:when test="${averageRating <= '2.5'}">
     			⚡⚡
     			</c:when> 
-    			<c:when test="${average <= '3.5'}">
+    			<c:when test="${averageRating <= '3.5'}">
     			⚡⚡⚡
     			</c:when> 
-    			<c:when test="${average <= '4.5'}">
+    			<c:when test="${averageRating <= '4.5'}">
     			⚡⚡⚡⚡
     			</c:when> 
-				<c:when test="${average < '5'}">
+				<c:when test="${averageRating <= '5'}">
 				⚡⚡⚡⚡⚡
     			</c:when> 
- 			   <c:otherwise> ${average} </c:otherwise> 
+ 			   <c:otherwise> Content has not been rated yet. </c:otherwise> 
 			</c:choose>
 		</c:if>
   		</td>
+  		<td class="col">
+			<img src="${contents.service.logo}" width="50px"> 
+		</td>
+  	</tr>
+  	<tr class="d-flex">
+		<td class="col">
+		<div style="display: inline-flex;">
+	  		<c:forEach items="${contents.genres}" var="genre" varStatus="loop">
+	  			<h6><span class="badge badge-secondary">${genre.name}</span></h6>&nbsp;&nbsp; 
+	  		</c:forEach>
+	  	</div>
+  		<td>
   	</tr>
   	<tr class="d-flex">
   		<td class="col">
@@ -107,8 +117,9 @@
 	</div>
 </div>
 
-
-
+<!-- START OF COMMENT BOX   IF USER IS LOGGED IN AND HAS NOT MADE A COMMENT -->
+<c:if test="${not empty user}">
+<c:if test="${userreview == null}">
 <div class="container" style="margin-top: 60px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35);">
 	<form action="createReview.do" method="POST" class="container">
 	<!-- <div class="form-group"> -->
@@ -129,7 +140,7 @@
 	<textarea class="form-control" name="comment" rows="5" cols= "50" style="background-color: rgba(255, 255, 255, 0.4); color: black;"></textarea>
 	
 	<!-- insert for user id?>?? -->
-	<input type="hidden" name="userId" value="4">
+	<input type="hidden" name="userId" value="${user.id}">
  	<%-- <input type="hidden" name="id" value="${rev.id}"> --%>
 	<input type="hidden" name="contentId" value="${contents.id}"> 
 	<input class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left nav__links" type="submit" value="Add review"><br>	
@@ -137,12 +148,23 @@
 	</form>
 
 </div>
+</c:if>
+</c:if>
+
+
+
+
+
+
+
+
+
+
 
 
 
 <!--  START REVIEWS  -->
 <div class="container" style="margin-top: 60px">
-
 
 <table class="table">
 	<tr class="d-flex">
@@ -173,107 +195,72 @@
 		</td>
 		<td class="col">${rev.comment}</td>
 	</tr>
-	<tr class="d-flex">
+
+<c:choose>
+	<c:when test="${user.id == rev.userId}">
+	<tr class="d-flex bg-secondary">
 	<td class="col">
 	
 	<div class="text-right">
 	<div class="text-center" style="display: inline-flex;">
 
+<!-- Submit buttons -->
+<!-- Button TO TRIGGER MODAL -->
+	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
+	  Update Review
+	</button>
 	
+<!-- Modal START -->
+	<div class="modal fade" id="exampleModalScrollable${rev.rating}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-scrollable" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalScrollableTitle">Update Review</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      
+	      <div class="modal-body">
+	<!--       <form action="updateReview.do" method="POST" style="margin-right: 10px"> -->
 	
-<%-- 	<form action="updateReview.do" method="POST" style="margin-right: 10px">
-		<input type="hidden" name="contentId" value="${contents.id}">
-		<input type="hidden" name="updateByReviewId" value="${rev.id}">
-		<input class="btn btn-danger btn-sm" type="submit" value="update">
-	</form> --%>
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}">
-  Update Review
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalScrollable${rev.rating}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Update Review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-      <div class="modal-body">
-<!--       <form action="updateReview.do" method="POST" style="margin-right: 10px"> -->
-
-      <form action="updateReview.do" method="POST"  modelAttribute="review" style="margin-right: 10px">
-      Rating: <br>
-	<select name="rating" selected="${rev.rating}" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
-		<option value="1" ${rev.rating == '1' ? 'selected' : ''}>⚡</option>
-		<option value="2" ${rev.rating == '2' ? 'selected' : ''}>⚡⚡</option>
-		<option value="3" ${rev.rating == '3' ? 'selected' : ''}>⚡⚡⚡</option>
-		<option value="4" ${rev.rating == '4' ? 'selected' : ''}>⚡⚡⚡⚡</option>
-		<option value="5" ${rev.rating == '5' ? 'selected' : ''}>⚡⚡⚡⚡⚡</option>
-	</select>
-	<br> Comment: <br>
-	<textarea class="form-control"  name="comment" style="background-color: rgba(255, 255, 255, 0.4); color: black;">${rev.comment}</textarea>
-			<input type="hidden" name="userId" value="4">
-			<input type="hidden" name="contentId" value="${contents.id}">
-			<input type="hidden" name="updateById" value="${rev.id}"> <br>
-			<input class="btn btn-danger btn-sm" type="submit" value="Update">
+	      <form action="updateReview.do" method="POST"  modelAttribute="review" style="margin-right: 10px">
+	     	 Rating:<br>
+			<select name="rating" selected="${rev.rating}" style="background-color: rgba(255, 255, 255, 0.4); color: black;">
+				<option value="1" ${rev.rating == '1' ? 'selected' : ''}>⚡</option>
+				<option value="2" ${rev.rating == '2' ? 'selected' : ''}>⚡⚡</option>
+				<option value="3" ${rev.rating == '3' ? 'selected' : ''}>⚡⚡⚡</option>
+				<option value="4" ${rev.rating == '4' ? 'selected' : ''}>⚡⚡⚡⚡</option>
+				<option value="5" ${rev.rating == '5' ? 'selected' : ''}>⚡⚡⚡⚡⚡</option>
+			</select><br>
+			Comment:<br>
+			<textarea class="form-control"  name="comment" style="background-color: rgba(255, 255, 255, 0.4); color: black;">${rev.comment}</textarea>
+				<input type="hidden" name="userId" value="${user.id}">
+				<input type="hidden" name="contentId" value="${contents.id}">
+				<input type="hidden" name="updateById" value="${rev.id}"> <br>
+				<input class="btn btn-warning btn-sm" type="submit" value="Update">
 		</form>
-
-
-      
-      
-        
-      </div>
-    
-    
+	    </div>
+	    </div>
+	  </div>
+	</div>
 		
-      
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<form action="deleteReview.do" method="POST">
-		<input type="hidden" name="contentId" value="${contents.id}">
-		<input type="hidden" name="revId" value="${rev.id}">
-		<input class="btn btn-danger btn-sm" type="submit" value="delete">
-	</form>
+<!-- DELETE BUTTON -->		
+		<form action="deleteReview.do" method="POST">
+			<input type="hidden" name="userId" value="${user.id}">
+			<input type="hidden" name="contentId" value="${contents.id}">
+			<input type="hidden" name="revId" value="${rev.id}">
+			<input class="btn btn-danger btn-sm" type="submit" value="delete">
+		</form>	
 	</div>
 	</div>
-	
 	</td>		       
 	</tr>
+	</c:when>
+	<c:when test="${empty user}"></c:when> 
+	<c:when test="${user.id != rev.userId}"></c:when>
+</c:choose>
 </c:forEach>
-
 </table>
 </div>
 

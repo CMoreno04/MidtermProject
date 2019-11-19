@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.RatingReviewDAO;
@@ -25,13 +26,14 @@ import com.skilldistillery.upstream.entities.User;
 public class UpStreamController {
 
 	@Autowired
-	private UpStreamDAO dao; 
-	
+	private UpStreamDAO dao;
+
 	@Autowired
 	private RatingReviewDAO rrDao;
 
-	@RequestMapping(path = {"/", "index.do"})
-	public String getFilm(Model model) {		
+	//INDEX REQUEST MAPPING
+	@RequestMapping(path = { "/", "index.do" })
+	public String getFilm(Model model) {
 		List<Content> content = null;
 		List<StreamService> services = dao.getServices();
 		List<List<Content>> contentByService = new ArrayList<List<Content>>();
@@ -43,94 +45,52 @@ public class UpStreamController {
 		model.addAttribute("serviceType", services);
 		return "index";
 	}
-	
-	@RequestMapping(path = "getService.do", method = RequestMethod.GET) 
+
+	//BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
+	@RequestMapping(path = "getService.do", method = RequestMethod.GET)
 	public ModelAndView getService(int id) {
 		ModelAndView mv = new ModelAndView();
-		StreamService serv = dao.getService(id);	
-		List<Content> content = null;
-		List<StreamService> services = dao.getServices();
-		List<List<Content>> contentByService = new ArrayList<List<Content>>();
-		for (StreamService streamService : services) {
-			content = dao.getTopContent(streamService.getId());
-			contentByService.add(content);
-		}
+		List<Content> content = rrDao.getService(id);
 		List<Double> rev = new ArrayList<Double>();
-		int i = 0;
-		double total = 0;
-		for (int j = 0; j < content.size(); j++) {
-//			List<RatingReview> rr = content.get(j).getRatingReviews();
-			for (i = 0; i < content.get(j).getRatingReviews().size(); i++) {
-				total += content.get(j).getRatingReviews().get(i).getRating();
-			}
-			if (j != 0) {
-				rev.add(total/j);
-			} else {
-				rev.add(0.0);
-			}
+		for (Content contents : content) {
+			rev.add(rrDao.getAverageRating(contents.getId()).get(0));
 		}
+		mv.addObject("serviceName", content.get(0).getService());
 		mv.addObject("rating", rev);
-		
-		mv.addObject("content", contentByService);
-		mv.addObject("serv", serv);
+		mv.addObject("content", content);
 		mv.setViewName("service");
 		return mv;
 	}
-	
 
-	@RequestMapping(path = "topContByServ.do", method = RequestMethod.GET)
-	public ModelAndView getContentByRating(int id) {		
-		ModelAndView mv = new ModelAndView();
-		List<RatingReview> topContent = dao.getTopRatedByService(id);
-		mv.addObject("content", topContent);
-		Content content = null;
-		List<StreamService> services = dao.getServices();
-		List<RatingReview> contentByService = new ArrayList<RatingReview>();
-		List<List<Content>> contents = new ArrayList<List<Content>>();
-		List<Content> conts = new ArrayList<Content>();
+	/// NEW STRETCH GOAL ONLY HAVE SO MANY "REVIEWS" ON ONE PAGE BEFORE HAVING TO
+	/// CLICK A NEXT BUTTON
+	// THIS WAS DONE IN THE SESSIONS LABS
 	
-		for (int i = 0; i < services.size(); i++) {
-			
-			contentByService = dao.getTopRatedByService(services.get(i).getId());
-			
-			for (RatingReview review: contentByService) {
-				content = review.getContent();
-				conts.add(content);
-			}
-			contents.add(conts);
-		}
-		mv.addObject("services", contents);
-		mv.addObject("serviceType", services);
-		mv.setViewName("ratingsort");
-		return mv;
-		}
-	
-	
-	/// NEW STRETCH GOAL ONLY HAVE SO MANY "REVIEWS" ON ONE PAGE BEFORE HAVING TO CLICK A NEXT BUTTON
-	//THIS WAS DONE IN THE SESSIONS LABS
+	//INDIVIDUAL SHOW OR MOVIE CONTENT PAGE.
 	@RequestMapping(path = "getContents.do", method = RequestMethod.GET)
-	public ModelAndView getContents(int id) {
+	public ModelAndView getContents(User user, HttpSession session, int id) {
 		ModelAndView mv = new ModelAndView();
 		Content content = dao.getContent(id);
-		double total = 0;
-		int i = 0;
-		for (i = 0; i < content.getRatingReviews().size(); i++) {
-			total += content.getRatingReviews().get(i).getRating();
-		}
-		if (i != 0) {
-			mv.addObject("average", total/i);
-		} else {
-			mv.addObject("average", "Content has not been rated yet.");
-		}
-		
 		List<RatingReview> reviews = rrDao.getTopRatedByContentId(content.getId());
-		
+		if (user != null) {
+			User activeUser = (User) session.getAttribute("user");
+			mv.addObject("user", activeUser);
+			if (activeUser != null) {
+				mv.addObject("userService", dao.getUserServices(activeUser));
+				mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+				if (rrDao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
+					mv.addObject("userreview", rrDao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+			}
+		} else {}
+		mv.addObject("averageRating", rrDao.getAverageRating(content.getId()).get(0));
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.setViewName("contentpage");
 		return mv;
 	}
-	
+
+	//IF USER CLICKS GET SERVICES ON MENU WILL SHOW LIST OF SERVICES WITH PRICES
 	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
 	public ModelAndView getServices() {
 		ModelAndView mv = new ModelAndView();
@@ -139,5 +99,4 @@ public class UpStreamController {
 		mv.setViewName("servicespage");
 		return mv;
 	}
-	
 }

@@ -51,7 +51,7 @@ public class LoginRegisterController {
 			model.addAttribute("user", user);
 			model.addAttribute("userService", USdao.getUserServices(user));
 			model.addAttribute("userContent", USdao.getUserContent(user.getId()));
-
+			model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(user.getId()));
 			return "profile";
 
 		}
@@ -92,6 +92,7 @@ public class LoginRegisterController {
 			System.out.println(newUser);
 			session.setAttribute("user", user);
 			model.addAttribute("user", user);
+//			model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(user.getId()));
 			
 			return "profile";
 			
