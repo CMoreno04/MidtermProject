@@ -108,7 +108,22 @@
   	<tr class="d-flex text-center">
  
  <!-- Change or add buttons here as nesesary..  May need to be switched to input fields when mapped. --> 	
-  	<td class="col"><button type="button" class="btn btn-success">Currently Watching</button></td>
+  	<td class="col">
+  	
+  	
+  	
+  	
+  	
+  	<form>
+  		<input class="btn btn-success btn-sm" type="submit" value="Currently Watching">
+  	</form>
+	
+	
+	
+	
+	
+	
+	</td>
   	<!-- <td class="col-6"><button type="button" class="btn btn-primary">Wish list</button></td> -->
   	</tr>
     </table>
@@ -116,6 +131,25 @@
 	</div>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- START OF COMMENT BOX   IF USER IS LOGGED IN AND HAS NOT MADE A COMMENT -->
 <c:if test="${not empty user}">
