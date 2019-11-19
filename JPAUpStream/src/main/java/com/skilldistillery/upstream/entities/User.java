@@ -45,7 +45,6 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<UserService> userService;
 
-
 	// C O N S T R U C T O R S
 
 	public User() {
@@ -68,6 +67,10 @@ public class User {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public boolean isAdmin() {
@@ -142,11 +145,7 @@ public class User {
 		this.userService = userService;
 	}
 
-	
-	
 	// T O S T R I N G
-
-	
 
 	@Override
 	public String toString() {
@@ -225,6 +224,5 @@ public class User {
 			return false;
 		return true;
 	}
-
 
 }

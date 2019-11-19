@@ -3,8 +3,6 @@ package com.skilldistillery.upstream.data;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
@@ -16,20 +14,16 @@ import com.skilldistillery.upstream.entities.User;
 @Service
 public class RegisterDAOImple implements RegisterDAO {
 
-//	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("UpStreamPU");
-//	private EntityManager em = emf.createEntityManager();
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
 	public User addUser(User user) {
 
-//		em.getTransaction().begin();
 
 		em.persist(user);
 		em.flush();
 
-//		em.getTransaction().commit();
 
 		return user;
 	}
@@ -51,4 +45,20 @@ public class RegisterDAOImple implements RegisterDAO {
 		return false;
 
 	}
+	@Override
+	public User updateUser(User user) {
+//		System.out.println("RegisterDAOImple.updateUser(): " + user);
+		User updatedUser = em.find(User.class, user.getId());
+//		System.out.println("RegisterDAOImple.updateUser(): " + updatedUser);
+		
+		updatedUser.setFirstName(user.getFirstName());
+		updatedUser.setLastName(user.getLastName());
+		updatedUser.setUsername(user.getUsername());
+		updatedUser.setPassword(user.getPassword());
+		em.flush();
+		
+		
+		return updatedUser;
+	}
+	
 }
