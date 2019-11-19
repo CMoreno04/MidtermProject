@@ -39,7 +39,7 @@ public interface UpStreamDAO {
 
 	// User
 	
-	public boolean addUserService(User user, int sid);
+	public boolean addUserService(int userId, int sid);
 
 	public List<StreamService> getUserServices(User user);
 
@@ -47,7 +47,7 @@ public interface UpStreamDAO {
 
 	public List<Content> getUserContent(int idIn);
 	
-	public boolean addUserContent(User user,int cid);
+	public boolean addUserContent(int userId,int cid);
 
 
 	// Admin

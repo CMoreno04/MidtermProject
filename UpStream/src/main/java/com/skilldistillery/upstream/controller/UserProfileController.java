@@ -70,11 +70,10 @@ public class UserProfileController {
 	        ModelAndView mv = new ModelAndView();
 	        
 	        User oldUser = (User) session.getAttribute("user");
+	        boolean userDeleted = USdao.disableUser(oldUser);
+	        if(userDeleted) {
 	        
-	        boolean userDeleted = USdao.removeUser(oldUser);
-	        
-	        if(!userDeleted) {
-	        	
+	      
 	        session.removeAttribute("user");
 	        mv.setViewName("deleteUser");
 	        

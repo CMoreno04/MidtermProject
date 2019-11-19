@@ -227,7 +227,11 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-	public boolean addUserService(User user, int sid) {
+	public boolean addUserService(int userId, int sid) {
+		User user = em.find(User.class, userId);
+		
+		System.out.println(user);
+	
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
 
@@ -243,27 +247,31 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean addUserContent(User user, int cid) {
+	public boolean addUserContent(int userIn, int cid) {
+
+		User user = em.find(User.class, userIn);
+		
+		System.out.println(user);
+
 		UserContent uc = new UserContent(em.find(Content.class, cid), user, false, false);
 
-		if (!user.getUserCont().contains(uc)) {
+//		if (!user.getUserCont().contains(uc)) {
 
-			try {
-
-				em.persist(uc);
-				em.flush();
-
-				return true;
-
-			}
-
-			catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
+		try {
+			em.persist(uc);
+			em.flush();
+			
+			
+			return true;
 		}
 
-		return false;
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+//		}
+
+//		return false;
 	}
 
 	@Override

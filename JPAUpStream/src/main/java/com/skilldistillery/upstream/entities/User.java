@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,6 +48,7 @@ public class User {
 	@OneToMany(mappedBy = "users", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<UserService> userService;
 
+	
 	// C O N S T R U C T O R S
 
 	public User() {
