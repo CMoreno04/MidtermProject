@@ -1,5 +1,7 @@
 package com.skilldistillery.upstream.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
+import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
@@ -60,4 +63,12 @@ public class UserProfileController {
 //	        }
 	        return mv;
 	    }
+	 @RequestMapping(path = "getWishlist.do", method = RequestMethod.GET)
+	 	public ModelAndView getWishlist(@Valid User user, HttpSession session) {
+		 ModelAndView mv = new ModelAndView();
+		 List<Content> wishlist = USdao.getWishListOfUser(user.getId());
+		 mv.addObject("wishlist", wishlist);
+	 	 mv.setViewName("wishList");
+		 return mv;
+	 }
 }
