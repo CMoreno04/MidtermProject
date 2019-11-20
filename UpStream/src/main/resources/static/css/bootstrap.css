@@ -10955,4 +10955,10 @@ button {
 form{
 	margin-bottom: 3% !important;
 }
+.name {
+	text-align: center !important;
+	color:black;
+	margin-right: 25%;
+	font-family: inherit;
+}
 

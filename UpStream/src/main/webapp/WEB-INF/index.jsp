@@ -27,8 +27,9 @@
 <%-- 	<h4 class="servicetitle"><a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> 
 		${typename.name} </a></h4> --%>
 		<a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle">
-		<img src="${typename.logo}" width="60vh" alt="${typename.name}">
+		<img src="${typename.logo}" width="60vh" alt="${typename.name}">    Content
 		</a>
+	<!-- 	<p></p> -->
 		</c:forEach>
 	</div>
 
@@ -37,7 +38,7 @@
 		<c:forEach items="${service}" var="content" begin="0" end = "10">
     		<a href="getContents.do?id=${content.id}" style="text-decoration: none">     		
     			<div class="item">
-    				<div class="cardimg" style="background-image: url(${content.image.url})"></div>
+    				<div class="cardimg" style="background-image: url(${content.image.url});"></div>
     				<div class="cardtxt">${content.title}</div>
     			</div>
     		</a>
