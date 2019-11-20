@@ -73,7 +73,8 @@
 					${service.name}
 				</td>
 				<td class="col">
-					<form>
+					<form action="deleteService.do" method="POST">
+						<input type="hidden" name="servId" value="${service.id}"> 
 						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
 					</form>
 				</td>

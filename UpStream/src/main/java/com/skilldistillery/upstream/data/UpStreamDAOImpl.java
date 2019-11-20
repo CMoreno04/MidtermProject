@@ -202,25 +202,24 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public boolean removeUserService(int userId, int servId) {
+		
+		String jpql="SELECT u FROM UserService u WHERE u.users.id=:userId AND u.service.id=:servId";
+		
+		List<UserService> us = em.createQuery(jpql,UserService.class).setParameter("userId", userId).setParameter("servId", servId).getResultList();
+		
 
 		try {
-			String jpql = "SELECT r FROM UserService r WHERE r.user.id=:userId AND r.service.id=:servId";
 
-			em.getTransaction().begin();
+			em.remove(us.get(0));
 
-			em.remove(em.createQuery(jpql, UserService.class).setParameter("userId", userId)
-					.setParameter("servId", servId).getSingleResult());
+			em.flush();
 
-//			em.flush();
-
-			em.getTransaction().commit();
 
 			return true;
 
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
 
 			return false;
 		}
