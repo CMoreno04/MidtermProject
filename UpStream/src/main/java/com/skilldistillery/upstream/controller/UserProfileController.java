@@ -70,6 +70,8 @@ public class UserProfileController {
 	        
 	        User oldUser = (User) session.getAttribute("user");
 	        boolean userDeleted = USdao.disableUser(oldUser);
+	        
+	        
 	        if(userDeleted) {
 	        
 	      
@@ -88,6 +90,11 @@ public class UserProfileController {
 		public String userDeleteService(@Valid User user, int servId,Model model, HttpSession session) {
 			User activeUser = (User) session.getAttribute("user");
 			USdao.removeUserService(((int)activeUser.getId()),servId);
+			
+			activeUser.setUserService(USdao.getUserServicesByUserId(((int)activeUser.getId())));
+			
+			session.setAttribute("user", activeUser);
+			
 			model.addAttribute("user", activeUser);
 			model.addAttribute("userService", USdao.getUserServices(activeUser));
 			model.addAttribute("userContent", USdao.getUserContent(activeUser.getId()));
