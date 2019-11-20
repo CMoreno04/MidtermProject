@@ -121,6 +121,10 @@
 <c:if test="${not empty user}">
 <c:if test="${userreview == null}">
 <div class="container" style="margin-top: 60px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35);">
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2428cccbce250b500fe7a378be543955ec86a97
 	<form action="createReview.do" method="POST" class="container">
 	<!-- <div class="form-group"> -->
 	<!-- Review Form -->
@@ -211,6 +215,10 @@
 	</button>
 	
 <!-- Modal START -->
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2428cccbce250b500fe7a378be543955ec86a97
 	<div class="modal fade" id="exampleModalScrollable${rev.rating}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable" role="document">
 	    <div class="modal-content">
@@ -246,7 +254,7 @@
 	</div>
 		
 <!-- DELETE BUTTON -->		
-		<form action="deleteReview.do" method="POST">
+		<form action="deleteReview.do" method="GET" >
 			<input type="hidden" name="userId" value="${user.id}">
 			<input type="hidden" name="contentId" value="${contents.id}">
 			<input type="hidden" name="revId" value="${rev.id}">

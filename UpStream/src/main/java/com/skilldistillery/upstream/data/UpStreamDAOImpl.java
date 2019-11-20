@@ -232,7 +232,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		User user = em.find(User.class, userId);
 		
 		System.out.println(user);
-		
+
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
 		try {
 
