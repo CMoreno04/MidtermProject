@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
+import com.skilldistillery.upstream.entities.User;
 
 public interface RatingReviewDAO  {
 	public RatingReview createReview(RatingReview rating);

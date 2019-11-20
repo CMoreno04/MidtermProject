@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
+import com.skilldistillery.upstream.entities.User;
 
 @Transactional
 @Service
@@ -84,5 +85,4 @@ public class RatingReviewDAOImpl implements RatingReviewDAO {
 		List<Content> service = em.createQuery(query, Content.class).setParameter("sid", servId).getResultList();
 		return service;
 	}
-
 }

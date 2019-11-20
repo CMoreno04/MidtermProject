@@ -163,6 +163,7 @@ public class RatingReviewController {
 			return mv;
 		}
 	}
+	
 
 //	@RequestMapping(path = "addToUserContent.do", params = "contentId", method = RequestMethod.POST)
 //	public ModelAndView addContentToUser(@RequestParam("contentId") int contentId, User user, HttpSession session) {
