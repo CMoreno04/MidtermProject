@@ -108,7 +108,7 @@
 				<div class="container">
 				<div class="row">
 					<div class="col">
-					${service.name}
+					<a href="getService.do?id=${service.id}">${service.name}</a>
 					</div>
 					<div class="col">
 					<form action="deleteService.do" method="POST">
