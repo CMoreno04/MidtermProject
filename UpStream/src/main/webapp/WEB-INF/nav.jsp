@@ -31,7 +31,7 @@
 				</li>
 				<li class="nav-item"><a class="nav-link" href="goProfile.do">Profile</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="logout.do">Logout</a>
+				<li class="nav-item"><a class="nav-link" href="logout.do">Log Out</a>
 				</li>
 			</ul>
 			</div>
@@ -44,7 +44,7 @@
 				</li>
 				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="login.do">LogIn</a>
+				<li class="nav-item"><a class="nav-link" href="login.do">Log In</a>
 				</li>
 			</ul>
 

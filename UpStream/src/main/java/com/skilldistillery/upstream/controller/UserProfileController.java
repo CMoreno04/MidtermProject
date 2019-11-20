@@ -6,7 +6,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,4 +83,17 @@ public class UserProfileController {
 	        }
 	        return mv;
 	    }
+	    
+	    @RequestMapping(path= "deleteService.do",params= "servId",method=RequestMethod.POST)
+		public String userDeleteService(@Valid User user, int servId,Model model, HttpSession session) {
+			User activeUser = (User) session.getAttribute("user");
+			USdao.removeUserService(((int)activeUser.getId()),servId);
+			model.addAttribute("user", activeUser);
+			model.addAttribute("userService", USdao.getUserServices(activeUser));
+			model.addAttribute("userContent", USdao.getUserContent(activeUser.getId()));
+			model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(activeUser.getId()));
+			model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
+			return "profile";
+	    }
+			
 }

@@ -17,19 +17,18 @@ public interface UpStreamDAO {
 	public List<Content> getWishListOfUser(int idIn);
 
 	public Content getContent(int id);
-	
+
 	public boolean removeUserContent(int userId, int contentId);
-	
-	//Service 
+
+	// Service
 
 	public StreamService getService(int id);
 
 	public List<StreamService> getServices();
-	
+
 	public boolean removeUserService(int userId, int servId);
-	
-	
-	//Rating
+
+	// Rating
 
 	public List<RatingReview> getTopRatedByContent(int idIn);
 
@@ -38,7 +37,7 @@ public interface UpStreamDAO {
 	public List<RatingReview> getReviewsOfUserByUserId(int idIn);
 
 	// User
-	
+
 	public boolean addUserService(int userId, int sid);
 
 	public List<StreamService> getUserServices(User user);
@@ -46,16 +45,18 @@ public interface UpStreamDAO {
 	public double getTotalOfServicesByUser(int idIn);
 
 	public List<Content> getUserContent(int idIn);
-	
-	public boolean addUserContent(int userId,int cid);
 
+	public boolean addUserContent(int userId, int cid);
 
 	// Admin
-	
+
 	public boolean disableUser(User userIn);
 
 	public boolean removeUser(User user);
+
+	public Content createContent(Content content);
 	
+
 
 
 
