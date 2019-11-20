@@ -78,9 +78,10 @@
 								
 								<c:if test="${not empty user }">
 										
-										<form action="">
-												<%-- <input name="userId" value="${user.id}" /> <input
-													name="serviceId" value="${serv.id}" /> --%>
+										<form action="addContentToProfile.do">
+											<input type="hidden" name="userId" value="${user.id}" /> <input type="hidden"
+													name="serviceId" value="${serviceName.id}" /> <input type="hidden"
+													name="contentId" value="${indivContent.id}" /> 
 												<button type="submit" class="btn btn-success">add</button>
 											</form> 
 										
