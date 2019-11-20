@@ -105,5 +105,23 @@ public class UserProfileController {
 		model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
 		return "profile";
 	}
+	
+	@RequestMapping(path = "deleteContent.do", params = {"contentId","servId"}, method = RequestMethod.POST)
+	public String userDeleteContent(@Valid User user, int servId, int contentId, Model model, HttpSession session) {
+		User activeUser = (User) session.getAttribute("user");
+		
+		USdao.removeUserContent(((int)activeUser.getId()), contentId);
+		
+		activeUser.setUserService(USdao.getUserServicesByUserId(((int) activeUser.getId())));
+		
+		session.setAttribute("user", activeUser);
+		
+		model.addAttribute("user", activeUser);
+		model.addAttribute("userService", USdao.getUserServices(activeUser));
+		model.addAttribute("userContent", USdao.getUserContent(activeUser.getId()));
+		model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(activeUser.getId()));
+		model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
+		return "profile";
+	}
 
 }

@@ -272,36 +272,24 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	
 
 	@Override
-	public boolean removeUserContent(int userId, int contentId, int servId) {
-		User user = em.find(User.class, userId);		
-//		String jpql = "SELECT c FROM UserContent c WHERE c.user.id = :userId AND c.user.id = :userId";
-//
-		String jpql="SELECT u FROM UserService u WHERE u.users.id=:userId AND u.userContent.id=:contentId";
-		List<UserService> us = em.createQuery(jpql,UserService.class)
-				.setParameter("userId", userId)
-				.setParameter("contentId", contentId)
-				.getResultList();
-//		UserContent userCont = em.createQuery(jpql, UserContent.class).setParameter("contentId", contentId)
-//				.setParameter("userId", userId).getSingleResult();
+	public boolean removeUserContent(int userId, int contentId) {
+		String jpql = "SELECT u FROM UserContent u WHERE u.userContent.id=:contentId AND u.user.id=:userId";
 
-		
-		//		UserContent c = null;
-//		int s = 0;
-//		List<UserContent> content = user.getUserCont();
-//		for (UserContent userContent : content) {
-//			if (userContent.getUserContent().getId() == contentId) {
-//				s = userContent.getUserContent().getService().getId();
-//				c = userContent;
-//			}
-//		}
-//		c.getUserContent().getService().setId(servId);
-//		
+		List<UserContent> us = em.createQuery(jpql, UserContent.class).setParameter("contentId", contentId)
+				.setParameter("userId", userId).getResultList();
+
 		try {
+
 			em.remove(us.get(0));
+
 			em.flush();
+
 			return true;
+
 		}
+
 		catch (Exception e) {
+
 			return false;
 		}
 	}
