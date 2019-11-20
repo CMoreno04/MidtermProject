@@ -20,6 +20,9 @@
 			<div class="col-xs-6 col-md-4"></div>
 			<div class="col-xs-6 col-md-4 text-center">
 				<h1>Register</h1>
+				<c:if test="${not empty message}">
+				<h4 style="color: red;">${message}</h4>
+				</c:if>
 
 				<form:form action="register.do" method="POST" modelAttribute="user">
 					<div class="form-row center">
@@ -42,6 +45,7 @@
 						<form:input type="password" class="form-control"
 							required="required" path="password" placeholder="Password" />
 					</div>
+							<br><br>
 					<form:input type="hidden" path="active" value="true" default="true" />
 
 					<%-- 					<div class="form-group col-md-6">

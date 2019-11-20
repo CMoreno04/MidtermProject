@@ -97,8 +97,12 @@ public class LoginRegisterController {
 			}
 			user = null;
 			session.removeAttribute("user");
-			model = null;
-			return "redirect:register.do";
+			
+			model.addAttribute("user", new User());
+			model.addAttribute("message","Username Already Exists!");
+			
+			
+			return "registration";
 		}	
 		else {
 			User newUser = rdao.addUser(user);
