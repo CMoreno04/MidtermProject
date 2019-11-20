@@ -21,7 +21,7 @@
 	<%@ include file="nav.jsp"%>
 	
 	<!-- PROFILE PIC AND USERNAME.  NEEDS TO BE REDONE FOR MOBILE>>>s-->
-	<div class="prof-box header-box container text-center align-middle" style="margin-top: 20px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
+	<div class="container text-center align-middle" style="margin-top: 20px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
 <%--         <table>
 	        <tr class="row d-flex">
 		        <td class="col text-center">
@@ -46,7 +46,17 @@
     	
     	<div class="row">
     		<div class="col">
-    			<div class="profile-pic text-center" style="margin-right: 10px"></div>
+    		
+    		
+    		<!-- if user img null the profile pic will not display -->
+    		<c:choose>
+    			<c:when test="${user.userImage.url == null}">
+    			</c:when>
+    			<c:otherwise>
+    			<div class="profile-pic text-center" style="margin-right: 10px; background-image: url(${user.userImage.url})"></div>
+    			</c:otherwise>
+    		</c:choose>
+    		
     		</div>
     		<div class="col align-middle">
     			<h3 class="prof-name" style="margin-top: 10px; overflow:hidden;">${user.username}</h3>
@@ -108,7 +118,7 @@
 				<div class="container">
 				<div class="row">
 					<div class="col">
-					${service.name}
+					<a href="getService.do?id=${service.id}">${service.name}</a>
 					</div>
 					<div class="col">
 					<form action="deleteService.do" method="POST">
