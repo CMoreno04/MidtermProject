@@ -1,5 +1,7 @@
 package com.skilldistillery.upstream.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -8,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
+import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
@@ -95,5 +99,33 @@ public class UserProfileController {
 			model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
 			return "profile";
 	    }
+	    
+		@RequestMapping(path = "deleteContentToProfile.do", params = {"contentId", "servId"}, method = RequestMethod.GET)
+		public ModelAndView deleteContent(@RequestParam("contentId") int contentId, int servId, User user, HttpSession session) {
+			ModelAndView mv = new ModelAndView();
+			User activeUser = (User) session.getAttribute("user");
+			Content content = USdao.getContent(contentId);
+			boolean userHasContent = false;
+			List<Content> userCont = USdao.getUserContent(activeUser.getId());
+			
+			
+			for (Content userConts : userCont) {
+				if (userConts.getId() == content.getId()) {
+					Content contents = content;
+					break;
+				} 
+			}
+			
+			
+			
+			USdao.removeUserContent((int) activeUser.getId(), content.getId(), servId);
+			mv.addObject("user", activeUser);
+			mv.addObject("userService", USdao.getUserServices(activeUser));
+			mv.addObject("userContent", USdao.getUserContent(activeUser.getId()));
+			mv.addObject("reviews", USdao.getReviewsOfUserByUserId(activeUser.getId()));
+			mv.addObject("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
+			mv.setViewName("profile");
+			return mv;
+		}
 			
 }

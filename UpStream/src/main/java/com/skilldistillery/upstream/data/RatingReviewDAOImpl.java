@@ -1,5 +1,6 @@
 package com.skilldistillery.upstream.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.upstream.entities.Content;
 import com.skilldistillery.upstream.entities.RatingReview;
 import com.skilldistillery.upstream.entities.User;
+import com.skilldistillery.upstream.entities.UserContent;
 
 @Transactional
 @Service
@@ -84,5 +86,12 @@ public class RatingReviewDAOImpl implements RatingReviewDAO {
 		String query = "SELECT c FROM Content c JOIN FETCH c.service s WHERE s.id = :sid";	
 		List<Content> service = em.createQuery(query, Content.class).setParameter("sid", servId).getResultList();
 		return service;
+	}
+	
+	@Override
+	public List<Content> getUserContent(int contId) {
+		String query = "SELECT c FROM Content JOIN FETCH c.userContent u JOIN FETCH u.user a WHERE a.id = :cid";
+		List<Content> content = em.createQuery(query, Content.class).setParameter("cid", contId).getResultList();
+		return content;
 	}
 }

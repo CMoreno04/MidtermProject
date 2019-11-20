@@ -53,7 +53,7 @@
     			<c:when test="${user.userImage.url == null}">
     			</c:when>
     			<c:otherwise>
-    			<div class="profile-pic text-center" style="margin-right: 10px; background-image: url(${user.userImage.url})"></div>
+    				<img src="${user.userImage.url}" height="100vh" width="100vh" style="border-radius: 50%">
     			</c:otherwise>
     		</c:choose>
     		
@@ -118,7 +118,7 @@
 				<div class="container">
 				<div class="row">
 					<div class="col">
-					${service.name}
+					<a href="getService.do?id=${service.id}">${service.name}</a>
 					</div>
 					<div class="col">
 					<form action="deleteService.do" method="POST">
