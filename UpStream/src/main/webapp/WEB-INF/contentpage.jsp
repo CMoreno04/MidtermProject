@@ -105,42 +105,36 @@
   		
   		</td>
   	</tr>
+  	
+  	<c:if test="${not empty user}">
+<%--    	<c:if test="${not empty userContent}"> --%>
   	<tr class="d-flex text-center">
- 
- 
-<%--  		<form action="deleteReview.do" method="GET" >
-			<input type="hidden" name="userId" value="${user.id}">
-			<input type="hidden" name="contentId" value="${contents.id}">
-			<input type="hidden" name="revId" value="${rev.id}">
-			<input class="btn btn-danger btn-sm" type="submit" value="delete">
-		</form>	 --%>
- <!-- Change or add buttons here as nesesary..  May need to be switched to input fields when mapped. --> 	 
-  	
-  	
-<%--   	
-  	<c:if test="${not empty user}">--%>
-	<c:if test="${user.userCont.userContent}!= contents.id}"> 
-  	
-  	<td class="col-6"><!-- <button type="button" class="btn btn-success">Currently Watching</button> -->
-  	
+   	<td class="col">
 
-  	${user.userCont.userContent}
-  		<form action="addContentToProfile.do" method="GET">
+  	<c:choose>
+  		<c:when test="${hideButton == true}">
+  		  	<form action="deleteContentToProfile.do" method="GET">
+			<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
+			<input type="hidden" name="contentId" value="${contents.id}">
+			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>		
+			<input type="hidden" name="servId" value="${contents.service.id}">
+			<input type="submit" value="Delete From List" class="btn btn-warning btn-sm">
+			</form>
+		</c:when>
+  		<c:otherwise>
+  		  	<form action="addContentToProfile.do" method="GET">
 			<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
 			<input type="hidden" name="contentId" value="${contents.id}">
 			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>		
 			<input type="submit" value="Currently Watching" class="btn btn-success btn-sm">
-		</form> 
-  	
+			</form> 
+  		</c:otherwise>
+  	</c:choose>
   	</td>
-<%-- 
-	</c:if>--%>
-	</c:if> 
-
-
-
-
   	</tr>
+ 	</c:if>
+<%--  	</c:if> --%>
+  	
     </table>
 	
 	</div>

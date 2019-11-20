@@ -16,4 +16,5 @@ public interface RatingReviewDAO  {
 	List<Double> getAverageRating(int contentId);
 	List<Double> getAverageRatingList();
 	List<Content> getService(int servId);
+	List<Content> getUserContent(int contId);
 }
