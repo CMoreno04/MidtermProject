@@ -146,6 +146,7 @@ public class User {
 	}
 
 	public void setUserService(List<UserService> userService) {
+		this.userService=null;
 		this.userService = userService;
 	}
 

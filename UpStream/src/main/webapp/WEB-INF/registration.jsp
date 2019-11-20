@@ -42,6 +42,7 @@
 						<form:input type="password" class="form-control"
 							required="required" path="password" placeholder="Password" />
 					</div>
+					<form:input type="hidden" path="active" value="true" default="true" />
 
 					<%-- 					<div class="form-group col-md-6">
 						<form:label path="userImage">Image</form:label>
