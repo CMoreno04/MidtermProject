@@ -12,6 +12,9 @@
 	<div class="container">
 		<br>
 		<h4>Services</h4>
+		<c:if test="${not empty message}">
+		<h5>${message}</h5>
+		</c:if>
 		<br>
 		<table class="table table-hover">
 			<c:forEach items="${serv}" var="service">
@@ -24,17 +27,12 @@
 					<c:if test="${not empty user }">
 						<td class="col-3">
 							<form action="addUserService.do">
-								<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
-								<input type="hidden" name="servId" value="${service.id}">
-									
-								<input class="btn btn-success btn-sm" type="submit" value="add">
-<!-- 								<button type="submit" class="btn btn-success">add</button> -->
-
+								<input type="hidden" name="servId"
+									value="${service.id}"> <input
+									class="btn btn-success btn-sm" type="submit" value="add">
 							</form>
 						</td>
 					</c:if>
-
-
 				</tr>
 			</c:forEach>
 		</table>
