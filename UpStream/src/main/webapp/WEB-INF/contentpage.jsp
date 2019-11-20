@@ -1,125 +1,138 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>${contents.title}</title>
+
 <link href="/css/bootstrap.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
-    
+	
 </head>
 <body>
+
 <%@ include file="nav.jsp" %>
+
+
+
 <div class="container-fluid">
-    <div class="row vidanddescrip">
-    
-    
-    <!-- Video and image column -->
-    <div class="col-md" style="padding: 0px">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding: 0px">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-         
-         <div class="iframe-container">
-         <iframe class="embed-responsive-item" width="100%" height="200vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="carousel-item">
-        <div class="img-container">
-          <img src="${contents.image.url}" alt="${contents.title} image">
-          </div>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="false"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-    </div>
-    
-    
-    <!-- description column -->
-    <div class="col-md">
-    <table class="table table-hover"> 
-    <tr class="d-flex">
-        <th class="col-12"><h4>${contents.title}</h4></th>
-    </tr>
-    <tr class="d-flex"> 
-        <td class="col">
-        <c:if test = "${reviews != null}">
-            <c:choose>
-                <c:when test="${averageRating <= '1'}">
-                ⚡
-                </c:when> 
-                <c:when test="${averageRating <= '2.5'}">
-                ⚡⚡
-                </c:when> 
-                <c:when test="${averageRating <= '3.5'}">
-                ⚡⚡⚡
-                </c:when> 
-                <c:when test="${averageRating <= '4.5'}">
-                ⚡⚡⚡⚡
-                </c:when> 
-                <c:when test="${averageRating <= '5'}">
-                ⚡⚡⚡⚡⚡
-                </c:when> 
-               <c:otherwise> Content has not been rated yet. </c:otherwise> 
-            </c:choose>
-        </c:if>
-        </td>
-        <td class="col">
-            <img src="${contents.service.logo}" width="50px"> 
-        </td>
-    </tr>
-    <tr class="d-flex">
-        <td class="col">
-        <div style="display: inline-flex;">
-            <c:forEach items="${contents.genres}" var="genre" varStatus="loop">
-                <h6><span class="badge badge-secondary">${genre.name}</span></h6>&nbsp;&nbsp; 
-            </c:forEach>
-        </div>
-        <td>
-    </tr>
-    <tr class="d-flex">
-        <td class="col">
-        
-        <div class="overflow-auto" style="height: 100px">${contents.description} </div>
-        
-        </td>
-    </tr>
-    <tr class="d-flex text-center">
+	<div class="row vidanddescrip">
+	
+	
+	<!-- Video and image column -->
+	<div class="col-md" style="padding: 0px">
+
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding: 0px">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	     
+	     <div class="iframe-container">
+	     <iframe class="embed-responsive-item" width="100%" height="200vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	      </div>
+	    </div>
+	    <div class="carousel-item">
+	    <div class="img-container">
+	      <img src="${contents.image.url}" alt="${contents.title} image">
+	      </div>
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
+
+	</div>
+	
+	
+	<!-- description column -->
+	<div class="col-md">
+
+	<table class="table table-hover"> 
+  	<tr class="d-flex">
+  		<th class="col-12"><h4>${contents.title}</h4></th>
+  	</tr>
+  	<tr class="d-flex"> 
+  		<td class="col">
+  		<c:if test = "${reviews != null}">
+  			<c:choose>
+    			<c:when test="${averageRating <= '1'}">
+				⚡
+    			</c:when> 
+    			<c:when test="${averageRating <= '2.5'}">
+    			⚡⚡
+    			</c:when> 
+    			<c:when test="${averageRating <= '3.5'}">
+    			⚡⚡⚡
+    			</c:when> 
+    			<c:when test="${averageRating <= '4.5'}">
+    			⚡⚡⚡⚡
+    			</c:when> 
+				<c:when test="${averageRating <= '5'}">
+				⚡⚡⚡⚡⚡
+    			</c:when> 
+ 			   <c:otherwise> Content has not been rated yet. </c:otherwise> 
+			</c:choose>
+		</c:if>
+  		</td>
+  		<td class="col">
+			<img src="${contents.service.logo}" width="50px"> 
+		</td>
+  	</tr>
+  	<tr class="d-flex">
+		<td class="col">
+		<div style="display: inline-flex;">
+	  		<c:forEach items="${contents.genres}" var="genre" varStatus="loop">
+	  			<h6><span class="badge badge-secondary">${genre.name}</span></h6>&nbsp;&nbsp; 
+	  		</c:forEach>
+	  	</div>
+  		<td>
+  	</tr>
+  	<tr class="d-flex">
+  		<td class="col">
+  		
+  		<div class="overflow-auto" style="height: 100px">${contents.description} </div>
+  		
+  		</td>
+  	</tr>
+  	<tr class="d-flex text-center">
  
- <!-- Change or add buttons here as nesesary..  May need to be switched to input fields when mapped. -->  
-    <td class="col">
-    
-    
-    
-    
-    
-    <form>
-        <input class="btn btn-success btn-sm" type="submit" value="Currently Watching">
-    </form>
-    
-    
-    
-    
-    
-    
-    </td>
-    <!-- <td class="col-6"><button type="button" class="btn btn-primary">Wish list</button></td> -->
-    </tr>
+ 
+<%--  		<form action="deleteReview.do" method="GET" >
+			<input type="hidden" name="userId" value="${user.id}">
+			<input type="hidden" name="contentId" value="${contents.id}">
+			<input type="hidden" name="revId" value="${rev.id}">
+			<input class="btn btn-danger btn-sm" type="submit" value="delete">
+		</form>	 --%>
+ <!-- Change or add buttons here as nesesary..  May need to be switched to input fields when mapped. --> 	 
+  	<td class="col-6"><!-- <button type="button" class="btn btn-success">Currently Watching</button> -->
+  		<form action="addContentToProfile.do" method="GET">
+			<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
+			<input type="hidden" name="contentId" value="${contents.id}">
+			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>		
+			<input type="submit" value="Currently Watching" class="btn btn-success btn-sm">
+	</form> 
+  	
+  	
+  	</td>
+  	<td class="col-6"><button type="button" class="btn btn-primary">Wish list</button></td>
+  	</tr>
     </table>
-    
-    </div>
-    </div>
+	
+	</div>
+	</div>
 </div>
+
 <!-- START OF COMMENT BOX   IF USER IS LOGGED IN AND HAS NOT MADE A COMMENT -->
 <c:if test="${not empty user}">
 <c:if test="${userreview == null}">
@@ -145,7 +158,7 @@
 	
 	<!-- insert for user id?>?? -->
 	<input type="hidden" name="userId" value="${user.id}">
- 	 <input type="hidden" name="revId" value="${rev.id}"> 
+ 	<%-- <input type="hidden" name="id" value="${rev.id}"> --%>
 	<input type="hidden" name="contentId" value="${contents.id}"> 
 	<input class="btn btn-success btn-shadow px-3 my-2 ml-0 text-left nav__links" type="submit" value="Add review"><br>	
 	
@@ -154,49 +167,66 @@
 </div>
 </c:if>
 </c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--  START REVIEWS  -->
 <div class="container" style="margin-top: 60px">
+
 <table class="table">
-    <tr class="d-flex">
-        <td class="col text-center"><h4>Reviews</h4></td> 
-    </tr>
+	<tr class="d-flex">
+		<td class="col text-center"><h4>Reviews</h4></td>	
+	</tr>
+
 <c:forEach items="${reviews}" var="rev" varStatus="loop">
-    <tr class="d-flex">
-        <td class="col">
-        <c:choose>
-                <c:when test="${rev.rating == '1'}">
-                ⚡
-                </c:when> 
-                <c:when test="${rev.rating == '2'}">
-                ⚡⚡
-                </c:when> 
-                <c:when test="${rev.rating == '3'}">
-                ⚡⚡⚡
-                </c:when> 
-                <c:when test="${rev.rating == '4'}">
-                ⚡⚡⚡⚡
-                </c:when> 
-                <c:when test="${rev.rating == '5'}">
-                ⚡⚡⚡⚡⚡
-                </c:when> 
-               <c:otherwise> No rating </c:otherwise> 
-            </c:choose>
-        </td>
-        <td class="col">${rev.comment}</td>
-    </tr>
+	<tr class="d-flex">
+		<td class="col">
+		<c:choose>
+    			<c:when test="${rev.rating == '1'}">
+				⚡
+    			</c:when> 
+    			<c:when test="${rev.rating == '2'}">
+    			⚡⚡
+    			</c:when> 
+    			<c:when test="${rev.rating == '3'}">
+    			⚡⚡⚡
+    			</c:when> 
+    			<c:when test="${rev.rating == '4'}">
+    			⚡⚡⚡⚡
+    			</c:when> 
+				<c:when test="${rev.rating == '5'}">
+				⚡⚡⚡⚡⚡
+    			</c:when> 
+ 			   <c:otherwise> No rating </c:otherwise> 
+			</c:choose>
+		</td>
+		<td class="col">${rev.comment}</td>
+	</tr>
+
 <c:choose>
-    <c:when test="${user.id == rev.userId}">
-    <tr class="d-flex bg-secondary">
-    <td class="col">
-    
-    <div class="text-right">
-    <div class="text-center" style="display: inline-flex;">
+	<c:when test="${user.id == rev.userId}">
+	<tr class="d-flex bg-secondary">
+	<td class="col">
+	
+	<div class="text-right">
+	<div class="text-center" style="display: inline-flex;">
+
 <!-- Submit buttons -->
 <!-- Button TO TRIGGER MODAL -->
-    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
-      Update Review
-    </button>
-    
+	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
+	  Update Review
+	</button>
+	
 <!-- Modal START -->
 
 	<div class="modal fade" id="exampleModalScrollable${rev.rating}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -251,6 +281,7 @@
 </c:forEach>
 </table>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

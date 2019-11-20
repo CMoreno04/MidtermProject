@@ -21,8 +21,8 @@
 	<%@ include file="nav.jsp"%>
 	
 	<!-- PROFILE PIC AND USERNAME.  NEEDS TO BE REDONE FOR MOBILE>>>s-->
-	<div class="prof-box header-box container text-center" style="margin-top: 20px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
-        <table>
+	<div class="prof-box header-box container text-center align-middle" style="margin-top: 20px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
+<%--         <table>
 	        <tr class="row d-flex">
 		        <td class="col text-center">
 		        	<div class="profile-pic text-center" style="margin-right: 10px"></div>
@@ -41,13 +41,40 @@
 
 		        </td>
 	        </tr>
-    	</table>
+    	</table> --%>
+    	
+    	
+    	<div class="row">
+    		<div class="col">
+    			<div class="profile-pic text-center" style="margin-right: 10px"></div>
+    		</div>
+    		<div class="col align-middle">
+    			<h3 class="prof-name" style="margin-top: 10px; overflow:hidden;">${user.username}</h3>
+    		</div>
+    		<div class="col">
+    		
+    		<div class="row"><div class="col">
+    			<form action="goToUpdateUser.do" method="GET" >
+		        	<input type="submit" value="Update Profile" class="btn btn-success btn-sm" style="margin-top: 10px;">
+		       	 </form>
+    		</div></div>
+    		<div class="row"><div class="col" >
+		       	 <form action="deleteUser.do" method="GET">
+       			<!-- <input type="hidden" > -->
+					<input class="btn btn-outline-danger btn-sm" type="submit" value="delete" style="margin-top: 10px;">
+				</form>    		
+    		</div></div>
+    		
+    	</div>
+    	
+
+    	</div>
 	</div>
 	<!-- END USER INFRO BOX -->
 
 
 <!-- START TOTALER -->
-	<div class="container text-center" style="margin-top: 30px">
+	<div class="container text-center" style="margin-top: 50px">
 	<h4>Your monthly expenditure:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 	<fmt:setLocale value="en_US" />
 	<fmt:formatNumber value="${servTotal}" type="currency" />	
@@ -55,8 +82,8 @@
 
 
 <!-- START USER SERVICES CARDS -->
-	<div class="container text-center" style="margin-top: 30px">
-	<table class="table">
+	<div class="container text-center" style="margin-top: 50px">
+	<table class="table table-borderless">
 	<tr class="row">
 	
 	<c:forEach items="${userService}" var="service" varStatus="loop">
@@ -67,27 +94,31 @@
 			<div class="card text-white mb-3 text-center d-flex" style="background-color: rgba(32, 201, 151, 0.2);">
 				<!-- style="max-width: 20rem;"> -->
 				<div class="card-header bg-secondary">
-				<table class="text-center table d-flex">
+<%-- 				<table class="text-center table d-flex">
 				<tr class="d-flex">
 				<td class="col" style="text-align: center; background-color: #000">
 					${service.name}
 				</td>
 				<td class="col">
 					<form action="deleteService.do" method="POST">
-						<input type="hidden" name="servId" value="${service.id}"> 
-						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
-					</form>
+
 				</td>
 				</tr>
-				</table>
+				</table> --%>
+				<div class="container">
+				<div class="row">
+					<div class="col">
+					${service.name}
+					</div>
+					<div class="col">
+					<form action="deleteService.do" method="POST">
+											<input type="hidden" name="servId" value="${service.id}"> 
+						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
+					</form>
+					</div>
 				</div>
-			
-				
-				
-				
-				
-				
-				
+				</div>
+				</div>
 				<div class="card-body">
 					<c:forEach items="${userContent}" var="content" varStatus="loop">
 					<c:if test="${content.service.name == service.name}">
@@ -192,6 +223,42 @@
 	</c:forEach>
 	</table>
  </div>
+
+
+
+
+
+
+
+
+
+<c:if test="${user.admin == true}">
+<div class="container text-center" style="margin-top: 70px; margin-bottom: 20px; border-radius:10px; padding:10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
+<h4 style="margin-bottom: 10px">Admin Center</h4>
+
+<form action="peekaboo.do" method="POST">
+	<input type="submit" class="btn btn-secondary btn sm" value="See List Of Users">
+</form>
+
+
+
+2.  Add Content<br>
+3.  Add Service (stretch)<br>
+</div>
+
+</c:if>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

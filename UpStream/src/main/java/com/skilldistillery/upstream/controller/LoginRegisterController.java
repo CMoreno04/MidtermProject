@@ -90,20 +90,15 @@ public class LoginRegisterController {
 
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
 	public String registerNewUser(@Valid User user, HttpSession session, Model model, Errors error) {
-		if (rdao.checkIsUniqueUser(user)) {
-			
+		if (rdao.checkIsUniqueUser(user)) {	
 			if (user != null) {
 				 error.rejectValue("username", "error.username", "Username already in use");
 				 ((ModelAndView) model).addObject("Error", error);
 				return "registration";
 			}
-			
-			
 			return "registration";
-		}
-		
+		}	
 		else {
-			
 			User newUser = rdao.addUser(user);
 			System.out.println(user);
 			System.out.println(newUser);
@@ -111,12 +106,11 @@ public class LoginRegisterController {
 			model.addAttribute("user", newUser);
 			model.addAttribute("userService", USdao.getUserServices(newUser));
 			model.addAttribute("userContent", USdao.getUserContent(newUser.getId()));
-			return "profile";
-			
-		}
-		
-
+			return "profile";	
+		}	
 	}
+	
+	
 	@RequestMapping(path = "logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
