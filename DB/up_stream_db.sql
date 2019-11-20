@@ -285,7 +285,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Up_Stream`;
-INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (1, 'Netflix', 8.99, 'https://assets.brand.microsites.netflix.io/assets/493f5bba-81a4-11e9-bf79-066b49664af6_cm_1440w.png?v=2');
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (1, 'Netflix', 8.99, 'https://logos-download.com/wp-content/uploads/2016/03/Netflix_logo.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (2, 'HBO', 14.99, 'https://f-scope.net/images/hbo-logo-png-10.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (3, 'Disney Plus', 6.99, 'https://www.reviews.org/au/app/uploads/2019/11/disney-plus-logo-300x174.png');
 
@@ -305,13 +305,13 @@ INSERT INTO `media` (`id`, `url`) VALUES (5, 'https://hips.hearstapps.com/hmg-pr
 INSERT INTO `media` (`id`, `url`) VALUES (6, 'https://www.youtube.com/embed/TUVOZ-nk0E0');
 INSERT INTO `media` (`id`, `url`) VALUES (7, 'https://images-na.ssl-images-amazon.com/images/I/51MAfrtiv-L._SY355_.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (8, 'https://www.youtube.com/embed/P2yNnEhsFno');
-INSERT INTO `media` (`id`, `url`) VALUES (9, 'https://cdn.vox-cdn.com/thumbor/EL5JR-U2GdmXnFLOCdK3ci5J344=/0x0:2040x1360/1200x800/filters:focal(483x108:809x434)/cdn.vox-cdn.com/uploads/chorus_image/image/58062223/BRIGHT_Unit_10265_R3_2040.0.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (9, 'https://thelancerlink.com/wp-content/uploads/2018/02/DRCtIglXcAErrFZ-900x506.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (10, 'https://www.youtube.com/embed/6EZCBSsBxko');
 INSERT INTO `media` (`id`, `url`) VALUES (11, 'https://www.dreadcentral.com/wp-content/uploads/2018/05/In-the-Tall-Grass-poster.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (12, 'https://www.youtube.com/embed/I5tEsyUyz-U');
-INSERT INTO `media` (`id`, `url`) VALUES (13, 'https://cdn.vox-cdn.com/thumbor/0Xv3N82IFOFkFrcIgt1dLJO-hXM=/0x0:1920x1200/1200x800/filters:focal(807x447:1113x753)/cdn.vox-cdn.com/uploads/chorus_image/image/63863964/game-of-thrones-poster_85627-1920x1200.0.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (13, 'https://fsa.zobj.net/crop.php?r=SaJY9JZomvr9HapdbWIV1wa5AkJ54aaKYsoAc86o-HxqSRP1UtobhAJIyAUlTvN2Z2iuIb5uuzHIJA-2G-f3Z3VrugX_n9lM9jEt9npMu1pqu18Im4_lAnz4EmreTKUS_xR92KPsDnz9GdzWWFvPoFeZ_69sKQX7yrTm_DIaoHZvO0jpLBW9uUV4ZxwsJWvtoMxw0sZKQhu3RVx-');
 INSERT INTO `media` (`id`, `url`) VALUES (14, 'https://www.youtube.com/embed/gcTkNV5Vg1E');
-INSERT INTO `media` (`id`, `url`) VALUES (15, 'https://cdn.vox-cdn.com/thumbor/uFiWNn4WE8CPb557jE5_t67qLU0=/0x0:1200x675/1200x800/filters:focal(504x242:696x434)/cdn.vox-cdn.com/uploads/chorus_image/image/63930036/cq5dam.web.1200.675.0.jpeg');
+INSERT INTO `media` (`id`, `url`) VALUES (15, 'https://images-na.ssl-images-amazon.com/images/I/51IjKCRRIiL._SY679_.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (16, 'https://www.youtube.com/embed/nKgZB-UyN2U');
 INSERT INTO `media` (`id`, `url`) VALUES (17, 'https://www.syfy.com/sites/syfy/files/styles/1200x680/public/2019/10/watchmen-hbo-racism-police.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (18, 'https://www.youtube.com/embed/huN34U2rmvs');
