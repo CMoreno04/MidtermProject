@@ -65,5 +65,7 @@ public interface UpStreamDAO {
 
 
 	public boolean checkIfUserHasService(int userId, int servId);
+	
+	public boolean checkIfUserHasContent(int userId, int contentId);
 
 }

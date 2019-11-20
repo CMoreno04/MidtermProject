@@ -345,4 +345,31 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		return em.find(User.class, id);
 	}
 
+	@Override
+	public boolean checkIfUserHasContent(int userId, int contentId) {
+		
+		UserContent userCont;
+		try {
+			String jpql = "SELECT u FROM UserContent u WHERE u.user.id=:userId AND u.userContent.id=:contentId";
+
+			userCont = em.createQuery(jpql, UserContent.class).setParameter("userId", userId)
+					.setParameter("contentId", contentId).getSingleResult();
+		} catch (Exception e) {
+			userCont = null;
+		}
+
+//		User user = em.find(User.class, userId);
+
+		if (userCont == null) {
+
+			return true;
+
+		}
+
+		else {
+			return false;
+		}
+		
+	}
+
 }
