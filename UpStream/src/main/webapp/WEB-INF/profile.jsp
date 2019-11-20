@@ -53,6 +53,7 @@
     			<c:when test="${user.userImage.url == null}">
     			</c:when>
     			<c:otherwise>
+
     			<img src="${user.userImage.url}" height="100vh" style="border-radius: 50%; max-width: 10rem; max-height: 10rem; border: 0.5rem solid #00bc8c;">
     			</c:otherwise>
     		</c:choose>

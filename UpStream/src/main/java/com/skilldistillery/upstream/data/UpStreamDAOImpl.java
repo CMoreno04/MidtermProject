@@ -269,30 +269,31 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 //		return false;
 	}
+	
 
 	@Override
 	public boolean removeUserContent(int userId, int contentId) {
+		String jpql = "SELECT u FROM UserContent u WHERE u.userContent.id=:contentId AND u.user.id=:userId";
 
-		String jpql = "SELECT c FROM UserContent c WHERE c.userContent.id=:contentId AND c.user.id=:userId";
-
-		UserContent userCont = em.createQuery(jpql, UserContent.class).setParameter("contentId", contentId)
-				.setParameter("userId", userId).getSingleResult();
+		List<UserContent> us = em.createQuery(jpql, UserContent.class).setParameter("contentId", contentId)
+				.setParameter("userId", userId).getResultList();
 
 		try {
 
-			em.remove(userCont);
+			em.remove(us.get(0));
 
 			em.flush();
 
 			return true;
+
 		}
 
 		catch (Exception e) {
 
 			return false;
 		}
-
 	}
+
 
 //Admin
 	@Override
@@ -300,6 +301,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public List<UserService> getUserServicesByUserId(int userId) {

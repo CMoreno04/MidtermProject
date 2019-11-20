@@ -1,6 +1,5 @@
 package com.skilldistillery.upstream.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "user_content")
+@Entity
+@Table(name = "user_content")
 public class UserContent {
 	// F I E L D S
 
@@ -17,11 +18,11 @@ public class UserContent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "content_id")
 	private Content userContent;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
