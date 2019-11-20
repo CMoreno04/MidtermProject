@@ -10941,14 +10941,18 @@ button {
 	margin-bottom: 5%;
 }
 
-#register {
-	margin: 20%
-}
+/* #register {
+	margin: 20%;
+	align: center !important;
+} */
 
 #userProfile {
 	color: white;
 	max-width: 20%;
 	margin: 20% !important;
 	align: center !important;
+}
+form{
+	margin-bottom: 3% !important;
 }
 
