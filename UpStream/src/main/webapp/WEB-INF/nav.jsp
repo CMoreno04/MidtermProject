@@ -23,37 +23,43 @@
 		</button>
 		<c:if test="${not empty sessionScope.user}">
 
-		<div class="collapse navbar-collapse" id="navbarColor02">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
-				</li>
-				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="goProfile.do">Profile</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="logout.do">Log Out</a>
-				</li>
-			</ul>
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
+					</li>
+					<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="goProfile.do">Profile</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="logout.do">Log
+							Out</a></li>
+					<li>
+					</li>
+				</ul>
+						<h2 class="name">Streaming Service Tracker</h2>
 			</div>
-			</c:if>
-			
+		</c:if>
+
 		<c:if test="${empty sessionScope.user}">
-		<div class="collapse navbar-collapse" id="navbarColor02">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
-				</li>
-				<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="login.do">Log In</a>
-				</li>
-			</ul>
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
+					</li>
+					<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="login.do">Log
+							In</a></li>
+					<li>
+					</li>
+				</ul>
+						<h2 class="name">Streaming Service Tracker</h2>
 
 
-			<!--  <form class="form-inline my-2 my-lg-0">
+				<!--  <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form> -->
-		</div>
+			</div>
 		</c:if>
 	</nav>
 </body>
