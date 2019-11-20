@@ -113,7 +113,7 @@
 
   	<c:choose>
   		<c:when test="${hideButton == true}">
-  		  	<form action="deleteContentToProfile.do" method="GET">
+  		  	<form action="deleteContent.do" method="POST">
 			<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
 			<input type="hidden" name="contentId" value="${contents.id}">
 			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>		
