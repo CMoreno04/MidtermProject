@@ -39,6 +39,7 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
+		model.addAttribute("user",null);
 		model.addAttribute("services", contentByService);
 		model.addAttribute("serviceType", services);
 		return "index";
@@ -110,8 +111,9 @@ public class UpStreamController {
 	public ModelAndView getServices(User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		List<StreamService> servs = dao.getServices();
+		mv.addObject("message",null);
 		mv.addObject("serv", servs);
-		mv.addObject("user", user);
+		mv.addObject("user",((User)session.getAttribute("user")));
 		mv.setViewName("servicespage");
 		return mv;
 	}
@@ -121,8 +123,14 @@ public class UpStreamController {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
 
-		boolean service = dao.addUserService(activeUser.getId(), servId);
-		if (service) {
+		boolean service = false;
+		
+		if (dao.checkIfUserHasService(activeUser.getId(), servId)) {
+			
+			service = dao.addUserService(activeUser.getId(), servId);
+		}
+		
+		if (service) {	
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
@@ -130,11 +138,10 @@ public class UpStreamController {
 			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 		} else {
-			mv.addObject("user", activeUser);
-			mv.addObject("userService", dao.getUserServices(activeUser));
-			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
-			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
-			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
+			List<StreamService> servs = dao.getServices();
+			mv.addObject("message","You Already Have That Service!");
+			mv.addObject("serv", servs);
+			mv.addObject("user",((User)session.getAttribute("user")));
 			mv.setViewName("servicespage");
 		}
 		return mv;
