@@ -141,12 +141,12 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	@Override
 	public boolean removeUser(User userIn) {
 		User user = em.find(User.class, userIn.getId());
-		
+
 		try {
-			
+
 			em.remove(user);
 			em.flush();
-			
+
 			return true;
 		}
 
@@ -202,18 +202,17 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public boolean removeUserService(int userId, int servId) {
-		
-		String jpql="SELECT u FROM UserService u WHERE u.users.id=:userId AND u.service.id=:servId";
-		
-		List<UserService> us = em.createQuery(jpql,UserService.class).setParameter("userId", userId).setParameter("servId", servId).getResultList();
-		
+
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId AND u.service.id=:servId";
+
+		List<UserService> us = em.createQuery(jpql, UserService.class).setParameter("userId", userId)
+				.setParameter("servId", servId).getResultList();
 
 		try {
 
 			em.remove(us.get(0));
 
 			em.flush();
-
 
 			return true;
 
@@ -226,10 +225,9 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	}
 
-
 	public boolean addUserService(int userId, int sid) {
 		User user = em.find(User.class, userId);
-		
+
 		System.out.println(user);
 
 		UserService us = new UserService(LocalDate.now(), true, user, em.find(StreamService.class, sid));
@@ -250,7 +248,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	public boolean addUserContent(int userIn, int cid) {
 
 		User user = em.find(User.class, userIn);
-		
+
 		System.out.println(user);
 
 		UserContent uc = new UserContent(em.find(Content.class, cid), user, false, false);
@@ -260,8 +258,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		try {
 			em.persist(uc);
 			em.flush();
-			
-			
+
 			return true;
 		}
 
@@ -297,11 +294,47 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 
 	}
+
 //Admin
 	@Override
 	public Content createContent(Content content) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<UserService> getUserServicesByUserId(int userId) {
+		String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId ORDER BY u.service.id";
+
+		List<UserService> usrServ = em.createQuery(jpql, UserService.class).setParameter("userId", userId)
+				.getResultList();
+
+		return usrServ;
+	}
+
+	@Override
+	public boolean checkIfUserHasService(int userId, int servId) {
+		UserService usrServ;
+		try {
+			String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId AND u.service.id=:servId";
+
+			usrServ = em.createQuery(jpql, UserService.class).setParameter("userId", userId).setParameter("servId", servId).getSingleResult();
+		} catch (Exception e) {
+			usrServ = null;
+		}
+
+//		User user = em.find(User.class, userId);
+
+		if (usrServ==null) {
+
+			return true;
+
+		}
+
+		else {
+			return false;
+		}
+
 	}
 
 }
