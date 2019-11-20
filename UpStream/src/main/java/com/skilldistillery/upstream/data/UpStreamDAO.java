@@ -51,6 +51,8 @@ public interface UpStreamDAO {
 	public List<Content> getUserContent(int idIn);
 
 	public boolean addUserContent(int userId, int cid);
+	
+	public User getUserById(int id);
 
 	// Admin
 
