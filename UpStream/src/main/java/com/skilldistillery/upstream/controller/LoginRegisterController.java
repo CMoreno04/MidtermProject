@@ -91,12 +91,14 @@ public class LoginRegisterController {
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
 	public String registerNewUser(@Valid User user, HttpSession session, Model model, Errors error) {
 		if (rdao.checkIsUniqueUser(user)) {	
-			if (user != null) {
-				 error.rejectValue("username", "error.username", "Username already in use");
-				 ((ModelAndView) model).addObject("Error", error);
-				return "registration";
+		
+			if (user == null) {
+				return "redirect:register.do";
 			}
-			return "registration";
+			user = null;
+			session.removeAttribute("user");
+			model = null;
+			return "redirect:register.do";
 		}	
 		else {
 			User newUser = rdao.addUser(user);
