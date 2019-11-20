@@ -27,7 +27,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
-					<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
+					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="goProfile.do">Profile</a>
 					</li>
@@ -45,7 +45,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
-					<li class="nav-item"><a class="nav-link header__text" href="#">About</a>
+					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="login.do">Log
 							In</a></li>
