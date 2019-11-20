@@ -116,11 +116,10 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	}
 
 	@Override
-	public boolean disableUser(User userIn) {
+	public boolean disableUser(User user) {
 
 		try {
-			User user = em.find(User.class, userIn.getId());
-
+			user = em.find(User.class, ((int)user.getId()));
 			user.setActive(false);
 
 			em.persist(user);
@@ -318,14 +317,15 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		try {
 			String jpql = "SELECT u FROM UserService u WHERE u.users.id=:userId AND u.service.id=:servId";
 
-			usrServ = em.createQuery(jpql, UserService.class).setParameter("userId", userId).setParameter("servId", servId).getSingleResult();
+			usrServ = em.createQuery(jpql, UserService.class).setParameter("userId", userId)
+					.setParameter("servId", servId).getSingleResult();
 		} catch (Exception e) {
 			usrServ = null;
 		}
 
 //		User user = em.find(User.class, userId);
 
-		if (usrServ==null) {
+		if (usrServ == null) {
 
 			return true;
 
@@ -335,6 +335,12 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 			return false;
 		}
 
+	}
+
+	@Override
+	public User getUserById(int id) {
+
+		return em.find(User.class, id);
 	}
 
 }
