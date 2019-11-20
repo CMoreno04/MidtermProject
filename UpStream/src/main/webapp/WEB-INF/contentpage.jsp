@@ -115,17 +115,31 @@
 			<input class="btn btn-danger btn-sm" type="submit" value="delete">
 		</form>	 --%>
  <!-- Change or add buttons here as nesesary..  May need to be switched to input fields when mapped. --> 	 
+  	
+  	
+<%--   	
+  	<c:if test="${not empty user}">--%>
+	<c:if test="${user.userCont.userContent}!= contents.id}"> 
+  	
   	<td class="col-6"><!-- <button type="button" class="btn btn-success">Currently Watching</button> -->
+  	
+
+  	${user.userCont.userContent}
   		<form action="addContentToProfile.do" method="GET">
 			<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
 			<input type="hidden" name="contentId" value="${contents.id}">
 			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>		
 			<input type="submit" value="Currently Watching" class="btn btn-success btn-sm">
-	</form> 
-  	
+		</form> 
   	
   	</td>
-  	<td class="col-6"><button type="button" class="btn btn-primary">Wish list</button></td>
+<%-- 
+	</c:if>--%>
+	</c:if> 
+
+
+
+
   	</tr>
     </table>
 	

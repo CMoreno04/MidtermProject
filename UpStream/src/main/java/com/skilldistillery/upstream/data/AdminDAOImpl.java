@@ -38,7 +38,4 @@ public class AdminDAOImpl implements AdminDAO {
 		List<RatingReview> reviews = em.createQuery(query, RatingReview.class).setParameter("uid", userId).getResultList();
 		return reviews;
 	}
-	
-	
-	
 }
