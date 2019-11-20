@@ -19,8 +19,9 @@ public class RegisterDAOImple implements RegisterDAO {
 
 	@Override
 	public User addUser(User user) {
+		
 
-
+//		user.setActive(true);
 		em.persist(user);
 		em.flush();
 
