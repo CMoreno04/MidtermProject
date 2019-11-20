@@ -25,7 +25,7 @@
 					Stream Service: <input type="text" name ="service" /><br>
 					Rating Reviews: <input type="text" name ="ratingReviews" /><br>
 					<input class="btn btn-submit" type="submit" value="Add Content" />
-	</form>"
 	</div>
+	</form>
 </body>
 </html>

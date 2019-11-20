@@ -27,7 +27,7 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		Content addContent = dao.createContent(content);
 			mv.addObject("content", addContent);
-			mv.setViewName("WEB-INF/profile.jsp");
+			mv.setViewName("createContent");
 		return mv;
 	}
 	
