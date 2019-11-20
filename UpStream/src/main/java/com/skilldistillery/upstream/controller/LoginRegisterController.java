@@ -1,5 +1,7 @@
 package com.skilldistillery.upstream.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.skilldistillery.upstream.data.LoginDAO;
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
+import com.skilldistillery.upstream.data.UserProfileDao;
 import com.skilldistillery.upstream.entities.User;
+import com.skilldistillery.upstream.entities.UserImage;
 
 @Controller
 public class LoginRegisterController {
@@ -27,6 +31,8 @@ public class LoginRegisterController {
 
 	@Autowired
 	private UpStreamDAO USdao;
+	@Autowired
+	private UserProfileDao upDao;
 
 	@RequestMapping(path = "login.do", method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -110,7 +116,7 @@ public class LoginRegisterController {
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
 	public String registerNewUser(@Valid User user, HttpSession session, Model model, Errors error) {
 		if (rdao.checkIsUniqueUser(user)) {
-
+			List<UserImage> imgs = upDao.getProfilePics();
 			if (user == null) {
 				return "redirect:register.do";
 			}
@@ -118,6 +124,7 @@ public class LoginRegisterController {
 			session.removeAttribute("user");
 
 			model.addAttribute("user", new User());
+			model.addAttribute("profileImg", imgs);
 			model.addAttribute("message", "Username Already Exists!");
 
 			return "registration";
