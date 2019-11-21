@@ -59,7 +59,7 @@
 		</div>
 	</c:forEach>
 
-
+<%@ include file="footer.jsp" %>
 	<script>
   const slider = document.querySelector(".items");
   let isDown = false;
