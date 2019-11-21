@@ -24,8 +24,8 @@
 		<c:if test="${not empty sessionScope.user}">
 
 			<div class="collapse navbar-collapse" id="navbarColor02">
-						<h4 class="name">Streaming Service Tracker</h4>
-				<ul class="navbar-nav ml-auto text-right list-inline" id="navlinks">
+						<p style="font-size: 30px; margin-bottom:0px;font-weight:bold; "class="name">Streaming Service Tracker</p>
+				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px;"class="navbar-nav ml-auto text-right list-inline" id="navlinks">
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
@@ -42,8 +42,8 @@
 
 		<c:if test="${empty sessionScope.user}">
 			<div class="collapse navbar-collapse " id="navbarColor02">
-						<h4 class="name">Streaming Service Tracker</h4>
-				<ul class="navbar-nav ml-auto text-right list-inline">
+						<p style="font-size: 30px; margin-bottom:0px;font-weight:bold; " class="name">Streaming Service Tracker</p>
+				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px; " class="navbar-nav ml-auto text-right list-inline">
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
