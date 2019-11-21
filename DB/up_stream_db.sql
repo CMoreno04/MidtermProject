@@ -288,6 +288,7 @@ USE `Up_Stream`;
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (1, 'Netflix', 8.99, 'https://logos-download.com/wp-content/uploads/2016/03/Netflix_logo.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (2, 'HBO', 14.99, 'https://f-scope.net/images/hbo-logo-png-10.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (3, 'Disney Plus', 6.99, 'https://www.reviews.org/au/app/uploads/2019/11/disney-plus-logo-300x174.png');
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (4, 'Crunchyroll', 7.99, 'https://pmcvariety.files.wordpress.com/2016/04/crunchyroll_logo.jpg?w=1000&h=563&crop=1');
 
 COMMIT;
 
@@ -333,6 +334,18 @@ INSERT INTO `media` (`id`, `url`) VALUES (33, 'https://ichef.bbci.co.uk/images/i
 INSERT INTO `media` (`id`, `url`) VALUES (34, 'https://www.youtube.com/embed/3efV2wqEjEY');
 INSERT INTO `media` (`id`, `url`) VALUES (35, 'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fscottmendelson%2Ffiles%2F2018%2F12%2FCaptain-Marvel-Poster-B-1200x675.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (36, 'https://www.youtube.com/embed/0LHxvxdRnYc');
+INSERT INTO `media` (`id`, `url`) VALUES (37, 'https://static.next-episode.net/tv-shows-images/huge/one-piece-jp.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (38, 'https://www.youtube.com/embed/S8_YwFLCh4U');
+INSERT INTO `media` (`id`, `url`) VALUES (39, 'https://mvpo.us/img/P5984.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (40, 'https://www.youtube.com/embed/oZ67d9XSjFs');
+INSERT INTO `media` (`id`, `url`) VALUES (41, 'https://venue-blog-prod.s3.amazonaws.com/blog/wp-content/uploads/2019/10/1-1024x576.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (42, 'https://www.youtube.com/embed/-G9BqkgZXRA');
+INSERT INTO `media` (`id`, `url`) VALUES (43, 'https://media.kitsu.io/anime/poster_images/3936/large.jpg?1419000387');
+INSERT INTO `media` (`id`, `url`) VALUES (44, 'https://www.youtube.com/embed/BOm_PAI2goo');
+INSERT INTO `media` (`id`, `url`) VALUES (45, 'https://cdn.theouterhaven.net/wp-content/uploads/2019/04/8f7866506f564e7c59ccc5b46e2765921dc61136_fruits2.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (46, 'https://www.youtube.com/embed/UGyLuvMExVE');
+INSERT INTO `media` (`id`, `url`) VALUES (47, 'https://static.next-episode.net/tv-shows-images/huge/fairy-tail.jpg');
+INSERT INTO `media` (`id`, `url`) VALUES (48, 'https://www.youtube.com/embed/AtlsjFlcRZ0');
 
 COMMIT;
 
@@ -360,6 +373,12 @@ INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (16, 'Halloween Town', 'Marnie and her kids get a big shock when they follow grandma home to Halloweentown - and find out they come from a family of witches. The town is the only place where supernatural beings can lead a `normal\' life, but trouble is looming, and on her 13th birthday Marnie not only finds she is a witch, but that she and her family are involved in a fight against the evil that is threatening to take over the world.', 3, 31, 32);
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (17, 'Tron', 'When talented computer engineer Kevin Flynn (Jeff Bridges) finds out that Ed Dillinger (David Warner), an executive at his company, has been stealing his work, he tries to hack into the system. However, Flynn is transported into the digital world, where he has to face off against Dillinger\'s computerized likeness, Sark, and the imposing Master Control Program. Aided by Tron (Bruce Boxleitner) and Yori (Cindy Morgan), Flynn becomes a freedom fighter for the oppressed programs of the grid.', 3, 33, 34);
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (18, 'Captain Marvel', 'Captain Marvel is an extraterrestrial Kree warrior who finds herself caught in the middle of an intergalactic battle between her people and the Skrulls. Living on Earth in 1995, she keeps having recurring memories of another life as U.S. Air Force pilot Carol Danvers. With help from Nick Fury, Captain Marvel tries to uncover the secrets of her past while harnessing her special superpowers to end the war with the evil Skrulls.', 3, 35, 36);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (19, 'One Piece', 'The series focuses on Monkey D. Luffy, a young man who, inspired by his childhood idol and powerful pirate \"Red Haired\" Shanks, sets off on a journey from the East Blue Sea to find the famed treasure One Piece and proclaim himself the King of the Pirates.', 4, 37, 38);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (20, 'Bleach', 'Bleach follows the adventures of the hotheaded teenager Ichigo Kurosaki, who inherits his parents\' destiny after he obtains the powers of a Soul Reaper (死神 Shinigami, literally \'Death God\')—a death personification similar to the Grim Reaper—from another Soul Reaper, Rukia Kuchiki.', 4, 39, 40);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (21, 'Naruto', 'Naruto is a story about a boy, a resident of the Hidden Leaf Village, who witnessed pain since he was born and strives hard to achieve recognition in his own village by vowing to himself to become the village leader. ... Soon the leader of the Akatsuki attacks leaf village in order to capture Naruto but is defeated.', 4, 41, 42);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (22, 'Full Metal Alchemist: Brotherhood', 'Edward and Alphonse Elric are two brothers living in a world where the practice of alchemy flourishes. After their mother passes away, the brothers work together to try and bring her back. Edward and Alphonse Elric are two brothers living in a world where the practice of alchemy flourishes.', 4, 43, 44);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (23, 'Fruits Basket', 'Tohru Honda thought her life was headed for misfortune when a family tragedy left her living in a tent. When her small home is discovered by the mysterious Soma clan, she suddenly finds herself living with Yuki, Kyo, and Shigure Soma. But she quickly learns their family has a bizarre secret of their own: when hugged by the opposite sex, they turn into the animals of the Zodiac!', 4, 45, 46);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (24, 'Fairy Tail', 'The story follows a teenage girl named Lucy Heartfilla who is determined to join the notorious magical Fairy Tail Guild. During a daring rescue, she encounters Natsu who is part of the guild and eventually offers her a place. They become teammates performing various missions for the Fairy Tail Guild. Be prepared for an action-packed adventure!', 4, 47, 48);
 
 COMMIT;
 
@@ -502,6 +521,23 @@ INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 12);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 13);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 6);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (18, 5);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (19, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (19, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (19, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (20, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (20, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (21, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (21, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (21, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (21, 11);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (22, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (22, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (22, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (22, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (23, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (23, 7);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (24, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (24, 6);
 
 COMMIT;
 
