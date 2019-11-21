@@ -42,9 +42,10 @@
 
 				<th scope="col" class="col-6">Title</th>
 				<th scope="col" class="col-3">Rating</th>
-				<c:if test="${not empty user}">
-				<th scope="col" class="col-3">Add</th>
-				</c:if>
+				
+				<th scope="col" class="col-3">
+				<c:if test="${not empty user}"> Add
+				</c:if></th>
 
 				<c:forEach items="${content}" var="indivContent" varStatus="loop2">
 					<tr class="d-flex">
@@ -81,7 +82,7 @@
 									<input type="hidden" name="userId" value="${user.id}" /> <input
 										type="hidden" name="serviceId" value="${serviceName.id}" /> <input
 										type="hidden" name="contentId" value="${indivContent.id}" />
-									<button type="submit" class="btn btn-success">add</button>
+									<button type="submit" class="btn btn-success">Add to My List</button>
 								</form>
 
 							</c:if>
