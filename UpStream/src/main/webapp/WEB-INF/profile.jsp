@@ -185,9 +185,9 @@
 				<div class="text-center" style="display: inline-flex;">
 <!-- Submit buttons -->
 <!-- Button TO TRIGGER MODAL -->
-	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.content.id}" style="margin-right: 10px">
-	  Update Review
-	</button>
+	        <form>
+        <input class="btn btn-warning btn-sm" type="button" value="Update" data-toggle="modal" data-target="#exampleModalScrollable${rev.content.id}" style="margin-right: 10px">
+    </form>
 <!-- Modal START -->
 	<div class="modal fade" id="exampleModalScrollable${rev.content.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable" role="document">

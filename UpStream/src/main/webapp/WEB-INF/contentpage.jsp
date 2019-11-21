@@ -231,9 +231,14 @@
 
 <!-- Submit buttons -->
 <!-- Button TO TRIGGER MODAL -->
-	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
+<%-- 	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
 	  Update Review
-	</button>
+	</button> --%>
+	
+	 <form>
+        <input class="btn btn-warning btn-sm" type="button" value="Update" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
+    </form>
+	
 	
 <!-- Modal START -->
 
