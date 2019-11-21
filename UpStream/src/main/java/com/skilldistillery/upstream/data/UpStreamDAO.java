@@ -61,9 +61,11 @@ public interface UpStreamDAO {
 	public Content createContent(Content content);
 
 
-	boolean removeUserContent(int userId, int contentId, int servId);
+	boolean removeUserContent(int userId, int contentId);
 
 
 	public boolean checkIfUserHasService(int userId, int servId);
+	
+	public boolean checkIfUserHasContent(int userId, int contentId);
 
 }

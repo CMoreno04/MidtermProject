@@ -39,7 +39,7 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
-		model.addAttribute("user",null);
+		model.addAttribute("user", null);
 		model.addAttribute("services", contentByService);
 		model.addAttribute("serviceType", services);
 		return "index";
@@ -98,7 +98,8 @@ public class UpStreamController {
 					mv.addObject("hideButton", "false");
 				}
 			}
-		} else {}
+		} else {
+		}
 		mv.addObject("averageRating", rrDao.getAverageRating(content.getId()).get(0));
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
@@ -111,9 +112,9 @@ public class UpStreamController {
 	public ModelAndView getServices(User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		List<StreamService> servs = dao.getServices();
-		mv.addObject("message",null);
+		mv.addObject("message", null);
 		mv.addObject("serv", servs);
-		mv.addObject("user",((User)session.getAttribute("user")));
+		mv.addObject("user", ((User) session.getAttribute("user")));
 		mv.setViewName("servicespage");
 		return mv;
 	}
@@ -124,13 +125,13 @@ public class UpStreamController {
 		User activeUser = (User) session.getAttribute("user");
 
 		boolean service = false;
-		
+
 		if (dao.checkIfUserHasService(activeUser.getId(), servId)) {
-			
+
 			service = dao.addUserService(activeUser.getId(), servId);
 		}
-		
-		if (service) {	
+
+		if (service) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
@@ -139,19 +140,26 @@ public class UpStreamController {
 			mv.setViewName("profile");
 		} else {
 			List<StreamService> servs = dao.getServices();
-			mv.addObject("message","You Already Have That Service!");
+			mv.addObject("message", "You Already Have That Service!");
 			mv.addObject("serv", servs);
-			mv.addObject("user",((User)session.getAttribute("user")));
+			mv.addObject("user", ((User) session.getAttribute("user")));
 			mv.setViewName("servicespage");
 		}
 		return mv;
 	}
 
-	@RequestMapping(path = "addContentToProfile.do", params = "contentId", method = RequestMethod.GET)
-	public ModelAndView addUserContent(@RequestParam("contentId") int contentId, User user, HttpSession session) {
+	@RequestMapping(path = "addContentToProfile.do", params = {"contentId","serviceId"}, method = RequestMethod.GET)
+	public ModelAndView addUserContent(@RequestParam("contentId") int contentId,int serviceId, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
-		boolean content = dao.addUserContent(activeUser.getId(), contentId);
+
+		boolean content = false;
+
+		if (dao.checkIfUserHasContent(activeUser.getId(), contentId)) {
+
+			content = dao.addUserContent(activeUser.getId(), contentId);
+		}
+		
 		if (content) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
@@ -160,13 +168,18 @@ public class UpStreamController {
 			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 		} else {
-			mv.addObject("user", activeUser);
-			mv.addObject("userService", dao.getUserServices(activeUser));
-			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
-			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
-			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
-			mv.setViewName("servicespage");
+			
+			List<Content> cont = rrDao.getService(serviceId);
+			List<Double> rev = new ArrayList<Double>();
+			for (Content contents : cont) {
+				rev.add(rrDao.getAverageRating(contents.getId()).get(0));
+			}
+			mv.addObject("message", "You are watching that show already!");
+			mv.addObject("serviceName", cont.get(0).getService());
+			mv.addObject("rating", rev);
+			mv.addObject("content", cont);
+			mv.setViewName("service");
 		}
 		return mv;
-	}	
+	}
 }
