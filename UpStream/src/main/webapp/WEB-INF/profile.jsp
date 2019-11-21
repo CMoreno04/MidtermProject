@@ -19,6 +19,7 @@
 <body>
 
 	<%@ include file="nav.jsp"%>
+	<br>
 
 	<!-- PROFILE PIC AND USERNAME.  NEEDS TO BE REDONE FOR MOBILE>>>s-->
 	<div class="container text-center align-middle"
