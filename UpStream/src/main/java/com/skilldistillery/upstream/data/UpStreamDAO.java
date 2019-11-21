@@ -20,7 +20,10 @@ public interface UpStreamDAO {
 
 	public Content getContent(int id);
 	
+
 	public List<Content> getContentByKeyword(String input);
+
+	public Content getRandom();
 
 	// Service
 
@@ -68,5 +71,9 @@ public interface UpStreamDAO {
 
 	public boolean checkIfUserHasContent(int userId, int contentId);
 
+
+	boolean disableUserFromAdmin(int userId);
+
+	boolean enableUserFromAdmin(int userId);
 
 }

@@ -22,7 +22,11 @@
 		<td><h6>Username</h6></td>
 		<td>First name</td>
 		<td>Last name</td>
-		<td>Activate / Deactivate</td>
+		<td>Activate / Disable
+		
+		<!-- Activate / Deactivate -->
+
+		</td>
 	</tr>
 	<c:forEach items="${userList}" var="user">
 	<tr>
@@ -31,7 +35,25 @@
 		</td>
 		<td>${user.firstName}</td>
 		<td>${user.lastName}</td>
-		<td>${user.active}</td>
+		<td>
+	<%-- 	${user.active} --%>
+		
+		<c:choose>
+			<c:when test="${user.active == true}">
+				<form action="deleteUserFromAdmin.do" method="GET">
+					<input type="hidden" name="userId" value="${user.id}">
+					<input type="submit" class="btn btn-success btn-sm" value="Enabled">
+				</form>
+			</c:when>
+			<c:otherwise>
+				<form action="enableUserFromAdmin.do" method="GET">
+					<input type="hidden" name="userId" value="${user.id}">
+					<input type="submit" class="btn btn-warning btn-sm" value="Disabled">
+				</form>
+			</c:otherwise>
+		</c:choose>
+		
+		</td>
 	</tr>
 	</c:forEach>
 </table>

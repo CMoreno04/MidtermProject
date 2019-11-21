@@ -1,7 +1,5 @@
 package com.skilldistillery.upstream.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,9 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.skilldistillery.upstream.data.LoginDAO;
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
-import com.skilldistillery.upstream.data.UserProfileDao;
 import com.skilldistillery.upstream.entities.User;
-import com.skilldistillery.upstream.entities.UserImage;
 
 @Controller
 public class LoginRegisterController {
@@ -31,8 +27,7 @@ public class LoginRegisterController {
 
 	@Autowired
 	private UpStreamDAO USdao;
-	@Autowired
-	private UserProfileDao upDao;
+
 
 	@RequestMapping(path = "login.do", method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -107,17 +102,14 @@ public class LoginRegisterController {
 	@RequestMapping(path = "register.do", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView mv = new ModelAndView();
-		UserImage ui = new UserImage();
 		User u = new User();
 		mv.addObject("user", u);
-		mv.addObject("profileImg", ui);
 		mv.setViewName("registration");
 		return mv;
 	}
 
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
-	public String registerNewUser(@Valid User user, @Valid UserImage ui, HttpSession session, Model model, Errors error) {
-		System.out.println(ui);
+	public String registerNewUser(@Valid User user, HttpSession session, Model model, Errors error) {
 		if (rdao.checkIsUniqueUser(user)) {
 
 			if (user == null) {
@@ -134,7 +126,6 @@ public class LoginRegisterController {
 			return "registration";
 		} else {
 			User newUser = rdao.addUser(user);
-			newUser.setUserImage(ui);
 			System.out.println(user);
 			System.out.println(newUser);
 			session.setAttribute("user", newUser);
