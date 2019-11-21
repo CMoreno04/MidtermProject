@@ -346,6 +346,8 @@ INSERT INTO `media` (`id`, `url`) VALUES (45, 'https://cdn.theouterhaven.net/wp-
 INSERT INTO `media` (`id`, `url`) VALUES (46, 'https://www.youtube.com/embed/UGyLuvMExVE');
 INSERT INTO `media` (`id`, `url`) VALUES (47, 'https://static.next-episode.net/tv-shows-images/huge/fairy-tail.jpg');
 INSERT INTO `media` (`id`, `url`) VALUES (48, 'https://www.youtube.com/embed/AtlsjFlcRZ0');
+INSERT INTO `media` (`id`, `url`) VALUES (49, 'https://image.insider.com/5d42ec4236e03c42e301def8?width=1100&format=jpeg&auto=webp');
+INSERT INTO `media` (`id`, `url`) VALUES (50, 'https://www.youtube.com/embed/znxFrgql5dc');
 
 COMMIT;
 
@@ -379,6 +381,7 @@ INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (22, 'Full Metal Alchemist: Brotherhood', 'Edward and Alphonse Elric are two brothers living in a world where the practice of alchemy flourishes. After their mother passes away, the brothers work together to try and bring her back. Edward and Alphonse Elric are two brothers living in a world where the practice of alchemy flourishes.', 4, 43, 44);
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (23, 'Fruits Basket', 'Tohru Honda thought her life was headed for misfortune when a family tragedy left her living in a tent. When her small home is discovered by the mysterious Soma clan, she suddenly finds herself living with Yuki, Kyo, and Shigure Soma. But she quickly learns their family has a bizarre secret of their own: when hugged by the opposite sex, they turn into the animals of the Zodiac!', 4, 45, 46);
 INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (24, 'Fairy Tail', 'The story follows a teenage girl named Lucy Heartfilla who is determined to join the notorious magical Fairy Tail Guild. During a daring rescue, she encounters Natsu who is part of the guild and eventually offers her a place. They become teammates performing various missions for the Fairy Tail Guild. Be prepared for an action-packed adventure!', 4, 47, 48);
+INSERT INTO `content` (`id`, `title`, `description`, `service_id`, `image_id`, `video_id`) VALUES (25, 'Academy Dinosaur', 'A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies', 2, 49, 50);
 
 COMMIT;
 
@@ -538,6 +541,9 @@ INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (23, 1);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (23, 7);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (24, 1);
 INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (24, 6);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (25, 1);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (25, 12);
+INSERT INTO `content_genre` (`content_id`, `genre_id`) VALUES (25, 7);
 
 COMMIT;
 
