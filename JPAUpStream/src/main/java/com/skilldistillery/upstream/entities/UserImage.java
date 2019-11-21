@@ -1,19 +1,20 @@
 package com.skilldistillery.upstream.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "user_image")
+@Entity
+@Table(name = "user_image")
 public class UserImage {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "url")
+//	@Column(name = "url")
 	private String url;
 
 	
