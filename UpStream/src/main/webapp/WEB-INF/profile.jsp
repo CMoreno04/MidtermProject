@@ -289,20 +289,12 @@
 	<c:if test="${user.admin == true}">
 		<div class="container text-center"
 			style="margin-top: 70px; margin-bottom: 20px; border-radius: 10px; padding: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
-			<h4 style="margin-bottom: 10px">Admin Center</h4>
+			<h4 style="margin-bottom: 10px; margin-top: 10px;">Admin Center</h4>
 
 
 <form action="peekaboo.do" method="POST">
 	<input type="submit" class="btn btn-secondary btn sm" value="See List Of Users">
 </form>
-<form action="createContent.do" method="GET">
-	<input type="submit" class="btn btn-secondary btn sm" value="See create content page">
-</form>
-
-			<form action="peekaboo.do" method="POST">
-				<input type="submit" class="btn btn-secondary btn sm"
-					value="See List Of Users">
-			</form>
 
 		</div>
 
@@ -310,7 +302,7 @@
 
 
 
-<%@ include file="footer.jsp" %>
+<%-- <%@ include file="footer.jsp" %> --%>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
