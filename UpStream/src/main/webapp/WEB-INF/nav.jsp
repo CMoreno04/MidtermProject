@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Navigation</title>
-<link href="/css/style.css" rel="stylesheet">
 <link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">

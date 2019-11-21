@@ -27,7 +27,7 @@
 <%-- 	<h4 class="servicetitle"><a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle"> 
 		${typename.name} </a></h4> --%>
 		
-		<div style="display: inline-block">
+		<div class="serv-titles" style="display: inline-block;">
 		<a href="getService.do?id=${loop.index+1}" style="text-decoration: none" class="servicetitle">
 		<img src="${typename.logo}" width="60vh" alt="${typename.name}">    
 		<h6 class="text-center" style="align: center; maring-left: 2px; font-size: 0.7em; font-weight: 600; margin-top: 1px">CONTENT</h6>
