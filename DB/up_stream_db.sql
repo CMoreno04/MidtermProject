@@ -287,7 +287,7 @@ START TRANSACTION;
 USE `Up_Stream`;
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (1, 'Netflix', 8.99, 'https://logos-download.com/wp-content/uploads/2016/03/Netflix_logo.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (2, 'HBO', 14.99, 'https://f-scope.net/images/hbo-logo-png-10.png');
-INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (3, 'Disney Plus', 6.99, 'https://www.reviews.org/au/app/uploads/2019/11/disney-plus-logo-300x174.png');
+INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (3, 'Disney Plus', 6.99, 'https://3.bp.blogspot.com/-YCGrTd-xZ6g/XLEISz_krnI/AAAAAAAAQA8/bAMgYTsFTvcF_KqLnvm37ydqjG5KvqVKwCLcBGAs/s1600/disneyplus.png');
 INSERT INTO `service` (`id`, `name`, `monthly_price`, `logo`) VALUES (4, 'Crunchyroll', 7.99, 'https://pmcvariety.files.wordpress.com/2016/04/crunchyroll_logo.jpg?w=1000&h=563&crop=1');
 
 COMMIT;
