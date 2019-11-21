@@ -54,8 +54,7 @@
 					</c:when>
 					<c:otherwise>
 
-						<img src="${user.userImage.url}" class="" height="100vh"
-							style="border-radius: 50%; max-width: 10vh; max-height: 100vh; border: 0.5rem solid #00bc8c;background-color: black;">
+						<img src="${user.userImage.url}" height="100vh" style="border-radius: 50%; max-width: 10rem; max-height: 10rem; border: 0.5rem solid #00bc8c;">
 					</c:otherwise>
 				</c:choose>
 
@@ -197,10 +196,17 @@
 							<div class="text-center" style="display: inline-flex;">
 								<!-- Submit buttons -->
 								<!-- Button TO TRIGGER MODAL -->
-								<button type="button" class="btn btn-warning btn-sm"
+	<%-- 							<button type="button" class="btn btn-warning btn-sm"
 									data-toggle="modal"
 									data-target="#exampleModalScrollable${rev.content.id}"
-									style="margin-right: 10px; ">Update Review</button>
+									style="margin-right: 10px; ">Update Review</button> --%>
+									
+									            <form>
+        <input class="btn btn-warning btn-sm" type="button" value="Update" data-toggle="modal" data-target="#exampleModalScrollable${rev.content.id}" style="margin-right: 10px">
+    </form>
+									
+									
+									
 								<!-- Modal START -->
 								<div class="modal fade"
 									id="exampleModalScrollable${rev.content.id}" tabindex="-1"
