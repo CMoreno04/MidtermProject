@@ -28,12 +28,12 @@
 	<!-- Video and image column -->
 	<div class="col-md" style="padding: 0px">
 
-	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding: 0px">
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding-left: 40px; padding-top: 20px; ">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
 	     
 	     <div class="iframe-container">
-	     <iframe class="embed-responsive-item" width="100%" height="200vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	     <iframe class="embed-responsive-item" width="80%" height="180vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	      </div>
 	    </div>
 	    <div class="carousel-item">
@@ -231,9 +231,14 @@
 
 <!-- Submit buttons -->
 <!-- Button TO TRIGGER MODAL -->
-	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
+<%-- 	<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
 	  Update Review
-	</button>
+	</button> --%>
+	
+	 <form>
+        <input class="btn btn-warning btn-sm" type="button" value="Update" data-toggle="modal" data-target="#exampleModalScrollable${rev.rating}" style="margin-right: 10px">
+    </form>
+	
 	
 <!-- Modal START -->
 

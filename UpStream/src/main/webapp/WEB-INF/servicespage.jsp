@@ -13,7 +13,7 @@
 		<br>
 		<h4>Services</h4>
 		<c:if test="${not empty message}">
-		<h5>${message}</h5>
+		<h5 style="color: red;">${message}</h5>
 		</c:if>
 		<br>
 		<table class="table table-hover">
