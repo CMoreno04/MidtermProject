@@ -40,11 +40,11 @@
 		<c:if test="${not empty sessionScope.user}">
 
 			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul style="font-size: 20px; font-weight: bold; margin-right: 50px;"
-					class="navbar-nav ml-auto text-right list-inline" id="navlinks">
 
-					<li class="nav-item"><a href="#" class="nav-link"
-						data-toggle="modal" data-target="#exampleModal">Search</a></li>
+				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px;"class="navbar-nav ml-auto text-right list-inline" id="navlinks">
+					<li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">Search</a>
+					</li>
+
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text"
@@ -67,40 +67,41 @@
 						data-toggle="modal" data-target="#exampleModal">Search</a></li>
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
-					<li class="nav-item"><a class="nav-link header__text"
-						href="about.do">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="login.do">Log
-							In</a></li>
-					<li></li>
+					
+					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="login.do">Log In</a></li>
+					<li>
+					</li>
 				</ul>
 
 			</div>
 		</c:if>
 	</nav>
-
-
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">Insert Search here</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-success">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
+	
+	
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Insert Search bar here
+        
+        <form action="getLucky.do">
+			<button type="submit" class="btn btn-success btn-secondary">I'm feeling lucky</button>
+		</form>
+		
+      </div>
+    </div>
+  </div>
+</div>
+	
 
 </body>
 </html>

@@ -202,6 +202,38 @@ public class UpStreamController {
 	public ModelAndView getLucky(User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Content content = dao.getRandom();
+		List<RatingReview> reviews = rrDao.getTopRatedByContentId(content.getId());
+		if (user != null) {
+			User activeUser = (User) session.getAttribute("user");
+			mv.addObject("user", activeUser);
+			if (activeUser != null) {
+				mv.addObject("userService", dao.getUserServices(activeUser));
+				mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+				if (rrDao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
+					mv.addObject("userreview", rrDao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+
+				// checks if user has content.
+				boolean userHasContent = false;
+				List<Content> userCont = dao.getUserContent(activeUser.getId());
+				for (Content userConts : userCont) {
+					if (userConts.getId() == content.getId()) {
+						userHasContent = true;
+						break;
+					} else {
+						userHasContent = false;
+					}
+				}
+				if (userHasContent) {
+					mv.addObject("hideButton", "true");
+				} else {
+					mv.addObject("hideButton", "false");
+				}
+			}
+		} else {
+		}
+		mv.addObject("averageRating", rrDao.getAverageRating(content.getId()).get(0));
+		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.setViewName("contentpage");
 		return mv;
