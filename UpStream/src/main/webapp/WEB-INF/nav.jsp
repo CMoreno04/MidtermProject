@@ -12,25 +12,20 @@
 <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light"
-		style="padding: 0; background-color: rgba(32, 201, 151, 0.8);">
-
-		<div
-			style="display: inline-block; padding: 0px; position: relative; margin-left: 10px; margin-top: 5px">
-			<div stly="position: absolute" class="text-center">
-
-				<div class="text-center">
-					<a class="navbar-brand header__text" style="color: #303030"
-						href="index.do"> <img alt="Up-Stream" src="css/logo.png"
-						height="70" style="border-radius: 10px; padding-right: 0;">
-					</a>
-				</div>
-
-				<!-- <p style="font-size: 0.7em; margin-bottom:0px;font-weight:bold; " class="name text-center">Streaming Service Tracker</p> -->
-				<h6
-					style="margin-right: 10%; font-size: 0.9em; font-weight: 600; margin-top: 0px; color: #000">Streaming
-					Service Tracker</h6>
-			</div>
+	<nav class="navbar navbar-expand-lg navbar-light" style="padding: 0; background-color: rgba(32, 201, 151, 0.8);">
+		
+		<div style="display: inline-block; padding:0px; position: relative; margin-left: 10px; margin-top: 5px">
+		<div stly="position: absolute" class="text-center">
+		
+		<div class="text-center">
+		<a class="navbar-brand header__text" style="color: #303030" href="index.do"> 
+			<img alt="Up-Stream" src="css/logo.png"  height="70" style="border-radius:10px; padding-right: 0;">
+		</a>
+		</div>
+		
+		<!-- <p style="font-size: 0.7em; margin-bottom:0px;font-weight:bold; " class="name text-center">Streaming Service Tracker</p> -->
+		<h6 style="margin-right:10%; font-size: 0.9em; font-weight: 600; margin-top: 0px; color: #000">Streaming Service Tracker</h6>
+		</div>
 		</div>
 		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarColor03" aria-controls="navbarColor03"
@@ -40,35 +35,31 @@
 		<c:if test="${not empty sessionScope.user}">
 
 			<div class="collapse navbar-collapse" id="navbarColor02">
-
 				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px;"class="navbar-nav ml-auto text-right list-inline" id="navlinks">
 					<li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">Search</a>
 					</li>
-
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
-					<li class="nav-item"><a class="nav-link header__text"
-						href="about.do">About</a></li>
+					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="goProfile.do">Profile</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="logout.do">Log
-							Out</a></li>
-					<li></li>
+					<li class="nav-item"><a class="nav-link" href="logout.do">Log Out</a></li>
+					<li>
+					</li>
 				</ul>
 			</div>
 		</c:if>
 
 		<c:if test="${empty sessionScope.user}">
 			<div class="collapse navbar-collapse " id="navbarColor02">
-				<ul style="font-size: 20px; font-weight: bold; margin-right: 50px;"
-					class="navbar-nav ml-auto text-right list-inline">
-
-					<li class="nav-item"><a href="#" class="nav-link"
-						data-toggle="modal" data-target="#exampleModal">Search</a></li>
+				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px; " class="navbar-nav ml-auto text-right list-inline">
+					
+					<li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">Search</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
-					
-					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
+					<li class="nav-item"><a class="nav-link" href="about.do">About</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="login.do">Log In</a></li>
 					<li>
@@ -85,16 +76,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Search</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Insert Search bar here
+        
+        <form action="getSearchResults.do" method="GET">
+        	<input type="text" name="keyword" placeholder="Enter a search term" class="form-control">
+        	<input type="submit" value="Search" class="btn btn-success btn-block">
+        </form>
         
         <form action="getLucky.do">
-			<button type="submit" class="btn btn-success btn-secondary">I'm feeling lucky</button>
+			<button type="submit" class="btn  btn-secondary">I'm feeling lucky</button>
 		</form>
 		
       </div>
@@ -102,6 +97,8 @@
   </div>
 </div>
 	
-
+	
+	
+	
 </body>
 </html>

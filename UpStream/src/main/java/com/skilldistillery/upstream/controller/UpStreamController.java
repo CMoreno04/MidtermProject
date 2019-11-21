@@ -238,4 +238,21 @@ public class UpStreamController {
 		mv.setViewName("contentpage");
 		return mv;
 	}
+	
+	// BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
+	@RequestMapping(path = "getSearchResults.do", method = RequestMethod.GET)
+	public ModelAndView getService(String keyword) {
+		ModelAndView mv = new ModelAndView();
+		List<Content> content = dao.getContentByKeyword(keyword);
+		List<Double> rev = new ArrayList<Double>();
+		for (Content contents : content) {
+			rev.add(rrDao.getAverageRating(contents.getId()).get(0));
+		}
+		mv.addObject("serviceName", content.get(0).getService());
+		mv.addObject("rating", rev);
+		mv.addObject("content", content);
+		mv.setViewName("search");
+		return mv;
+	}
+
 }

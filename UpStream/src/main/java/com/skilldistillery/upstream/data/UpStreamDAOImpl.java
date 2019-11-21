@@ -437,7 +437,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	@Override
 	public List<Content> getContentByKeyword(String input) {
 
-		String jpql = "SELECT c FROM Content c WHERE c.title LIKE %:input% OR c.description LIKE %:input%";
+		String jpql = "SELECT c FROM Content c WHERE c.title LIKE '%'||:input||'%'  OR c.description LIKE '%'||:input||'%' ";
 
 		List<Content> contents = em.createQuery(jpql, Content.class).setParameter("input", input).getResultList();
 

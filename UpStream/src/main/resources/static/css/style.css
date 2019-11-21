@@ -19,6 +19,10 @@ body {
 	background-color: rgba(32, 201, 151, 0.2);
 }
 
+.nav-link:hover {
+	color: black !important;
+}
+
 .header__text {
 	color: #303030;
 }
