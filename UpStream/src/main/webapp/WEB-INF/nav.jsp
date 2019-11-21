@@ -36,6 +36,8 @@
 
 			<div class="collapse navbar-collapse" id="navbarColor02">
 				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px;"class="navbar-nav ml-auto text-right list-inline" id="navlinks">
+					<li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">Search</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
@@ -57,10 +59,9 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
-					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
+					<li class="nav-item"><a class="nav-link" href="about.do">About</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="login.do">Log
-							In</a></li>
+					<li class="nav-item"><a class="nav-link" href="login.do">Log In</a></li>
 					<li>
 					</li>
 				</ul>
@@ -75,16 +76,22 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Search</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Insert Search here
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success">Save changes</button>
+        
+        <form action="getSearchResults.do" method="GET">
+        	<input type="text" name="keyword" placeholder="Enter a search term" class="form-control">
+        	<input type="submit" value="Search" class="btn btn-success btn-block">
+        </form>
+        
+        <form action="getLucky.do">
+			<button type="submit" class="btn  btn-secondary">I'm feeling lucky</button>
+		</form>
+		
       </div>
     </div>
   </div>

@@ -148,18 +148,23 @@ public class UpStreamController {
 		return mv;
 	}
 
-	@RequestMapping(path = "addContentToProfile.do", params = {"contentId","serviceId"}, method = RequestMethod.GET)
-	public ModelAndView addUserContent(@RequestParam("contentId") int contentId,int serviceId, User user, HttpSession session) {
+	@RequestMapping(path = "addContentToProfile.do", params = { "contentId", "serviceId" }, method = RequestMethod.GET)
+	public ModelAndView addUserContent(@RequestParam("contentId") int contentId, int serviceId, User user,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
 
 		boolean content = false;
+		boolean service = dao.checkIfUserHasService(activeUser.getId(), dao.getContent(contentId).getService().getId());
 
-		if (dao.checkIfUserHasContent(activeUser.getId(), contentId)) {
+		if (!service) {
 
-			content = dao.addUserContent(activeUser.getId(), contentId);
+			if (dao.checkIfUserHasContent(activeUser.getId(), contentId)) {
+
+				content = dao.addUserContent(activeUser.getId(), contentId);
+			}
 		}
-		
+
 		if (content) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
@@ -168,26 +173,86 @@ public class UpStreamController {
 			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 		} else {
-			
-			List<Content> cont = rrDao.getService(serviceId);
-			List<Double> rev = new ArrayList<Double>();
-			for (Content contents : cont) {
-				rev.add(rrDao.getAverageRating(contents.getId()).get(0));
+			if (service) {
+				List<StreamService> servs = dao.getServices();
+				mv.addObject("message", "You Don't Have "
+						+ dao.getService(dao.getContent(contentId).getService().getId()).getName() + " !");
+				mv.addObject("serv", servs);
+				mv.addObject("user", ((User) session.getAttribute("user")));
+				mv.setViewName("servicespage");
 			}
-			mv.addObject("message", "You are watching that show already!");
-			mv.addObject("serviceName", cont.get(0).getService());
-			mv.addObject("rating", rev);
-			mv.addObject("content", cont);
-			mv.setViewName("service");
+
+			else {
+				List<Content> cont = rrDao.getService(serviceId);
+				List<Double> rev = new ArrayList<Double>();
+				for (Content contents : cont) {
+					rev.add(rrDao.getAverageRating(contents.getId()).get(0));
+				}
+				mv.addObject("message", "You are watching that show already!");
+				mv.addObject("serviceName", cont.get(0).getService());
+				mv.addObject("rating", rev);
+				mv.addObject("content", cont);
+				mv.setViewName("service");
+			}
 		}
 		return mv;
 	}
+
 	@RequestMapping(path = "getLucky.do", method = RequestMethod.GET)
 	public ModelAndView getLucky(User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Content content = dao.getRandom();
+		List<RatingReview> reviews = rrDao.getTopRatedByContentId(content.getId());
+		if (user != null) {
+			User activeUser = (User) session.getAttribute("user");
+			mv.addObject("user", activeUser);
+			if (activeUser != null) {
+				mv.addObject("userService", dao.getUserServices(activeUser));
+				mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
+				if (rrDao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
+					mv.addObject("userreview", rrDao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+
+				// checks if user has content.
+				boolean userHasContent = false;
+				List<Content> userCont = dao.getUserContent(activeUser.getId());
+				for (Content userConts : userCont) {
+					if (userConts.getId() == content.getId()) {
+						userHasContent = true;
+						break;
+					} else {
+						userHasContent = false;
+					}
+				}
+				if (userHasContent) {
+					mv.addObject("hideButton", "true");
+				} else {
+					mv.addObject("hideButton", "false");
+				}
+			}
+		} else {
+		}
+		mv.addObject("averageRating", rrDao.getAverageRating(content.getId()).get(0));
+		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
 		mv.setViewName("contentpage");
 		return mv;
 	}
+	
+	// BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
+	@RequestMapping(path = "getSearchResults.do", method = RequestMethod.GET)
+	public ModelAndView getService(String keyword) {
+		ModelAndView mv = new ModelAndView();
+		List<Content> content = dao.getContentByKeyword(keyword);
+		List<Double> rev = new ArrayList<Double>();
+		for (Content contents : content) {
+			rev.add(rrDao.getAverageRating(contents.getId()).get(0));
+		}
+		mv.addObject("serviceName", content.get(0).getService());
+		mv.addObject("rating", rev);
+		mv.addObject("content", content);
+		mv.setViewName("search");
+		return mv;
+	}
+
 }

@@ -90,7 +90,7 @@ public class RatingReviewDAOImpl implements RatingReviewDAO {
 	
 	@Override
 	public List<Content> getUserContent(int contId) {
-		String query = "SELECT c FROM Content JOIN FETCH c.userContent u JOIN FETCH u.user a WHERE a.id = :cid";
+		String query = "SELECT c FROM Content c JOIN FETCH c.userContent u JOIN FETCH u.user a WHERE a.id = :cid";
 		List<Content> content = em.createQuery(query, Content.class).setParameter("cid", contId).getResultList();
 		return content;
 	}

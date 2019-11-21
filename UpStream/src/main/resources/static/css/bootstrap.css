@@ -10919,6 +10919,11 @@ body {
 
 .nav-link {
 	color: #303030 !important;
+	margin-right: 40px;
+}
+
+.nav-link:hover {
+	color: black !important;
 }
 
 
