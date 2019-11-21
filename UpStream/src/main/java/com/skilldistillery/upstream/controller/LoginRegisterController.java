@@ -117,7 +117,9 @@ public class LoginRegisterController {
 
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
 	public String registerNewUser(@Valid User user, @Valid UserImage ui, HttpSession session, Model model, Errors error) {
+		System.out.println(ui);
 		if (rdao.checkIsUniqueUser(user)) {
+
 			if (user == null) {
 				return "redirect:register.do";
 			}

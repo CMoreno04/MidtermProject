@@ -46,7 +46,7 @@
 							required="required" path="password" placeholder="Password" />
 					</div>
 					<div class="form-row center">
-				<form:form action="register.do" method="POST" modelAttribute="ui">
+				<form:form action="register.do" method="POST" modelAttribute="profileImg">
 						<form:label path="id">Profile Image</form:label>
 						<select>
 							<option value="1">Dumbo</option>
