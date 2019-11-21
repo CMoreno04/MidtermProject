@@ -42,7 +42,9 @@
 
 				<th scope="col" class="col-6">Title</th>
 				<th scope="col" class="col-3">Rating</th>
+				<c:if test="${not empty user}">
 				<th scope="col" class="col-3">Add</th>
+				</c:if>
 
 				<c:forEach items="${content}" var="indivContent" varStatus="loop2">
 					<tr class="d-flex">
