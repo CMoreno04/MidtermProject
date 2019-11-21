@@ -29,7 +29,7 @@
 							<form action="addUserService.do">
 								<input type="hidden" name="servId"
 									value="${service.id}"> <input
-									class="btn btn-success btn-sm" type="submit" value="add">
+									class="btn btn-success btn-sm" type="submit" value="Add Service">
 							</form>
 						</td>
 					</c:if>

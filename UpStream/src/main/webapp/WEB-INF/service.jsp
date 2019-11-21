@@ -82,7 +82,7 @@
 									<input type="hidden" name="userId" value="${user.id}" /> <input
 										type="hidden" name="serviceId" value="${serviceName.id}" /> <input
 										type="hidden" name="contentId" value="${indivContent.id}" />
-									<button type="submit" class="btn btn-success">add</button>
+									<button type="submit" class="btn btn-success">Add to My List</button>
 								</form>
 
 							</c:if>

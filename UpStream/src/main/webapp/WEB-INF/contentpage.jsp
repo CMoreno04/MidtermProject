@@ -127,7 +127,7 @@
 			<input type="hidden" name="contentId" value="${contents.id}">
 			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>	
 			<input type="hidden" name="serviceId" value="${contents.service.id}">	
-			<input type="submit" value="Currently Watching" class="btn btn-success btn-sm">
+			<input type="submit" value="Add to My List" class="btn btn-success btn-sm">
 			</form> 
   		</c:otherwise>
   	</c:choose>
