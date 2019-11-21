@@ -53,13 +53,14 @@
 					<c:when test="${user.userImage.url == null}">
 					</c:when>
 					<c:otherwise>
-
+<br>
 						<img src="${user.userImage.url}" height="100vh" style="border-radius: 50%; max-width: 10rem; max-height: 10rem; border: 0.5rem solid #00bc8c;">
 					</c:otherwise>
 				</c:choose>
 
 			</div>
 			<div class="col align-middle">
+			<br>
 				<p class="prof-name" style="margin-top: 10px; overflow: hidden; font-size: 45px; font-weight: bold;">${user.username}</p>
 			</div>
 			<div class="col">
