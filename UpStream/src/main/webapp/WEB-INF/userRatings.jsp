@@ -54,7 +54,7 @@
 
 
 <!-- DELETE BUTTON -->		
-		<form action="deleteReviewFromAdmin.do/?id=${rev.userId}" method="POST">
+		<form action="deleteReviewFromProfile.do" method="POST">
 			<input type="hidden" name="userId" value="${user.id}">
 			<input type="hidden" name="contentId" value="${rev.content.id}">
 			<input type="hidden" name="revId" value="${rev.id}">
