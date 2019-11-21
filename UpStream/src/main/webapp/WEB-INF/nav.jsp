@@ -36,6 +36,8 @@
 
 			<div class="collapse navbar-collapse" id="navbarColor02">
 				<ul style="font-size: 20px; font-weight:bold; margin-right: 50px;"class="navbar-nav ml-auto text-right list-inline" id="navlinks">
+					<li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">Search</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
@@ -59,8 +61,7 @@
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="login.do">Log
-							In</a></li>
+					<li class="nav-item"><a class="nav-link" href="login.do">Log In</a></li>
 					<li>
 					</li>
 				</ul>
@@ -81,10 +82,12 @@
         </button>
       </div>
       <div class="modal-body">
-        Insert Search here
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success">Save changes</button>
+        Insert Search bar here
+        
+        <form action="getLucky.do">
+			<button type="submit" class="btn btn-success btn-secondary">I'm feeling lucky</button>
+		</form>
+		
       </div>
     </div>
   </div>

@@ -44,6 +44,21 @@ public class RatingReviewController {
 				if (dao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
 					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
 				}
+				boolean userHasContent = false;
+				List<Content> userCont = dao.getUserContent(activeUser.getId());
+				for (Content userConts : userCont) {
+					if (userConts.getId() == content.getId()) {
+						userHasContent = true;
+						break;
+					} else {
+						userHasContent = false;
+					}
+				}
+				if (userHasContent) {
+					mv.addObject("hideButton", "true");
+				} else {
+					mv.addObject("hideButton", "false");
+				}
 			}
 		} else {
 		}
@@ -70,6 +85,21 @@ public class RatingReviewController {
 				mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
 				if (dao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
 					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+				boolean userHasContent = false;
+				List<Content> userCont = dao.getUserContent(activeUser.getId());
+				for (Content userConts : userCont) {
+					if (userConts.getId() == content.getId()) {
+						userHasContent = true;
+						break;
+					} else {
+						userHasContent = false;
+					}
+				}
+				if (userHasContent) {
+					mv.addObject("hideButton", "true");
+				} else {
+					mv.addObject("hideButton", "false");
 				}
 			}
 		} else {
@@ -127,6 +157,21 @@ public class RatingReviewController {
 				mv.addObject("userContent", usDAO.getUserContent(activeUser.getId()));
 				if (dao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
 					mv.addObject("userreview", dao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
+				}
+				boolean userHasContent = false;
+				List<Content> userCont = dao.getUserContent(activeUser.getId());
+				for (Content userConts : userCont) {
+					if (userConts.getId() == content.getId()) {
+						userHasContent = true;
+						break;
+					} else {
+						userHasContent = false;
+					}
+				}
+				if (userHasContent) {
+					mv.addObject("hideButton", "true");
+				} else {
+					mv.addObject("hideButton", "false");
 				}
 			}
 		} else {
