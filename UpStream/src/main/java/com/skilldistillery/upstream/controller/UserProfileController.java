@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
+import com.skilldistillery.upstream.data.UserProfileDao;
 import com.skilldistillery.upstream.entities.User;
 
 @Controller
@@ -22,6 +23,8 @@ public class UserProfileController {
 	@Autowired
 	RegisterDAO rdao;
 	
+	@Autowired
+	UserProfileDao updao;
 
 	@RequestMapping(path = "goProfile.do", method = RequestMethod.GET)
 	public String userProfile(@Valid User user, Model model, HttpSession session) {
