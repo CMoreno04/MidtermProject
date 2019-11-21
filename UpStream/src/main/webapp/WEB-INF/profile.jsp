@@ -39,7 +39,6 @@
 		       	 		<!-- <input type="hidden" > -->
 						<input class="btn btn-outline-danger btn-sm" type="submit" value="delete">
 					</form>
-
 		        </td>
 	        </tr>
     	</table> --%>
@@ -125,7 +124,6 @@
 				</td>
 				<td class="col">
 					<form action="deleteService.do" method="POST">
-
 				</td>
 				</tr>
 				</table> --%>
