@@ -32,16 +32,17 @@
 	<%-- 		<c:forEach items="${content}" var="details" varStatus="loop" begin="${serv.id -1}" end="${serv.id-1}">
 
  --%>
-	<div class="container">
+	<div class="container" style="margin-top: 20px">
 		<c:if test="${not empty message}">
 			<h5 style="color: red;">${message}</h5>
 		</c:if>
 		<table class="table table-hover">
 			<tr class="d-flex">
+	
 
-
-				<th scope="col" class="col-6">Title</th>
+				<th scope="col" class="col-3">Title</th>
 				<th scope="col" class="col-3">Rating</th>
+				<th scope="col" class="col-3">Service</th>
 				
 				<th scope="col" class="col-3">
 				<c:if test="${not empty user}"> Add
@@ -49,7 +50,7 @@
 
 				<c:forEach items="${content}" var="indivContent" varStatus="loop2">
 					<tr class="d-flex">
-						<td class="col-6"><a
+						<td class="col-3"><a
 							href="getContents.do?id=${indivContent.id}">${indivContent.title}<br></a>
 						</td>
 						<td class="col-3"><c:forEach items="${rating}" var="rat"
@@ -75,6 +76,10 @@
 								</c:choose>
 
 							</c:forEach></td>
+							
+						<td class="col-3">
+							<img src="${indivContent.service.logo}" width="50px" alt="${serviceName.name}">
+						</td>
 
 						<td class="col-3"><c:if test="${not empty user }">
 
@@ -95,6 +100,6 @@
 	<%-- 		</c:forEach> --%>
 
 
-
+<%@ include file="footer.jsp" %>
 </body>
 </html>

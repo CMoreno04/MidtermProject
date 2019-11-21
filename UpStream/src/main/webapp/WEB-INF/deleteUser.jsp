@@ -12,7 +12,8 @@
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
-	<h1 class="header text-center">Success! Profile Deleted</h1>
+	<h1 class="header text-center" style="margin-top: 20px">Success! Profile Deleted</h1>
 	
+<%@ include file="footer.jsp" %>
 </body>
 </html>

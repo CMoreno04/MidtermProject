@@ -25,6 +25,6 @@
   <hr class="my-4">
 
 </div>
-
+<%@ include file="footer.jsp" %>
 </body>
 </html>

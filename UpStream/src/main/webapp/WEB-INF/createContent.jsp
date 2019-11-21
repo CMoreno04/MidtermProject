@@ -38,5 +38,6 @@
 			
 				<input class="btn btn-submit" type="submit" value="Add Content"/> 
 	</div></form>
+	<%@ include file="footer.jsp" %>
 </body>
 </html>
