@@ -50,11 +50,6 @@
 	</div>	
 </c:forEach>
 
-								<form action="getLucky.do">
-									<button type="submit" class="btn btn-success">I'm feeling lucky</button>
-								</form>
-								
-
 
  <script>
   const slider = document.querySelector(".items");
