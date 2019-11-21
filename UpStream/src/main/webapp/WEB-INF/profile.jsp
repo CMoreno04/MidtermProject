@@ -74,6 +74,14 @@
 				</div>
 				<div class="row">
 					<div class="col">
+						<form action="updateProfilePic.do" method="GET">
+							<input type="submit" value="Update Picture"
+								class="btn btn-success btn-sm" style="margin-top: 10px;">
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
 						<form action="deleteUser.do" method="GET">
 							<!-- <input type="hidden" > -->
 							<input class="btn btn-danger btn-sm" type="submit"
@@ -87,7 +95,7 @@
 
 		</div>
 	</div>
-	<!-- END USER INFRO BOX -->
+	<!-- END USER INFO BOX -->
 
 
 	<!-- START TOTALER -->
