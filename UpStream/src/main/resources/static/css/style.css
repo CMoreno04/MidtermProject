@@ -15,6 +15,10 @@ body {
 /*************************************
 * HOME PAGE SERVICE DIV and CONTENTS *
 **************************************/
+.nav {
+	background-color: rgba(32, 201, 151, 0.2);
+}
+
 .header__text {
 	color: #303030;
 }

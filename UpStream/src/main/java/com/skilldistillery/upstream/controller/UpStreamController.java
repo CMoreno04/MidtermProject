@@ -182,4 +182,12 @@ public class UpStreamController {
 		}
 		return mv;
 	}
+	@RequestMapping(path = "getLucky.do", method = RequestMethod.GET)
+	public ModelAndView getLucky(User user, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Content content = dao.getRandom();
+		mv.addObject("contents", content);
+		mv.setViewName("contentpage");
+		return mv;
+	}
 }
