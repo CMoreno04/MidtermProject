@@ -19,6 +19,8 @@ public interface UpStreamDAO {
 	public List<Content> getWishListOfUser(int idIn);
 
 	public Content getContent(int id);
+	
+	public Content getRandom();
 
 	// Service
 
