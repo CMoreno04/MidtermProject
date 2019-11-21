@@ -29,7 +29,7 @@ public class UpStreamController {
 	@Autowired
 	private RatingReviewDAO rrDao;
 
-	//INDEX REQUEST MAPPING
+	// INDEX REQUEST MAPPING
 	@RequestMapping(path = { "/", "index.do" })
 	public String getFilm(Model model) {
 		List<Content> content = null;
@@ -39,13 +39,13 @@ public class UpStreamController {
 			content = dao.getTopContent(streamService.getId());
 			contentByService.add(content);
 		}
-		model.addAttribute("user",null);
+		model.addAttribute("user", null);
 		model.addAttribute("services", contentByService);
 		model.addAttribute("serviceType", services);
 		return "index";
 	}
 
-	//BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
+	// BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
 	@RequestMapping(path = "getService.do", method = RequestMethod.GET)
 	public ModelAndView getService(int id) {
 		ModelAndView mv = new ModelAndView();
@@ -64,8 +64,8 @@ public class UpStreamController {
 	/// NEW STRETCH GOAL ONLY HAVE SO MANY "REVIEWS" ON ONE PAGE BEFORE HAVING TO
 	/// CLICK A NEXT BUTTON
 	// THIS WAS DONE IN THE SESSIONS LABS
-	
-	//INDIVIDUAL SHOW OR MOVIE CONTENT PAGE.
+
+	// INDIVIDUAL SHOW OR MOVIE CONTENT PAGE.
 	@RequestMapping(path = "getContents.do", method = RequestMethod.GET)
 	public ModelAndView getContents(User user, HttpSession session, int id) {
 		ModelAndView mv = new ModelAndView();
@@ -80,8 +80,26 @@ public class UpStreamController {
 				if (rrDao.getRatingByUserId(activeUser.getId(), content.getId()).size() != 0) {
 					mv.addObject("userreview", rrDao.getRatingByUserId(activeUser.getId(), content.getId()).get(0));
 				}
+
+				// checks if user has content.
+				boolean userHasContent = false;
+				List<Content> userCont = dao.getUserContent(activeUser.getId());
+				for (Content userConts : userCont) {
+					if (userConts.getId() == content.getId()) {
+						userHasContent = true;
+						break;
+					} else {
+						userHasContent = false;
+					}
+				}
+				if (userHasContent) {
+					mv.addObject("hideButton", "true");
+				} else {
+					mv.addObject("hideButton", "false");
+				}
 			}
-		} else {}
+		} else {
+		}
 		mv.addObject("averageRating", rrDao.getAverageRating(content.getId()).get(0));
 		mv.addObject("reviews", reviews);
 		mv.addObject("contents", content);
@@ -89,30 +107,31 @@ public class UpStreamController {
 		return mv;
 	}
 
-	//IF USER CLICKS GET SERVICES ON MENU WILL SHOW LIST OF SERVICES WITH PRICES
+	// IF USER CLICKS GET SERVICES ON MENU WILL SHOW LIST OF SERVICES WITH PRICES
 	@RequestMapping(path = "getServices.do", method = RequestMethod.GET)
 	public ModelAndView getServices(User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		List<StreamService> servs = dao.getServices();
-		mv.addObject("message",null);
+		mv.addObject("message", null);
 		mv.addObject("serv", servs);
-		mv.addObject("user",((User)session.getAttribute("user")));
+		mv.addObject("user", ((User) session.getAttribute("user")));
 		mv.setViewName("servicespage");
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "addUserService.do", params = "servId", method = RequestMethod.GET)
 	public ModelAndView addUserService(int servId, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
+
 		boolean service = false;
-		
+
 		if (dao.checkIfUserHasService(activeUser.getId(), servId)) {
-			
+
 			service = dao.addUserService(activeUser.getId(), servId);
 		}
-		
-		if (service) {	
+
+		if (service) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
@@ -121,20 +140,27 @@ public class UpStreamController {
 			mv.setViewName("profile");
 		} else {
 			List<StreamService> servs = dao.getServices();
-			mv.addObject("message","You Already Have That Service!");
+			mv.addObject("message", "You Already Have That Service!");
 			mv.addObject("serv", servs);
-			mv.addObject("user",((User)session.getAttribute("user")));
+			mv.addObject("user", ((User) session.getAttribute("user")));
 			mv.setViewName("servicespage");
 		}
-		return mv;	
+		return mv;
 	}
-	
-	@RequestMapping(path = "addContentToProfile.do", params = "contentId", method = RequestMethod.GET)
-	public ModelAndView addUserContent(@RequestParam("contentId") int contentId, User user, HttpSession session) {
+
+	@RequestMapping(path = "addContentToProfile.do", params = {"contentId","serviceId"}, method = RequestMethod.GET)
+	public ModelAndView addUserContent(@RequestParam("contentId") int contentId,int serviceId, User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User activeUser = (User) session.getAttribute("user");
-		boolean content = dao.addUserContent(activeUser.getId(), contentId);
-		if (content) {	
+
+		boolean content = false;
+
+		if (dao.checkIfUserHasContent(activeUser.getId(), contentId)) {
+
+			content = dao.addUserContent(activeUser.getId(), contentId);
+		}
+		
+		if (content) {
 			mv.addObject("user", activeUser);
 			mv.addObject("userService", dao.getUserServices(activeUser));
 			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
@@ -142,13 +168,18 @@ public class UpStreamController {
 			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
 			mv.setViewName("profile");
 		} else {
-			mv.addObject("user", activeUser);
-			mv.addObject("userService", dao.getUserServices(activeUser));
-			mv.addObject("userContent", dao.getUserContent(activeUser.getId()));
-			mv.addObject("reviews", dao.getReviewsOfUserByUserId(activeUser.getId()));
-			mv.addObject("servTotal", dao.getTotalOfServicesByUser(activeUser.getId()));
-			mv.setViewName("servicespage");
+			
+			List<Content> cont = rrDao.getService(serviceId);
+			List<Double> rev = new ArrayList<Double>();
+			for (Content contents : cont) {
+				rev.add(rrDao.getAverageRating(contents.getId()).get(0));
+			}
+			mv.addObject("message", "You are watching that show already!");
+			mv.addObject("serviceName", cont.get(0).getService());
+			mv.addObject("rating", rev);
+			mv.addObject("content", cont);
+			mv.setViewName("service");
 		}
-		return mv;	
+		return mv;
 	}
 }

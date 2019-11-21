@@ -1,5 +1,7 @@
 package com.skilldistillery.upstream.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,12 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.skilldistillery.upstream.data.LoginDAO;
 import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
+import com.skilldistillery.upstream.data.UserProfileDao;
 import com.skilldistillery.upstream.entities.User;
+import com.skilldistillery.upstream.entities.UserImage;
 
 @Controller
 public class LoginRegisterController {
-	
-	@Autowired 
+
+	@Autowired
 	private RegisterDAO rdao;
 
 	@Autowired
@@ -27,6 +31,8 @@ public class LoginRegisterController {
 
 	@Autowired
 	private UpStreamDAO USdao;
+	@Autowired
+	private UserProfileDao upDao;
 
 	@RequestMapping(path = "login.do", method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -44,41 +50,61 @@ public class LoginRegisterController {
 
 		user = dao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
 
+		session.setAttribute("user", user);
+
 		if (rdao.checkIsUniqueUser(user)) {
 			System.out.println("IF");
 
 			if (user == null) {
 				user = null;
 				session.removeAttribute("user");
-				model = null;
-				return "redirect:login.do";
+
+				model.addAttribute("user", new User());
+				model.addAttribute("message", "Invalid User!");
+
+				return "login";
 			}
 
-			session.setAttribute("user", user);
+			user = USdao.getUserById(((int) user.getId()));
 
-			model.addAttribute("user", user);
-			model.addAttribute("userService", USdao.getUserServices(user));
-			model.addAttribute("userContent", USdao.getUserContent(user.getId()));
-			model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(user.getId()));
-			model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(user.getId()));
-			return "profile";
+			if (user.isActive() == true) {
+
+				session.setAttribute("user", user);
+
+				model.addAttribute("user", user);
+				model.addAttribute("userService", USdao.getUserServices(user));
+				model.addAttribute("userContent", USdao.getUserContent(user.getId()));
+				model.addAttribute("reviews", USdao.getReviewsOfUserByUserId(user.getId()));
+				model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(user.getId()));
+
+				return "profile";
+			}
+
+			else {
+				session.removeAttribute("user");
+
+				model.addAttribute("user", new User());
+				model.addAttribute("message", "Invalid User!");
+
+				return "login";
+
+			}
 
 		}
 
 		else {
-			System.out.println("Else");
 			user = null;
 			session.removeAttribute("user");
-			model = null;
-			error.rejectValue("username", "error.username", "Username or password do not match out records");
-//			Boolean err = false;
-//			model.addAttribute("Error", err);
-			
-			return "redirect:login.do";
+
+			model.addAttribute("user", new User());
+			model.addAttribute("message", "Invalid User!");
+
+			return "login";
 		}
 
 	}
-	@RequestMapping(path="register.do", method=RequestMethod.GET)
+
+	@RequestMapping(path = "register.do", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView mv = new ModelAndView();
 		User u = new User();
@@ -86,21 +112,23 @@ public class LoginRegisterController {
 		mv.setViewName("registration");
 		return mv;
 	}
-	
 
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
 	public String registerNewUser(@Valid User user, HttpSession session, Model model, Errors error) {
-		if (rdao.checkIsUniqueUser(user)) {	
-		
+		if (rdao.checkIsUniqueUser(user)) {
+			List<UserImage> imgs = upDao.getProfilePics();
 			if (user == null) {
 				return "redirect:register.do";
 			}
 			user = null;
 			session.removeAttribute("user");
-			model = null;
-			return "redirect:register.do";
-		}	
-		else {
+
+			model.addAttribute("user", new User());
+			model.addAttribute("profileImg", imgs);
+			model.addAttribute("message", "Username Already Exists!");
+
+			return "registration";
+		} else {
 			User newUser = rdao.addUser(user);
 			System.out.println(user);
 			System.out.println(newUser);
@@ -108,11 +136,10 @@ public class LoginRegisterController {
 			model.addAttribute("user", newUser);
 			model.addAttribute("userService", USdao.getUserServices(newUser));
 			model.addAttribute("userContent", USdao.getUserContent(newUser.getId()));
-			return "profile";	
-		}	
+			return "profile";
+		}
 	}
-	
-	
+
 	@RequestMapping(path = "logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");

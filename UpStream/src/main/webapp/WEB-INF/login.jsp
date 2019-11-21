@@ -12,40 +12,56 @@
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
-	
-<!-- 	<h1 class="container text-center">Log In</h1> -->
+
+	<!-- 	<h1 class="container text-center">Log In</h1> -->
 	<div class="container text-center" style="margin-top: 40px;">
 		<!-- <table class="table"> -->
-		  <!-- <thead> -->
- 		  <div class="row">
- 			<div class="col-5 align-middle" style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px">
- 			 	<h3>Register</h3><br>
- 			 	
- 			 	<form:form action="register.do" id="register button" class="header" method="GET">
+		<!-- <thead> -->
+		<div class="row">
+			<div class="col-5 align-middle"
+				style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px">
+				<h3>Register</h3>
+				<br>
+
+
+				<form:form action="register.do" id="register button" class="header"
+					method="GET">
 					<button type="submit" class="btn btn-success">Register</button>
-				</form:form> 
- 			</div>
- 			<div class="col-2"></div>
- 			<div class="col-5 align-middle" style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px">
- 					<h3>Log In</h3><br>
- 					
- 					<form:form action="login.do" class="header form-group" method="POST" modelAttribute="user">
-					<form:label path="username"><b>Username</b></form:label>
-					<form:input type="text" class="form-control" placeholder="Enter Username" path="username" required="required"></form:input>
+				</form:form>
+			</div>
+			<div class="col-2"></div>
+			<div class="col-5 align-middle"
+				style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px">
+				<h3>Log In</h3>
+				<br>
+				<c:if test="${not empty message}">
+					<h4 style="color: red;">${message}</h4>
+				<br>
+				</c:if>
+				<form:form action="login.do" class="header form-group" method="POST"
+					modelAttribute="user">
+					<form:label path="username">
+						<b>Username</b>
+					</form:label>
+					<form:input type="text" class="form-control"
+						placeholder="Enter Username" path="username" required="required"></form:input>
 					<br>
 					<form:errors path="username">Username or password does not match our system. Please try again or register.</form:errors>
-					<form:label path="password"><b>Password</b></form:label>
-					<form:input type="password" class="form-control" placeholder="Enter Password" path="password" required="required"></form:input>
+					<form:label path="password">
+						<b>Password</b>
+					</form:label>
+					<form:input type="password" class="form-control"
+						placeholder="Enter Password" path="password" required="required"></form:input>
 					<br>
 					<button type="submit" class="btn btn-success">Login</button>
-					</form:form>	
- 			</div>
- 		  </div> 
-  
-		
-		
-		
-<%-- 		
+				</form:form>
+			</div>
+		</div>
+
+
+
+
+		<%-- 		
 		
 			<tr class="row">
 			

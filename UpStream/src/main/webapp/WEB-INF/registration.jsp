@@ -20,18 +20,21 @@
 			<div class="col-xs-6 col-md-4"></div>
 			<div class="col-xs-6 col-md-4 text-center">
 				<h1>Register</h1>
+				<c:if test="${not empty message}">
+					<h4 style="color: red;">${message}</h4>
+				</c:if>
 
 				<form:form action="register.do" method="POST" modelAttribute="user">
 					<div class="form-row center">
-							<form:label path="firstName">First Name</form:label>
-							<form:input type="text" class="form-control" required="required"
-								path="firstName" placeholder="First Name" />
-						</div>
-						<div class="form-row center">
-							<form:label path="lastName">Last Name</form:label>
-							<form:input type="text" required="required" class="form-control"
-								path="lastName" placeholder="Last Name" />
-						</div>
+						<form:label path="firstName">First Name</form:label>
+						<form:input type="text" class="form-control" required="required"
+							path="firstName" placeholder="First Name" />
+					</div>
+					<div class="form-row center">
+						<form:label path="lastName">Last Name</form:label>
+						<form:input type="text" required="required" class="form-control"
+							path="lastName" placeholder="Last Name" />
+					</div>
 					<div class="form-row center">
 						<form:label path="username">Username</form:label>
 						<form:input type="text" class="form-control" required="required"
@@ -42,6 +45,25 @@
 						<form:input type="password" class="form-control"
 							required="required" path="password" placeholder="Password" />
 					</div>
+					<div class="form-row center">
+						<form:label path="userImage">Profile Image</form:label>
+						<select class="image-picker show-html">
+						<c:forEach items="${profileImg}">
+							<option data-img-src="${profileImg.url }" value="${profileImg.id }"></option>
+<%-- 							<input type="image" id="image" alt="Login" value="${profileImg.id }"
+								src= "${profileImg.url }"/> --%>
+						<%-- 	<div class="item">
+									<div class="cardimg"
+										style="background-image: url(${profileImg.url});"></div>
+								</div>  --%>
+
+						</c:forEach>
+						</select>
+
+					
+					</div>
+					<br>
+					<br>
 					<form:input type="hidden" path="active" value="true" default="true" />
 
 					<%-- 					<div class="form-group col-md-6">
@@ -54,7 +76,7 @@
 						<br> <br>
 					</div> --%>
 					<button type="submit" class="btn btn-success">Submit</button>
-			</form:form>
+				</form:form>
 			</div>
 		</div>
 	</div>

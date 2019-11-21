@@ -8,23 +8,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Navigation</title>
-<link href="/css/bootstrap.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
+<link href="/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand header__text" style="color: #303030"
 			href="index.do"> <img alt="Up-Stream" src="css/logo.png"
-			width="150" height="70"></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			width="150" height="70" style="border-radius:10px"></a>
+		<!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarColor03" aria-controls="navbarColor03"
 			aria-expanded="true" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		</button>
+		</button> -->
 		<c:if test="${not empty sessionScope.user}">
 
 			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul class="navbar-nav mr-auto">
+						<h4 class="name">Streaming Service Tracker</h4>
+				<ul class="navbar-nav ml-auto text-right list-inline" id="navlinks">
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
@@ -36,13 +37,13 @@
 					<li>
 					</li>
 				</ul>
-						<h2 class="name">Streaming Service Tracker</h2>
 			</div>
 		</c:if>
 
 		<c:if test="${empty sessionScope.user}">
-			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul class="navbar-nav mr-auto">
+			<div class="collapse navbar-collapse " id="navbarColor02">
+						<h4 class="name">Streaming Service Tracker</h4>
+				<ul class="navbar-nav ml-auto text-right list-inline">
 					<li class="nav-item"><a class="nav-link" href="getServices.do">Services</a>
 					</li>
 					<li class="nav-item"><a class="nav-link header__text" href="about.do">About</a>
@@ -52,7 +53,6 @@
 					<li>
 					</li>
 				</ul>
-						<h2 class="name">Streaming Service Tracker</h2>
 
 
 				<!--  <form class="form-inline my-2 my-lg-0">

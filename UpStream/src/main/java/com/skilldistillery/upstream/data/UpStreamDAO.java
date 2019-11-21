@@ -20,8 +20,6 @@ public interface UpStreamDAO {
 
 	public Content getContent(int id);
 
-	public boolean removeUserContent(int userId, int contentId);
-
 	// Service
 
 	public StreamService getService(int id);
@@ -51,6 +49,8 @@ public interface UpStreamDAO {
 	public List<Content> getUserContent(int idIn);
 
 	public boolean addUserContent(int userId, int cid);
+	
+	public User getUserById(int id);
 
 	// Admin
 
@@ -60,6 +60,12 @@ public interface UpStreamDAO {
 
 	public Content createContent(Content content);
 
+
+	boolean removeUserContent(int userId, int contentId);
+
+
 	public boolean checkIfUserHasService(int userId, int servId);
+	
+	public boolean checkIfUserHasContent(int userId, int contentId);
 
 }
