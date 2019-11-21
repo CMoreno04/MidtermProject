@@ -1,9 +1,11 @@
 package com.skilldistillery.upstream.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,4 +49,24 @@ public class AdminController {
 		mv.setViewName("userRatings");
 		return mv;
 	}
+	
+	
+	@RequestMapping(path = "deleteUserFromAdmin.do", method = RequestMethod.GET)
+	public ModelAndView goToDeleteUser(int userId) {
+		ModelAndView mv = new ModelAndView();
+		boolean userDeleted = dao.disableUserFromAdmin(userId);
+		mv.addObject("userList", adao.getUsers());
+		mv.setViewName("seeUsers");
+		return mv;
+	}
+	
+	@RequestMapping(path = "enableUserFromAdmin.do", method = RequestMethod.GET)
+	public ModelAndView goToEnableUser(int userId) {
+		ModelAndView mv = new ModelAndView();
+		boolean userUpdated = dao.enableUserFromAdmin(userId);
+		mv.addObject("userList", adao.getUsers());
+		mv.setViewName("seeUsers");
+		return mv;
+	}
+	
 }
