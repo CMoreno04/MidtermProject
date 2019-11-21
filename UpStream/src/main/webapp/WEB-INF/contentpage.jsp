@@ -28,12 +28,12 @@
 	<!-- Video and image column -->
 	<div class="col-md" style="padding: 0px">
 
-	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding-left: 40px; padding-top: 20px; ">
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding: 0px">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
 	     
 	     <div class="iframe-container">
-	     <iframe class="embed-responsive-item" width="80%" height="180vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	     <iframe class="embed-responsive-item" width="100%" height="200vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	      </div>
 	    </div>
 	    <div class="carousel-item">
@@ -125,8 +125,9 @@
   		  	<form action="addContentToProfile.do" method="GET">
 			<%-- <input type="hidden" name="userId" value="${user.id}"> --%>
 			<input type="hidden" name="contentId" value="${contents.id}">
-			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>		
-			<input type="submit" value="Currently Watching" class="btn btn-success btn-sm">
+			<%-- <input type="hidden" name="revId" value="${rev.id}"> --%>	
+			<input type="hidden" name="serviceId" value="${contents.service.id}">	
+			<input type="submit" value="Add to My List" class="btn btn-success btn-sm">
 			</form> 
   		</c:otherwise>
   	</c:choose>
