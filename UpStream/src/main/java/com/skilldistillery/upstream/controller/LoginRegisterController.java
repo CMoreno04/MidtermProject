@@ -107,29 +107,32 @@ public class LoginRegisterController {
 	@RequestMapping(path = "register.do", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView mv = new ModelAndView();
+		UserImage ui = new UserImage();
 		User u = new User();
 		mv.addObject("user", u);
+		mv.addObject("profileImg", ui);
 		mv.setViewName("registration");
 		return mv;
 	}
 
 	@RequestMapping(path = "register.do", method = RequestMethod.POST)
-	public String registerNewUser(@Valid User user, HttpSession session, Model model, Errors error) {
+	public String registerNewUser(@Valid User user, @Valid UserImage ui, HttpSession session, Model model, Errors error) {
 		if (rdao.checkIsUniqueUser(user)) {
-			List<UserImage> imgs = upDao.getProfilePics();
 			if (user == null) {
 				return "redirect:register.do";
 			}
 			user = null;
+			
 			session.removeAttribute("user");
 
 			model.addAttribute("user", new User());
-			model.addAttribute("profileImg", imgs);
+
 			model.addAttribute("message", "Username Already Exists!");
 
 			return "registration";
 		} else {
 			User newUser = rdao.addUser(user);
+			newUser.setUserImage(ui);
 			System.out.println(user);
 			System.out.println(newUser);
 			session.setAttribute("user", newUser);
