@@ -298,9 +298,6 @@
 					value="See List Of Users">
 			</form>
 
-
-
-			2. Add Content<br> 3. Add Service (stretch)<br>
 		</div>
 
 	</c:if>

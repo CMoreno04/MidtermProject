@@ -70,4 +70,8 @@ public interface UpStreamDAO {
 	
 	public boolean checkIfUserHasContent(int userId, int contentId);
 
+	boolean disableUserFromAdmin(int userId);
+
+	boolean enableUserFromAdmin(int userId);
+
 }

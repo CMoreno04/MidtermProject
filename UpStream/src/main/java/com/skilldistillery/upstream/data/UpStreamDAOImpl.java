@@ -152,6 +152,53 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 
 	}
+	
+	
+	@Override
+	public boolean disableUserFromAdmin(int userId) {
+		User user;
+		try {
+			user = em.find(User.class, ((int)userId));
+			user.setActive(false);
+
+			em.persist(user);
+
+			em.flush();
+
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+	
+	@Override
+	public boolean enableUserFromAdmin(int userId) {
+		User user;
+		try {
+			user = em.find(User.class, ((int)userId));
+			user.setActive(true);
+
+			em.persist(user);
+
+			em.flush();
+
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+	
+	
 
 	@Override
 	public boolean removeUser(User userIn) {
