@@ -45,7 +45,8 @@
 						<form:input type="password" class="form-control"
 							required="required" path="password" placeholder="Password" />
 					</div>
-				
+					<br>
+					<br>
 					<form:input type="hidden" path="active" value="true" default="true" />
 					<form:button type="submit" class="btn btn-success">Submit</form:button>
 				</form:form>

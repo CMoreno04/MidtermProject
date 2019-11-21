@@ -21,24 +21,28 @@
 
 
 
-<div class="container-fluid">
-	<div class="row vidanddescrip">
+<div class="container-fluid" >
+	<div class="row vidanddescrip" >
 	
 	
 	<!-- Video and image column -->
 	<div class="col-md" style="padding: 20px;">
+
 
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false" style="height: 100%; padding: 0px">
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
 	     
 	     <div class="iframe-container">
-	     <iframe class="embed-responsive-item" style="border-radius: 10px" width="100%" height="200vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+	     <iframe style="border-radius: 10px;"class="embed-responsive-item"  width="100%" height="200vh" src="${contents.video.url}?rel=0&showinfo=0&autohide=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 	      </div>
+	      
 	    </div>
 	    <div class="carousel-item">
 	    <div class="img-container">
-	      <img src="${contents.image.url}" alt="${contents.title} image">
+	      <img style="border-radius: 10px; "src="${contents.image.url}" alt="${contents.title} image"> 
 	      </div>
 	    </div>
 	  </div>
