@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Log In</title>
-<link href="/css/bootstrap.css" rel="stylesheet">
-<link href="/css/style.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
@@ -17,9 +17,11 @@
 	<div class="container text-center" style="margin-top: 40px;">
 		<!-- <table class="table"> -->
 		<!-- <thead> -->
+		
 		<div class="row">
 			<div class="col-5 align-middle"
-				style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px">
+				style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px;">
+				
 				<h3>Register</h3>
 				<br>
 
