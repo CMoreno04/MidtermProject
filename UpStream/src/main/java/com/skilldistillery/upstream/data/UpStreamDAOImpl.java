@@ -135,7 +135,7 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 	public boolean disableUser(User user) {
 
 		try {
-			user = em.find(User.class, ((int)user.getId()));
+			user = em.find(User.class, ((int) user.getId()));
 			user.setActive(false);
 
 			em.persist(user);
@@ -332,7 +332,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 //		return false;
 	}
-	
 
 	@Override
 	public boolean removeUserContent(int userId, int contentId) {
@@ -357,7 +356,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 	}
 
-
 //Admin
 	@Override
 	public Content createContent(Content content) {
@@ -365,7 +363,6 @@ public class UpStreamDAOImpl implements UpStreamDAO {
         em.flush();
 		return content;
 	}
-
 
 	@Override
 	public List<UserService> getUserServicesByUserId(int userId) {
@@ -411,8 +408,9 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 
 	@Override
 	public boolean checkIfUserHasContent(int userId, int contentId) {
-		
+
 		UserContent userCont;
+		
 		try {
 			String jpql = "SELECT u FROM UserContent u WHERE u.user.id=:userId AND u.userContent.id=:contentId";
 
@@ -433,7 +431,17 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		else {
 			return false;
 		}
-		
+
+	}
+
+	@Override
+	public List<Content> getContentByKeyword(String input) {
+
+		String jpql = "SELECT c FROM Content c WHERE c.title LIKE %:input% OR c.description LIKE %:input%";
+
+		List<Content> contents = em.createQuery(jpql, Content.class).setParameter("input", input).getResultList();
+
+		return contents;
 	}
 
 }
