@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.upstream.entities.Content;
+import com.skilldistillery.upstream.entities.Genre;
 import com.skilldistillery.upstream.entities.RatingReview;
+import com.skilldistillery.upstream.entities.StreamService;
 import com.skilldistillery.upstream.entities.User;
 
 @Transactional
@@ -37,5 +39,22 @@ public class AdminDAOImpl implements AdminDAO {
 		String query = "SELECT r FROM RatingReview r WHERE r.userId = :uid";
 		List<RatingReview> reviews = em.createQuery(query, RatingReview.class).setParameter("uid", userId).getResultList();
 		return reviews;
+	}
+	@Override
+	public List<Genre> getGenre() {
+		String query = "SELECT g FROM Genre g";
+		List<Genre> genres = em.createQuery(query, Genre.class).getResultList();
+		return genres;
+	}
+	@Override
+	public StreamService getService(int id) {
+		String query = "SELECT s FROM Service s WHERE s.id = :sid";
+		List<StreamService> service = em.createQuery(query, StreamService.class).setParameter("sid", id).getResultList();
+		return service.get(0);
+	}
+	
+	public boolean checkIsUniqueContent(Content content) {
+		
+		return false;
 	}
 }

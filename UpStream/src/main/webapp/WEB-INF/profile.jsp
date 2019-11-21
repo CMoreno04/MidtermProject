@@ -285,25 +285,22 @@
 			style="margin-top: 70px; margin-bottom: 20px; border-radius: 10px; padding: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35)">
 			<h4 style="margin-bottom: 10px">Admin Center</h4>
 
+
+<form action="peekaboo.do" method="POST">
+	<input type="submit" class="btn btn-secondary btn sm" value="See List Of Users">
+</form>
+<form action="createContent.do" method="GET">
+	<input type="submit" class="btn btn-secondary btn sm" value="See create content page">
+</form>
+
 			<form action="peekaboo.do" method="POST">
 				<input type="submit" class="btn btn-secondary btn sm"
 					value="See List Of Users">
 			</form>
 
-
-
-			2. Add Content<br> 3. Add Service (stretch)<br>
 		</div>
 
 	</c:if>
-
-
-
-
-
-
-
-
 
 
 

@@ -3,6 +3,7 @@ package com.skilldistillery.upstream.data;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -65,6 +66,21 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		String query = "SELECT c FROM Content c WHERE c.id = :cid";
 		List<Content> cont = em.createQuery(query, Content.class).setParameter("cid", id).getResultList();
 		return cont.get(0);
+	}
+	
+	public Content getRandom() {
+		Content lucky = null;
+		String query = "SELECT c FROM Content c";
+				Random rand = new Random();
+				List<Content> contents = em.createQuery(query, Content.class).getResultList();
+				int numberOfElements = contents.size();
+				
+				for (int i = 0; i < numberOfElements; i++) {
+			        int randomIndex = rand.nextInt(contents.size());
+			        lucky = contents.get(randomIndex);
+			        contents.remove(randomIndex);
+			    }
+		return lucky;
 	}
 
 	public double getTotalOfServicesByUser(int userId) {
@@ -136,6 +152,53 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 		}
 
 	}
+	
+	
+	@Override
+	public boolean disableUserFromAdmin(int userId) {
+		User user;
+		try {
+			user = em.find(User.class, ((int)userId));
+			user.setActive(false);
+
+			em.persist(user);
+
+			em.flush();
+
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+	
+	@Override
+	public boolean enableUserFromAdmin(int userId) {
+		User user;
+		try {
+			user = em.find(User.class, ((int)userId));
+			user.setActive(true);
+
+			em.persist(user);
+
+			em.flush();
+
+			return true;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return false;
+		}
+
+	}
+	
+	
 
 	@Override
 	public boolean removeUser(User userIn) {
@@ -298,8 +361,9 @@ public class UpStreamDAOImpl implements UpStreamDAO {
 //Admin
 	@Override
 	public Content createContent(Content content) {
-		// TODO Auto-generated method stub
-		return null;
+		em.persist(content);
+        em.flush();
+		return content;
 	}
 
 

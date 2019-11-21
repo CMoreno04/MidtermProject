@@ -19,6 +19,8 @@ public interface UpStreamDAO {
 	public List<Content> getWishListOfUser(int idIn);
 
 	public Content getContent(int id);
+	
+	public Content getRandom();
 
 	// Service
 
@@ -67,5 +69,9 @@ public interface UpStreamDAO {
 	public boolean checkIfUserHasService(int userId, int servId);
 	
 	public boolean checkIfUserHasContent(int userId, int contentId);
+
+	boolean disableUserFromAdmin(int userId);
+
+	boolean enableUserFromAdmin(int userId);
 
 }
