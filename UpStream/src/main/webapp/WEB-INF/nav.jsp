@@ -84,7 +84,7 @@
       <div class="modal-body">
         
         <form action="getSearchResults.do" method="GET">
-        	<input type="text" name="keyword" placeholder="Enter a search term" class="form-control">
+        	<input type="text" required="required" name="keyword" placeholder="Enter a search term" class="form-control">
         	<input type="submit" value="Search" class="btn btn-success btn-block">
         </form>
         
