@@ -199,3 +199,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
 	background: rgba(32, 201, 151, 0.4);
 }
+
+
+.modal-backdrop
+{
+    opacity:0.9 !important;
+}
