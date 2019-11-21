@@ -241,10 +241,12 @@ public class UpStreamController {
 	
 	// BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
 	@RequestMapping(path = "getSearchResults.do", method = RequestMethod.GET)
-	public ModelAndView getService(String keyword) {
+	public ModelAndView getService(String keyword,Model model) {
 		ModelAndView mv = new ModelAndView();
 		List<Content> content = dao.getContentByKeyword(keyword);
 		List<Double> rev = new ArrayList<Double>();
+		if(!content.isEmpty()) {
+			
 		for (Content contents : content) {
 			rev.add(rrDao.getAverageRating(contents.getId()).get(0));
 		}
@@ -252,6 +254,21 @@ public class UpStreamController {
 		mv.addObject("rating", rev);
 		mv.addObject("content", content);
 		mv.setViewName("search");
+		}
+		else {
+			List<Content> cont = null;
+			List<StreamService> services = dao.getServices();
+			List<List<Content>> contentByService = new ArrayList<List<Content>>();
+			for (StreamService streamService : services) {
+				cont = dao.getTopContent(streamService.getId());
+				contentByService.add(cont);
+			}
+			mv.addObject("message","No Content Found!");
+			model.addAttribute("user", null);
+			model.addAttribute("services", contentByService);
+			model.addAttribute("serviceType", services);
+			mv.setViewName("index");	
+		}
 		return mv;
 	}
 
