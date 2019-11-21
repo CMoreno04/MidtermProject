@@ -46,21 +46,34 @@
 							required="required" path="password" placeholder="Password" />
 					</div>
 					<div class="form-row center">
-						<form:label path="userImage">Profile Image</form:label>
-						<select class="image-picker show-html">
-						<c:forEach items="${profileImg}">
-							<option data-img-src="${profileImg.url }" value="${profileImg.id }"></option>
-<%-- 							<input type="image" id="image" alt="Login" value="${profileImg.id }"
-								src= "${profileImg.url }"/> --%>
-						<%-- 	<div class="item">
-									<div class="cardimg"
-										style="background-image: url(${profileImg.url});"></div>
-								</div>  --%>
-
-						</c:forEach>
+				<form:form action="register.do" method="POST" modelAttribute="ui">
+						<form:label path="id">Profile Image</form:label>
+						<select>
+							<option value="1">Dumbo</option>
+							<option value="2">Powerline</option>
+							<option value="3">The Mask</option>
+							<option value="4">Superman</option>
+							<option value="5">Stewie</option>
+							<option value="6">Elmo</option>
+							<option value="7">Yoda</option>
+							<option value="8">Porg</option>
+							<option value="9">Boba Fett</option>
+							<option value="10">Mr. Burns</option>
+							<option value="11">Squirtle</option>
+							<option value="12">Pennywise</option>
+							<option value="13">Cersei</option>
+							<option value="14">Thor</option>
+							<option value="15">Harley Quinn</option>
+							<option value="16">Deadpool</option>
+							<option value="17">Elevin</option>
+							<option value="18">Linus</option>
+							<option value="19">Resavoir Dogs</option>
+							<option value="20">Malefecent</option>
 						</select>
+						</form:form>
 
-					
+
+
 					</div>
 					<br>
 					<br>

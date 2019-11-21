@@ -9,4 +9,5 @@ public interface UserProfileDao {
 
 	public List<UserImage> getProfilePics();
 	public User addUserProfilePic(int userId, int pid);
+	public String getImageUrl(int pid);
 }
