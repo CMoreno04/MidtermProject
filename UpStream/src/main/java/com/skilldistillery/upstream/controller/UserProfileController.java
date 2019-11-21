@@ -51,11 +51,12 @@ public class UserProfileController {
 	}
 	
 	@RequestMapping(path = "updateProfilePic.do", method = RequestMethod.POST)
-	public ModelAndView updateProfilePic(@Valid User user, @Valid UserImage ui, HttpSession session) {
+	public ModelAndView updateProfilePic(@Valid UserImage ui, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		UserImage newImg = updao.getImageById(ui.getId());
-		user.setUserImage(newImg);
-		User updatedUser = user;
+		User user = (User) session.getAttribute("user");
+//		updatedUser.setUserImage(newImg);
+		User updatedUser = updao.addUserProfilePic(user.getId(), newImg.getId());
 		session.removeAttribute("user");
 		session.setAttribute("user", updatedUser);
 		mv.addObject("reviews", USdao.getReviewsOfUserByUserId(updatedUser.getId()));

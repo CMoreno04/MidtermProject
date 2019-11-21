@@ -27,28 +27,28 @@
 					<form:form action="updateProfilePic.do" method="POST"
 						modelAttribute="userImage">
 						<form:label path="id">Profile Image</form:label>
-						<select>
-							<option value="1">Dumbo</option>
-							<option value="2">Powerline</option>
-							<option value="3">The Mask</option>
-							<option value="4">Superman</option>
-							<option value="5">Stewie</option>
-							<option value="6">Elmo</option>
-							<option value="7">Yoda</option>
-							<option value="8">Porg</option>
-							<option value="9">Boba Fett</option>
-							<option value="10">Mr. Burns</option>
-							<option value="11">Squirtle</option>
-							<option value="12">Pennywise</option>
-							<option value="13">Cersei</option>
-							<option value="14">Thor</option>
-							<option value="15">Harley Quinn</option>
-							<option value="16">Deadpool</option>
-							<option value="17">Elevin</option>
-							<option value="18">Linus</option>
-							<option value="19">Resavoir Dogs</option>
-							<option value="20">Malefecent</option>
-						</select>
+						<form:select path="id">
+							<form:option value="1">Dumbo</form:option>
+							<form:option value="2">Powerline</form:option>
+							<form:option value="3">The Mask</form:option>
+							<form:option value="4">Superman</form:option>
+							<form:option value="5">Stewie</form:option>
+							<form:option value="6">Elmo</form:option>
+							<form:option value="7">Yoda</form:option>
+							<form:option value="8">Porg</form:option>
+							<form:option value="9">Boba Fett</form:option>
+							<form:option value="10">Mr. Burns</form:option>
+							<form:option value="11">Squirtle</form:option>
+							<form:option value="12">Pennywise</form:option>
+							<form:option value="13">Cersei</form:option>
+							<form:option value="14">Thor</form:option>
+							<form:option value="15">Harley Quinn</form:option>
+							<form:option value="16">Deadpool</form:option>
+							<form:option value="17">Elevin</form:option>
+							<form:option value="18">Linus</form:option>
+							<form:option value="19">Resavoir Dogs</form:option>
+							<form:option value="20">Malefecent</form:option>
+						</form:select>
 						<form:button type="submit" class="btn btn-success">Submit</form:button>
 					</form:form>
 				</div>
