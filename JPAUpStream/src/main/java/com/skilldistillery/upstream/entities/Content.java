@@ -28,11 +28,11 @@ public class Content {
 	@Column
 	private String description;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "image_id")
 	private Media image;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "video_id")
 	private Media video;
 
@@ -40,7 +40,7 @@ public class Content {
 	@JoinTable(name = "content_genre", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	private List<Genre> genres;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "service_id")
 	private StreamService service;
 

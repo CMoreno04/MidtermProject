@@ -249,7 +249,9 @@
 <form action="peekaboo.do" method="POST">
 	<input type="submit" class="btn btn-secondary btn sm" value="See List Of Users">
 </form>
-
+<form action="createContent.do" method="GET">
+	<input type="submit" class="btn btn-secondary btn sm" value="See create content page">
+</form>
 
 
 2.  Add Content<br>

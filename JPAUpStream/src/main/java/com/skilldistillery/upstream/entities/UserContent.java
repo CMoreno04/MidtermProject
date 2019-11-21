@@ -17,11 +17,11 @@ public class UserContent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "content_id")
 	private Content userContent;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
