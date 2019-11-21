@@ -56,13 +56,14 @@
 					<c:otherwise>
 
 						<img src="${user.userImage.url}" height="100vh"
-							style="border-radius: 50%; max-width: 10rem; max-height: 10rem; border: 0.5rem solid #00bc8c;">
+							style="border-radius: 50%; max-width: 10rem; max-height: 10rem; border: 0.5rem solid #00bc8c; background-color: black;">
 					</c:otherwise>
 				</c:choose>
 
 			</div>
 			<div class="col align-middle">
-				<h3 class="prof-name" style="margin-top: 10px; overflow: hidden;">${user.username}</h3>
+				<p class="prof-name"
+					style="margin-top: 10px; overflow: hidden; font-size: 45px; font-weight: bold;">${user.username}</p>
 			</div>
 			<div class="col">
 
@@ -78,8 +79,8 @@
 					<div class="col">
 						<form action="deleteUser.do" method="GET">
 							<!-- <input type="hidden" > -->
-							<input class="btn btn-outline-danger btn-sm" type="submit"
-								value="delete" style="margin-top: 10px;">
+							<input class="btn btn-danger btn-sm" type="submit" value="Delete"
+								style="margin-top: 10px;">
 						</form>
 					</div>
 				</div>
@@ -99,7 +100,7 @@
 			<fmt:setLocale value="en_US" />
 			<fmt:formatNumber value="${servTotal}" type="currency" />
 		</h4>
-		
+
 	</div>
 
 
@@ -130,14 +131,17 @@
 				</table> --%>
 									<div class="container">
 										<div class="row">
-											<div class="col">
+											<div
+												style="text-align: left; padding-left: 15px; font-size: 20px; font-weight: bold;"
+												class="col">
 												<a href="getService.do?id=${service.id}">${service.name}</a>
 											</div>
-											<div class="col">
+											<div style="text-align: right; padding-right: 10px;"
+												class="col">
 												<form action="deleteService.do" method="POST">
 													<input type="hidden" name="servId" value="${service.id}">
-													<input class="btn btn-outline-danger btn-sm" type="submit"
-														value="delete">
+													<input class="btn btn-danger btn-sm" type="submit"
+														value="Delete">
 												</form>
 											</div>
 										</div>
@@ -147,7 +151,8 @@
 									<c:forEach items="${userContent}" var="content"
 										varStatus="loop">
 										<c:if test="${content.service.name == service.name}">
-											<p class="card-text">
+											<p style="font-size: 15px; font-weight: bold;"
+												class="card-text">
 												<a href="getContents.do?id=${content.id}">${content.title}</a>
 											</p>
 										</c:if>
@@ -250,7 +255,7 @@
 									<input type="hidden" name="userId" value="${user.id}">
 									<input type="hidden" name="contentId" value="${rev.content.id}">
 									<input type="hidden" name="revId" value="${rev.id}"> <input
-										class="btn btn-danger btn-sm" type="submit" value="delete">
+										class="btn btn-danger btn-sm" type="submit" value="Delete">
 								</form>
 							</div>
 						</div>
