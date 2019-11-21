@@ -14,6 +14,7 @@ import com.skilldistillery.upstream.data.RegisterDAO;
 import com.skilldistillery.upstream.data.UpStreamDAO;
 import com.skilldistillery.upstream.data.UserProfileDao;
 import com.skilldistillery.upstream.entities.User;
+import com.skilldistillery.upstream.entities.UserImage;
 
 @Controller
 public class UserProfileController {
@@ -22,7 +23,7 @@ public class UserProfileController {
 	UpStreamDAO USdao;
 	@Autowired
 	RegisterDAO rdao;
-	
+
 	@Autowired
 	UserProfileDao updao;
 
@@ -38,6 +39,34 @@ public class UserProfileController {
 
 	}
 
+	@RequestMapping(path = "updateProfilePic.do", method = RequestMethod.GET)
+	public ModelAndView goToUpdateProfilePic(@Valid User user, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		User oldUser = (User) session.getAttribute("user");
+		UserImage ui = new UserImage();
+		mv.addObject("user", oldUser);
+		mv.addObject("userImage", ui);
+		mv.setViewName("updatePicture");
+		return mv;
+	}
+	
+	@RequestMapping(path = "updateProfilePic.do", method = RequestMethod.POST)
+	public ModelAndView updateProfilePic(@Valid User user, @Valid UserImage ui, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		UserImage newImg = updao.getImageById(ui.getId());
+		user.setUserImage(newImg);
+		User updatedUser = user;
+		session.removeAttribute("user");
+		session.setAttribute("user", updatedUser);
+		mv.addObject("reviews", USdao.getReviewsOfUserByUserId(updatedUser.getId()));
+		mv.addObject("user", updatedUser);
+		mv.addObject("servTotal", USdao.getTotalOfServicesByUser(updatedUser.getId()));
+		mv.setViewName("profile");
+		mv.addObject("userService", USdao.getUserServices(updatedUser));
+		mv.addObject("userContent", USdao.getUserContent(updatedUser.getId()));
+		return mv;
+	}
+	
 	@RequestMapping(path = "goToUpdateUser.do", method = RequestMethod.GET)
 	public ModelAndView goToUpdateUser(@Valid User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
@@ -72,14 +101,13 @@ public class UserProfileController {
 	public ModelAndView goToDeleteUser(@Valid User user, HttpSession session, Model model) {
 
 		ModelAndView mv = new ModelAndView();
-		
+
 		User oldUser = (User) session.getAttribute("user");
 		boolean userDeleted = USdao.disableUser(oldUser);
-		
 
 		if (userDeleted) {
 
-			session.setAttribute("user",null);
+			session.setAttribute("user", null);
 			model.addAttribute("user", null);
 
 			mv.setViewName("deleteUser");
@@ -108,17 +136,17 @@ public class UserProfileController {
 		model.addAttribute("servTotal", USdao.getTotalOfServicesByUser(activeUser.getId()));
 		return "profile";
 	}
-	
-	@RequestMapping(path = "deleteContent.do", params = {"contentId","servId"}, method = RequestMethod.POST)
+
+	@RequestMapping(path = "deleteContent.do", params = { "contentId", "servId" }, method = RequestMethod.POST)
 	public String userDeleteContent(@Valid User user, int servId, int contentId, Model model, HttpSession session) {
 		User activeUser = (User) session.getAttribute("user");
-		
-		USdao.removeUserContent(((int)activeUser.getId()), contentId);
-		
+
+		USdao.removeUserContent(((int) activeUser.getId()), contentId);
+
 		activeUser.setUserService(USdao.getUserServicesByUserId(((int) activeUser.getId())));
-		
+
 		session.setAttribute("user", activeUser);
-		
+
 		model.addAttribute("user", activeUser);
 		model.addAttribute("userService", USdao.getUserServices(activeUser));
 		model.addAttribute("userContent", USdao.getUserContent(activeUser.getId()));

@@ -47,11 +47,11 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	}
 
 	@Override
-	public String getImageUrl(int pid) {
-		String qry = "SELECT img.url FROM UserImage img WHERE img.id = :imgId";
-		String url = em.createQuery(qry, String.class).setParameter("imgId", pid).getSingleResult();
+	public UserImage getImageById(int pid) {
+		String qry = "SELECT img FROM UserImage img WHERE img.id = :imgId";
+		UserImage ui = em.createQuery(qry, UserImage.class).setParameter("imgId", pid).getSingleResult();
 				
-		return url;
+		return ui;
 	}
 
 }
