@@ -13,6 +13,7 @@
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/jpg" href="css/upstreamlolo.png"/>
 	
 </head>
 <body>
