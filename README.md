@@ -1,10 +1,8 @@
 <p align="center">
   <img height="150px" src="https://i.ibb.co/5WM5rMD/logo-1.png "Up-Stream Logo"">
 <br><br>
-<a href="http://18.223.75.248:8080/UpStream">Visit Up-Stream</a>
+<a style="font-size: 20px" href="http://18.223.75.248:8080/UpStream">Visit Up-Stream</a>
 </p>
-### [Visit Up-Stream](http://18.223.75.248:8080/UpStream "Up-Stream Homepage")
-[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
 
 ## The Crimson Hounds
 
