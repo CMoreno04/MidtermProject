@@ -10,6 +10,8 @@
 <title>Navigation</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/jpg" href="css/upstreamlolo.png"/>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light" style="padding: 0; background-color: rgba(32, 201, 151, 0.8);">
