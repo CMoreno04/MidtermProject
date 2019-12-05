@@ -19,6 +19,17 @@ body {
 /*************************************
 * HOME PAGE SERVICE DIV and CONTENTS *
 **************************************/
+
+#sliderTest {
+		overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
+}
+
+#sliderTest:active {
+		overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
+}
+
 .nav-link:hover {
 	color: black !important;
 }

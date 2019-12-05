@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>Up-Stream</title>
 
@@ -46,7 +47,7 @@
 		</div>
 
 		<!-- DIV for individual content cards -->
-		<div class="items">
+		<div class="items" id="sliderTest">
 			<c:forEach items="${service}" var="content" begin="0" end="10">
 				<a href="getContents.do?id=${content.id}"
 					style="text-decoration: none">
@@ -62,28 +63,35 @@
 
 <%-- <%@ include file="footer.jsp" %> --%>
 	<script>
-  const slider = document.querySelector(".items");
+  var slider = document.querySelectorAll("#sliderTest");
   let isDown = false;
   let startX;
   let scrollLeft;
-  slider.addEventListener('mousedown', (e) => {isDown = true;
-    slider.classList.add('active');
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
+  
+  for(let i = 0; i < slider.length; i++) {
+  
+  slider[i].addEventListener('mousedown', (e) => {isDown = true;
+    slider[i].classList.add('active');
+    startX = e.pageX - slider[i].offsetLeft;
+    scrollLeft = slider[i].scrollLeft;
   });
-  slider.addEventListener('mouseleave', () => {isDown = false;
-    slider.classList.remove('active');
+  slider[i].addEventListener('mouseleave', () => {isDown = false;
+    slider[i].classList.remove('active');
   });
-  slider.addEventListener('mouseup', () => {isDown = false;
-    slider.classList.remove('active');
+  slider[i].addEventListener('mouseup', () => {isDown = false;
+    slider[i].classList.remove('active');
   });
-  slider.addEventListener('mousemove', (e) => {
+  slider[i].addEventListener('mousemove', (e) => {
     if (!isDown) return; 
     e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 3;
-    slider.scrollLeft = scrollLeft - walk;
+    var x = e.pageX - slider[i].offsetLeft;
+    var walk = (x - startX) * 3;
+    slider[i].scrollLeft = scrollLeft - walk;
   });
+  
+  };
+  
+  
 </script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
