@@ -22,7 +22,7 @@
 		<!-- <thead> -->
 		
 		<div class="row">
-			<div class="col-5 align-middle"
+			<div class="col-lg-5 col-sm-12 align-middle"
 				style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px;">
 				
 				<h3>Register</h3>
@@ -34,8 +34,8 @@
 					<button type="submit" class="btn btn-success">Register</button>
 				</form:form>
 			</div>
-			<div class="col-2"></div>
-			<div class="col-5 align-middle"
+			<div class="col-lg-2 col-sm-12" style="margin-bottom: 10px;"></div>
+			<div class="col-lg-5 col-sm-12 align-middle"
 				style="border-radius: 10px; box-shadow: 0 5px 15px 5px rgba(153, 153, 153, 0.35); padding: 20px">
 				<h3>Log In</h3>
 				<br>

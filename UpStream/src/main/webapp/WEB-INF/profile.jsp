@@ -123,7 +123,7 @@
 			<tr class="row">
 
 				<c:forEach items="${userService}" var="service" varStatus="loop">
-					<td class="col-4">
+					<td class="col-sm-12 col-lg-4">
 
 
 						<div class="container-fluid">
