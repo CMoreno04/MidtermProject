@@ -241,7 +241,7 @@ public class UpStreamController {
 	
 	// BRINGS TO SERVICE PAGE WITH LIST OF FILMS/SHOWS.
 	@RequestMapping(path = "getSearchResults.do", method = RequestMethod.GET)
-	public ModelAndView getService(String keyword,Model model) {
+	public ModelAndView getService(String keyword, Model model) {
 		ModelAndView mv = new ModelAndView();
 		List<Content> content = dao.getContentByKeyword(keyword);
 		List<Double> rev = new ArrayList<Double>();

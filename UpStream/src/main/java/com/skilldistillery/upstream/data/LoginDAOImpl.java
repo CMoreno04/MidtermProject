@@ -21,7 +21,6 @@ public class LoginDAOImpl implements LoginDAO {
 
 		try {
 			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
-
 			user = em.createQuery(jpql, User.class).setParameter("usernameIn", userIn.getUsername())
 					.setParameter("passwordIn", userIn.getPassword()).getSingleResult();
 			user = userIn;
@@ -41,7 +40,7 @@ public class LoginDAOImpl implements LoginDAO {
 
 		try {
 			String jpql = "SELECT u FROM User u WHERE u.username LIKE :usernameIn AND u.password LIKE :passwordIn";
-
+			
 			user = em.createQuery(jpql, User.class).setParameter("usernameIn", usernameIn)
 					.setParameter("passwordIn", passwordIn).getSingleResult();
 
